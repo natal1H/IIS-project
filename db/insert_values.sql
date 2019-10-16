@@ -23,6 +23,7 @@ INSERT INTO person (id_person, firstname, surname, address, telephone)
 -- Inserting into 'item' table
 INSERT INTO item (id_item, diet_type, name, description, price)
     VALUES (1, 'normálne', 'Párok v rožku', 'Proste párok v rožku', 1.5);
+INSERT INTO item (id_item, diet_type, name, description, price)
     VALUES (2, 'normálne', 'Bageta', 'Proste bageta', 2.5);
 
 -- Inserting into 'food_order' table
