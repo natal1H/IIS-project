@@ -10,7 +10,7 @@ https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django
 
 https://github.com/mdn/django-locallibrary-tutorial
 
-Video tutorials + git repin description:
+Video tutorials + git rep in description:
 
 https://www.youtube.com/watch?v=F5mRW0jo-U4
 
