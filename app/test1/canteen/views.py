@@ -8,3 +8,6 @@ from django.views import generic
 def home_view(request):
 	return render(request, 'base.html',{})
 
+def login_view(request):
+	return render(request, 'base.html',{})
+
