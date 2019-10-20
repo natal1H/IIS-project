@@ -28,7 +28,14 @@ class Person(models.Model):
     address =   models.CharField(max_length=150)
     telephone = models.CharField(max_length=25)
 
+class Registered(models.Model):
+    profile_info=   models.CharField(max_length=300)
+    image =         models.ImageField()
+    email =         models.CharField(max_length=32)
+    login =         models.CharField(max_length=32)
+    password =      models.CharField(max_length=32)
+
 class Order(models.Model):
-    status = models.CharField(max_length=1)
-    payment_form = models.CharField(max_length=10)
+    status =        models.CharField(max_length=1)
+    payment_form =  models.CharField(max_length=10)
 

@@ -22,4 +22,6 @@ from canteen import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.home_view, name='home'),
+    path('search',views.search_result_view, name='search'),
+    path('search_result/',views.search_result_view, name='search'),
 ]

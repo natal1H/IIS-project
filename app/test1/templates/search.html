@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>IIS-canteen</title>
+</head>
+<body>
+
+
+<h1>Canteen IS</h1>
+<h2>Search Form</h2>
+    <form action="{% url 'search_result' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="search" placeholder="search">
+        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+            <i class="material-icons right">send</i>
+        </button>
+    </form>
+
+</body>
+</html>
