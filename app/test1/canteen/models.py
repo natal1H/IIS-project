@@ -1,41 +1,136 @@
 from django.db import models
+from datetime import datetime
 
 # Create your models here.
 
 
 class Facility (models.Model):
-    id_facility =       models.AutoField(primary_key=True) # basically IntegerField but with autoincrementation so after all Primary Key
-    address =           models.CharField(max_length=150)
-    name =              models.CharField(max_length=150)
-    deadline =          models.DateTimeField()
-    max_ordered_meals = models.IntegerField()
+    id_facility = models.AutoField(primary_key=True)  # basically IntegerField but with autoincrementation so after all Primary Key
+    address = models.CharField(max_length=150, blank=False)
+    name = models.CharField(max_length=150, blank=False)
+    deadline = models.TimeField(blank=False)
+    max_ordered_meals = models.IntegerField(default=1)
+
 
 class Menu (models.Model):
-    type =      models.CharField(max_length=150)
-    date=       models.DateTimeField()
-    max_items=  models.IntegerField()
+    id_menu = models.AutoField(primary_key=True)
+    date = models.DateField()
+    max_items = models.IntegerField(default=10)
+
+    MENU_TYPES = (
+        ('d', 'Daily'),   # Changes every day
+        ('s', 'Static'),  # Doesn't change
+    )
+
+    type = models.CharField(
+        max_length=1,
+        choices=MENU_TYPES,
+        default='s',  # By default will be static menu
+    )
+
 
 class Item(models.Model):
-    diet_type =     models.CharField(max_length=50)
-    name =          models.CharField(max_length=100)
-    description =   models.CharField(max_length=320)
-    price =         models.IntegerField()
-    image =         models.ImageField()
+    id_item = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100, blank=False)
+    description = models.CharField(max_length=320, blank=True)
+    price = models.IntegerField(blank=False)
+    image = models.ImageField(blank=True)
+
+    DIET_TYPES = (
+        ('n', 'normal'),
+        ('v', 'vegetarian'),
+        ('g', 'gluten-free'),
+    )
+
+    diet_type = models.CharField(
+        max_length=1,
+        choices=DIET_TYPES,
+        default='n',
+    )
+
 
 class Person(models.Model):
-    firstname = models.CharField(max_length=50)
-    surname =   models.CharField(max_length=50)
-    address =   models.CharField(max_length=150)
-    telephone = models.CharField(max_length=25)
+    id_person = models.AutoField(primary_key=True)
+    firstname = models.CharField(max_length=50, blank=False)
+    surname = models.CharField(max_length=50, blank=False)
+    address = models.CharField(max_length=150, blank=False)
+    telephone = models.CharField(max_length=25, blank=False)
+
 
 class Registered(models.Model):
-    profile_info=   models.CharField(max_length=300)
-    image =         models.ImageField()
-    email =         models.CharField(max_length=32)
-    login =         models.CharField(max_length=32)
-    password =      models.CharField(max_length=32)
+    email = models.CharField(max_length=32, unique=True, blank=False, primary_key=True)
+    profile_info = models.CharField(max_length=300)
+    image = models.ImageField(max_length=50)
+    login = models.CharField(max_length=32, unique=True, blank=False)
+    password = models.CharField(max_length=32, blank=False)
+    Person = models.OneToOneField(Person, on_delete=models.CASCADE)
 
-class Order(models.Model):
-    status =        models.CharField(max_length=1)
-    payment_form =  models.CharField(max_length=10)
 
+class Employee(models.Model):
+    Registered = models.OneToOneField(Registered, primary_key=True, on_delete=models.CASCADE)
+
+    ROLES = (
+        ('a', 'administrator'),
+        ('o', 'operator'),
+        ('d', 'driver')
+    )
+
+    role = models.CharField(
+        max_length=1,
+        choices=ROLES,
+        blank=False,
+    )
+
+
+class Food_order(models.Model):
+    id_food_order = models.AutoField(primary_key=True)
+    date_created = models.DateTimeField(default=datetime.now)
+    date_paid = models.DateTimeField()
+    date_approved = models.DateTimeField()
+    date_delivered = models.DateTimeField()
+    Person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    Facility = models.ForeignKey(Facility, on_delete=models.CASCADE)
+    Approved_by = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='Approved_by')
+    Delivered_by = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='Delivered_by')
+
+    FOOD_ORDER_STATUS = (
+        ('o', 'ordered'),
+        ('a', 'approved'),
+        ('c', 'canceled'),
+        ('d', 'delivered'),
+    )
+
+    PAYMENT_FORM = (
+        ('m', 'meal ticket'),
+        ('n', 'card now'),
+        ('d', 'card on delivery'),
+        ('h', 'cash on delivery'),
+    )
+
+    status = models.CharField(
+        max_length=1,
+        choices=FOOD_ORDER_STATUS,
+        default='o',
+    )
+
+    payment_form = models.CharField(
+        max_length=1,
+        choices=PAYMENT_FORM,
+        default='h',
+    )
+
+
+class Facility_menus(models.Model):
+    id_facility = models.ForeignKey(Facility, on_delete=models.CASCADE)
+    id_menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = (('id_facility', 'id_menu'),)
+
+
+class Menu_items(models.Model):
+    id_menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
+    id_item = models.ForeignKey(Item, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = (('id_menu', 'id_item'),)
