@@ -14,14 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
-from canteen import views
+#from canteen import views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.home_view, name='home'),
-    path('search',views.search_result_view, name='search'),
-    path('search_result/',views.search_result_view, name='search'),
+    # path('',views.home_view, name='home'),
+    # path('search',views.search_result_view, name='search'),
+    # path('search_result/',views.search_result_view, name='search'),
+]
+
+urlpatterns += [
+    path('', include('canteen.urls')),
 ]

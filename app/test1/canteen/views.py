@@ -4,8 +4,7 @@ from canteen.models import Facility
 
 # Create your views here.
 
-
-
+"""
 def home_view(request):
 	obj = Facility.objects.all()  # list of objects
 	context = {
@@ -31,6 +30,7 @@ def get_name(request):
         form = NameForm()
 
     return render(request, 'name.html', {'form': form})
+"""
 
 """
 def search_view(request):
@@ -44,7 +44,7 @@ def login_view(request):
 
 """
 
-
+"""
 #prints are just for debugging
 
 def search_result_view(request):
@@ -61,5 +61,12 @@ def search_result_view(request):
     #print(search)
     return render(request, 'search_success.html', {})
 
+"""
 
+def index(request):
 
+    context = {
+
+    }
+
+    return render(request, 'index.html', context=context)
