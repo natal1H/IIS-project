@@ -20,13 +20,23 @@
             </ul>
         </div> <!-- End main-header -->
         <div class="search-header">
-            <form class="search-bar" action="">
+            <form class="search-bar" action="{% url 'search' %}">
                 <button type="submit"><i class="fa fa-search"></i></button>              
-                <input type="text" placeholder="Search..." name="search">
+                <input type="text" placeholder="Search..." name="search_form">
             </form>  
         </div> <!-- End search-header -->
         <div class="content">
             <h2>All facilities</h2>
+                {% for instance in object %}
+                    <p>
+                        Name:   {{ instance.name}} <br>
+                        Address:    {{ instance.address }}<br>
+                        <hr>
+
+                    </p>
+
+                {% endfor %}
+
 
             <p>
                 Here will be images of all facilities.

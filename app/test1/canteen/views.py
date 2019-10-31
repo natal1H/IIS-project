@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
-from canteen.models import Facility
+from canteen.models import *
 
 # Create your views here.
 
@@ -64,9 +64,30 @@ def search_result_view(request):
 """
 
 def index(request):
+    obj = Facility.objects.all()
 
     context = {
-
+        "object": obj,
     }
 
     return render(request, 'index.html', context=context)
+
+
+
+def search_view(request):
+	search=request.GET.get('search_form')
+
+	objects = Facility.objects.all()
+
+	corr_search_objs=[]
+
+	for obj in objects:
+		if search in obj.address or search in obj.name:
+			corr_search_objs.append(obj)
+
+	context = {
+		"result":	search,
+		"objects":	corr_search_objs
+	}
+
+	return render(request, 'search_result.html', context=context)

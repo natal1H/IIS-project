@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<h1>Search result</h1>
+<p></p>>
+{{ result }}
+
+
+	{% for instance in objects %}
+	        {{ instance.address }}<br>
+            {{ instance.name }}<hr>
+    {% endfor %}
+</body>
+</html>
