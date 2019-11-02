@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-<h1>Search result</h1>
-<p></p>>
+{% extends "base.html" %}
+
+{% block content %}
 {{ result }}
 
 
@@ -13,5 +8,4 @@
 	        {{ instance.address }}<br>
             {{ instance.name }}<hr>
     {% endfor %}
-</body>
-</html>
+{% endblock %}

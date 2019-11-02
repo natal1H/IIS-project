@@ -13,3 +13,21 @@ admin.site.register(Employee)
 admin.site.register(Food_order)
 admin.site.register(Facility_menus)
 admin.site.register(Menu_items)
+
+admin.site.register(Roles)
+
+"""
+admin,
+operator, 
+vodic,
+stravnik
+
+neregistrovany
+
+->Create an extra table to store the users types and add M:M field to user model
+
+Authentication(Login)
+Authorization(Permission)
+
+
+"""

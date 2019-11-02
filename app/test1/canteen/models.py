@@ -1,7 +1,13 @@
 from django.db import models
 from datetime import datetime
 
+from django.contrib.auth.models import AbstractUser
+from django.utils.html import escape, mark_safe
+
 # Create your models here.
+
+from django.contrib.auth.models import User
+
 
 
 class Facility (models.Model):
@@ -47,6 +53,27 @@ class Item(models.Model):
         choices=DIET_TYPES,
         default='n',
     )
+
+
+"""
+admin,
+operator, 
+vodic,
+stravnik
+
+neregistrovany
+
+Authentication(Login)
+Authorization(Permission)
+
+class User_model(AbstractUser):
+    is_student  = models.BooleanField(default=False)
+    is_operator = models.BooleanField(default=False)
+    is_driver   = models.BooleanField(default=False)
+    is_client   = models.BooleanField(default=False) #stravník
+"""
+
+
 
 
 class Person(models.Model):
@@ -118,6 +145,11 @@ class Food_order(models.Model):
         choices=PAYMENT_FORM,
         default='h',
     )
+class Roles(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    is_driver= models.BooleanField(default=False)
+    is_operator =models.BooleanField(default=False)
+
 
 
 class Facility_menus(models.Model):

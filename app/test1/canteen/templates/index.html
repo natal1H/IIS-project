@@ -1,24 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% block title %}<title>Canteen</title>{% endblock %}
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Search icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Add additional CSS in static file -->
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
-<body>
-        <div class="main-header">
-            <h1>Canteen</h1>
+ {% extends "base.html" %}
 
-            <ul>
-                <li><a href="">Login</a></li>
-                <li><a href="">Contact</a></li>
-            </ul>
-        </div> <!-- End main-header -->
+        {% block content %}
+        <!-- End main-header -->
+
+
         <div class="search-header">
             <form class="search-bar" action="{% url 'search' %}">
                 <button type="submit"><i class="fa fa-search"></i></button>              
@@ -36,8 +21,10 @@
                     </p>
 
                 {% endfor %}
-
-
+            {%if user.is_authenticated%}
+            <p>Hey, you are authenticated as:{{user.username}}</p>
+            {%endif%}
+            <p>Number of visits: {{num_visits}}</p>
             <p>
                 Here will be images of all facilities.
             </p>
@@ -45,5 +32,16 @@
         <div class="footer">
             <p>IIS project</p>
         </div> <!-- End footer -->
-</body>
-</html>
+
+        {% if user.is_staff %}
+
+        <p>hey, you are a staff</p>>
+    <!-- We can mark a BookInstance as returned. -->
+    <!-- Perhaps add code to link to a "book return" view here. -->
+        {% endif %}
+
+        {% if perms.auth.delete_user %}
+        <button>You can delete user</button>
+        {% endif %}
+
+        {% endblock %}

@@ -2,6 +2,11 @@ from django.shortcuts import render
 from django.views import generic
 from canteen.models import *
 
+
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+
+from django.contrib.auth.models import User
 # Create your views here.
 
 """
@@ -63,11 +68,17 @@ def search_result_view(request):
 
 """
 
+
+
 def index(request):
     obj = Facility.objects.all()
 
+    num_visits = request.session.get('num_visits', 0)
+    request.session['num_visits'] = num_visits + 1
+
     context = {
         "object": obj,
+        'num_visits': num_visits,
     }
 
     return render(request, 'index.html', context=context)
@@ -91,3 +102,36 @@ def search_view(request):
 	}
 
 	return render(request, 'search_result.html', context=context)
+
+def register_view(request):
+
+	context = {
+
+	}
+
+	if request.method =="POST":
+		form = UserCreationForm(request.POST)
+
+		if form.is_valid():
+			form.save()
+			return redirect('login_url')
+
+
+	else:
+		form = UserCreationForm()
+
+	return render(request, 'registration/register.html', {'form': form})
+
+
+def logged_view(request):
+	context = {
+
+	}
+
+	return render(request, 'registration/logged_on.html', context)
+
+def contact_view(request):
+	context = {
+
+	}
+	return render(request, 'contact.html', context)

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- This file is for base html that is used for extending other html pages, sidebar is also located here-->
+
+<head>
+    {% block title %}<title>Canteen</title>{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Search icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Add additional CSS in static file -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+    <div class="main-header">
+
+             <a href="/"><h1>Canteen</h1></a>
+
+
+            <ul>
+
+                {%if user.is_authenticated%}
+                <li><a href="/logout">Logout</a></li>
+                {% else %}
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Register</a></li>
+                {%endif%}
+
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </div>
+    {% block content %}
+
+    {% endblock %}
+
+</body>
+</html>
