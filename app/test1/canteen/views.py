@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.http import Http404
+
+from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from canteen.models import *
 
@@ -7,6 +9,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.models import User
+
+
+
 # Create your views here.
 
 """
@@ -135,3 +140,15 @@ def contact_view(request):
 
 	}
 	return render(request, 'contact.html', context)
+
+def dynamic_facility_view(request, id):
+
+	#handling the nonexistent page
+	try:
+		obj =Facility.objects.get(id_facility=id)
+	except Facility.DoesNotExist:
+		raise Http404
+	context = {
+		"object":obj
+	}
+	return render(request, 'facility_detail.html', context)

@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.urls import reverse
 
 from django.contrib.auth.models import AbstractUser
 from django.utils.html import escape, mark_safe
@@ -16,6 +17,11 @@ class Facility (models.Model):
     name = models.CharField(max_length=150, blank=False)
     deadline = models.TimeField(blank=False)
     max_ordered_meals = models.IntegerField(default=1)
+
+    def get_absolute_url(self):
+        return f"facility/{self.id_facility}"
+        #return reverse("facility-view", kwargs={"id":self.id_facility})#f""
+
 
 
 class Menu (models.Model):

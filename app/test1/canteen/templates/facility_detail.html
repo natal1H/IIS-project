@@ -1,0 +1,9 @@
+ {% extends "base.html" %}
+
+        {% block content %}
+        {%if object%}
+        {{object.name}}
+        {{object.address}}
+        {%endif%}
+
+        {% endblock %}
