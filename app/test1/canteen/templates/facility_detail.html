@@ -2,8 +2,17 @@
 
         {% block content %}
         {%if object%}
-        {{object.name}}
-        {{object.address}}
+
+        <h1>{{object.name}}</h1>
+        <h2>Ponúkané jedlá:</h2>
         {%endif%}
+
+
+                {% for instance in meals %}
+                    ID: {{instance.id_testItem}}||{{instance.name}} <a href="{%url 'add_to_cart' instance.id_testItem%}" class="">Add to Cart</a><br>
+
+
+                {% endfor %}
+
 
         {% endblock %}

@@ -16,6 +16,10 @@ admin.site.register(Menu_items)
 
 admin.site.register(Roles)
 
+admin.site.register(testItem)
+admin.site.register(testOrder)
+
+
 """
 admin,
 operator, 

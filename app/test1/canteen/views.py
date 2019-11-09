@@ -1,6 +1,6 @@
 from django.http import Http404
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from canteen.models import *
 
@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.models import User
 
+
+from django.http import HttpResponseRedirect
 
 
 # Create your views here.
@@ -76,7 +78,9 @@ def search_result_view(request):
 
 
 def index(request):
+
     obj = Facility.objects.all()
+
 
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
@@ -143,12 +147,33 @@ def contact_view(request):
 
 def dynamic_facility_view(request, id):
 
-	#handling the nonexistent page
+
+	meals=testItem.objects.all()
+	facility_meals=[]
+	for item in meals:
+		if item.Facility.id_facility==id:
+			facility_meals.append(item)
+	#getting meals that belongs to that facility
+
+
+	# handling the nonexistent page
 	try:
 		obj =Facility.objects.get(id_facility=id)
 	except Facility.DoesNotExist:
 		raise Http404
+
 	context = {
+		"meals":facility_meals,
 		"object":obj
 	}
 	return render(request, 'facility_detail.html', context)
+
+def add_to_cart(request, id):
+	#it somehow works
+	print (id)
+	context = {
+
+	}
+	#TODO order, checkout etc. and all
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#stays on the same page
+	#return render(request, 'cart.html', context)
