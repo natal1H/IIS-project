@@ -35,7 +35,7 @@ class testOrder(models.Model):
 
 class Menu (models.Model):
     id_menu = models.AutoField(primary_key=True)
-    date = models.DateField()
+    date = models.DateField(blank=True, null=True)
     max_items = models.IntegerField(default=10)
 
     MENU_TYPES = (
@@ -53,9 +53,9 @@ class Menu (models.Model):
 class Item(models.Model):
     id_item = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100, blank=False)
-    description = models.CharField(max_length=320, blank=True)
+    description = models.CharField(max_length=320, blank=True, null=True)
     price = models.IntegerField(blank=False)
-    image = models.ImageField(blank=True)
+    image = models.ImageField(blank=True, null=True)
 
     DIET_TYPES = (
         ('n', 'normal'),
@@ -101,15 +101,15 @@ class Person(models.Model):
 
 class Registered(models.Model):
     email = models.CharField(max_length=32, unique=True, blank=False, primary_key=True)
-    profile_info = models.CharField(max_length=300)
-    image = models.ImageField(max_length=50)
+    profile_info = models.CharField(max_length=300, blank=True, null=True)
+    image = models.ImageField(max_length=50, blank=True, null=True)
     login = models.CharField(max_length=32, unique=True, blank=False)
     password = models.CharField(max_length=32, blank=False)
-    Person = models.OneToOneField(Person, on_delete=models.CASCADE)
+    person = models.OneToOneField(Person, on_delete=models.CASCADE)
 
 
 class Employee(models.Model):
-    Registered = models.OneToOneField(Registered, primary_key=True, on_delete=models.CASCADE)
+    registered = models.OneToOneField(Registered, primary_key=True, on_delete=models.CASCADE)
 
     ROLES = (
         ('a', 'administrator'),
@@ -127,13 +127,13 @@ class Employee(models.Model):
 class Food_order(models.Model):
     id_food_order = models.AutoField(primary_key=True)
     date_created = models.DateTimeField(default=datetime.now)
-    date_paid = models.DateTimeField()
-    date_approved = models.DateTimeField()
-    date_delivered = models.DateTimeField()
-    Person = models.ForeignKey(Person, on_delete=models.CASCADE)
-    Facility = models.ForeignKey(Facility, on_delete=models.CASCADE)
-    Approved_by = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='Approved_by')
-    Delivered_by = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='Delivered_by')
+    date_paid = models.DateTimeField(blank=True, null=True)
+    date_approved = models.DateTimeField(blank=True, null=True)
+    date_delivered = models.DateTimeField(blank=True, null=True)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    facility = models.ForeignKey(Facility, on_delete=models.CASCADE)
+    approved_by = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='Approved_by', blank=True, null=True)
+    delivered_by = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='Delivered_by', blank=True, null=True)
 
     FOOD_ORDER_STATUS = (
         ('o', 'ordered'),
@@ -160,12 +160,20 @@ class Food_order(models.Model):
         choices=PAYMENT_FORM,
         default='h',
     )
+
+
 class Roles(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    is_driver= models.BooleanField(default=False)
-    is_operator =models.BooleanField(default=False)
+    is_driver = models.BooleanField(default=False)
+    is_operator = models.BooleanField(default=False)
 
 
+class Food_order_item(models.Model):
+    id_food_order = models.ForeignKey(Food_order, on_delete=models.CASCADE)
+    id_item = models.ForeignKey(Item, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = (('id_food_order', 'id_item'),)
 
 class Facility_menus(models.Model):
     id_facility = models.ForeignKey(Facility, on_delete=models.CASCADE)
