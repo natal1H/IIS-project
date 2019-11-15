@@ -177,3 +177,26 @@ def add_to_cart(request, id):
 	#TODO order, checkout etc. and all
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#stays on the same page
 	#return render(request, 'cart.html', context)
+
+
+def order_view(request):#basically a cart
+	
+	#if request.user.is_authenticated:
+		#print ("Yes, he is")
+
+	cart_id=request.session.get("cart_id", None)
+	qs=testOrder.objects.filter(id_order=cart_id)
+
+	if qs.count()==1:
+		cart_obj=qs.first()
+		print ("it is already created")
+	else:
+		cart_obj=testOrder.objects.create()
+		request.session['cart_id']=cart_obj.id_order
+
+
+	context={
+
+	}
+
+	return render(request, 'order.html', context)
