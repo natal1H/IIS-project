@@ -69,28 +69,6 @@ class Item(models.Model):
         default='n',
     )
 
-
-"""
-admin,
-operator, 
-vodic,
-stravnik
-
-neregistrovany
-
-Authentication(Login)
-Authorization(Permission)
-
-class User_model(AbstractUser):
-    is_student  = models.BooleanField(default=False)
-    is_operator = models.BooleanField(default=False)
-    is_driver   = models.BooleanField(default=False)
-    is_client   = models.BooleanField(default=False) #stravník
-"""
-
-
-
-
 class Person(models.Model):
     id_person = models.AutoField(primary_key=True)
     firstname = models.CharField(max_length=50, blank=False)

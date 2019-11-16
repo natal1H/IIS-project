@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Menu Items:</h1>
+
+{%if item_objs%}
+
+{% for instance_item in item_objs %}
+    Item: {{instance_item.name}} <br>
+
+{% endfor %}
+
+{%endif%}
+
+
+{% endblock %}

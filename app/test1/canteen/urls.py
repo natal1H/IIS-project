@@ -20,5 +20,6 @@ urlpatterns+=[
     path('login', LoginView.as_view(), name='login_url'),
     path('logged', views.logged_view, name='loggend_on'),
     path('logout', LogoutView.as_view(next_page='/'), name='logout'),
+    path('menu/<int:id>', views.menu_view, name='menu')
 
 ]

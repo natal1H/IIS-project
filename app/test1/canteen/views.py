@@ -16,66 +16,6 @@ from django.http import HttpResponseRedirect
 
 # Create your views here.
 
-"""
-def home_view(request):
-	obj = Facility.objects.all()  # list of objects
-	context = {
-		"object": obj,
-	}
-	return render(request, 'base.html')
-
-
-def get_name(request):
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = NameForm()
-
-    return render(request, 'name.html', {'form': form})
-"""
-
-"""
-def search_view(request):
-    search = request.POST.get('search')
-    print(search)
-    return render(request, 'search_success.html',{})
-    
-    
-def login_view(request):
-	return render(request, 'base.html',{})
-
-"""
-
-"""
-#prints are just for debugging
-
-def search_result_view(request):
-
-    search =request.POST.get('search_form')
-    print(search)
-    objects = Facility.objects.all()
-    for obj in objects:
-        if search in obj.address or search in obj.name:
-            print("hey it is here")
-            print(obj.address)
-            print(obj.name)
-
-    #print(search)
-    return render(request, 'search_success.html', {})
-
-"""
-
-
 
 def index(request):
 
@@ -145,7 +85,26 @@ def contact_view(request):
 	}
 	return render(request, 'contact.html', context)
 
+
+
 def dynamic_facility_view(request, id):
+
+	try:
+		menu=Facility_menus.objects.filter(id_facility=id)
+	except Facility.DoesNotExist:
+		raise Http404
+	
+	
+	#print(menu)
+
+	#print(i.id_facility.id_facility)
+	print (menu)
+	menu_objs=[]
+	for i in menu:
+		menu_objs.append(i.id_menu)
+
+	print(menu_objs)
+	
 
 
 	meals=testItem.objects.all()
@@ -164,9 +123,28 @@ def dynamic_facility_view(request, id):
 
 	context = {
 		"meals":facility_meals,
-		"object":obj
+		"object":obj,
+		"menu_objs":menu_objs
 	}
 	return render(request, 'facility_detail.html', context)
+
+def menu_view(request, id): 
+
+	try:
+		menu=Menu_items.objects.filter(id_menu=id)
+	except Facility_menus.DoesNotExist:
+		raise Http404
+	item_objs=[]
+
+	for i in menu:
+		item_objs.append(i.id_item)
+		
+	
+	context={
+		"item_objs":item_objs
+	}
+
+	return render(request, 'menu_detail.html', context)
 
 def add_to_cart(request, id):
 	#it somehow works

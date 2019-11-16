@@ -1,18 +1,19 @@
  {% extends "base.html" %}
 
         {% block content %}
-        {%if object%}
+        
 
-        <h1>{{object.name}}</h1>
-        <h2>Ponúkané jedlá:</h2>
+        {%if menu_objs%}
+        <h1>Menus:</h1>
+
+        {% for instance_menu in menu_objs %}
+            
+            Menu: {{instance_menu.id_menu}} <a href="{%url 'menu' instance_menu.id_menu%}" class="">link</a><br>
+
+        {% endfor %}
+        
+
         {%endif%}
-
-
-                {% for instance in meals %}
-                    ID: {{instance.id_testItem}}||{{instance.name}} <a href="{%url 'add_to_cart' instance.id_testItem%}" class="">Add to Cart</a><br>
-
-
-                {% endfor %}
 
 
         {% endblock %}
