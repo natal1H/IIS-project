@@ -6,7 +6,10 @@
 {%if item_objs%}
 
 {% for instance_item in item_objs %}
-    Item: {{instance_item.name}} <br>
+    Item: {{instance_item.name}} 
+    <a href="{%url 'add_to_cart' instance_item.id_item id_facility%}" class="">Add to Cart</a><br>
+    <br>
+    
 
 {% endfor %}
 

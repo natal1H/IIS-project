@@ -86,6 +86,13 @@ def contact_view(request):
 	return render(request, 'contact.html', context)
 
 
+def  profile_view(request):
+	context = {
+
+	}
+	return render(request, 'profile.html', context)
+
+
 
 def dynamic_facility_view(request, id):
 
@@ -137,24 +144,67 @@ def menu_view(request, id):
 	item_objs=[]
 
 	for i in menu:
+		#print(i)
 		item_objs.append(i.id_item)
 		
 	
 	context={
-		"item_objs":item_objs
+		"item_objs":item_objs,
+		"id_facility":id
 	}
 
 	return render(request, 'menu_detail.html', context)
 
-def add_to_cart(request, id):
-	#it somehow works
-	print (id)
+def add_to_cart(request, id_item, id_facility):
+	
+	cart_id=request.session.get("cart_id", None)
+	qs=Food_order.objects.filter(id_food_order=cart_id)
+
+
+	if qs.count()==1:
+		cart_obj=qs.first()
+		print ("it is already created")
+
+		food_order_instance		=Food_order.objects.filter(id_food_order=cart_obj.id_food_order).first()
+		food_order_item_instance=Item.objects.filter(id_item=id_item).first()
+		
+		Food_order_item.objects.create(id_food_order=food_order_instance,id_item=food_order_item_instance)
+
+
+		
+	else:
+		facility_instance		=Facility.objects.filter(id_facility=id_facility).first()
+		food_order_item_instance=Item.objects.filter(id_item=id_item).first()
+		
+
+		cart_obj=Food_order.objects.create(facility=facility_instance)#add the facility
+		
+		Food_order.objects.create(id_facility=facility_instance, id_item=food_order_item_instance)
+		
+		request.session['cart_id']=cart_obj.id_food_order
+
+		#TODO 
+		
+
+	
 	context = {
 
 	}
+
 	#TODO order, checkout etc. and all
-	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#stays on the same page
-	#return render(request, 'cart.html', context)
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER')) #stays on the same page
+	
+
+def remove_from_cart(request):
+	#TODO
+	pass
+
+def all_orders_view(request):
+	#TODO
+	pass
+
+
+
 
 
 def order_view(request):#basically a cart

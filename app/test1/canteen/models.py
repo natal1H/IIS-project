@@ -108,7 +108,7 @@ class Food_order(models.Model):
     date_paid = models.DateTimeField(blank=True, null=True)
     date_approved = models.DateTimeField(blank=True, null=True)
     date_delivered = models.DateTimeField(blank=True, null=True)
-    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, blank=True, null=True)#because if user isn't authenticated that's why we need it blank and null, It will be added later in the checkout 
     facility = models.ForeignKey(Facility, on_delete=models.CASCADE)
     approved_by = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='Approved_by', blank=True, null=True)
     delivered_by = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='Delivered_by', blank=True, null=True)
