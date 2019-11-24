@@ -2,6 +2,12 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    font-family: arial;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
 }
 
 .main-header {
@@ -67,3 +73,87 @@
     color: white;
     text-align: center;
   }
+
+.facility-block {
+    margin: 20px;
+    width: 400px;
+    background: #ffcccc;
+    display: block;
+    float: center;
+    text-align: center;
+}
+
+.facility-block:hover {
+    background: #ff6666;
+}
+
+.page-title {
+    display: inline;
+    float: left;
+    padding-top: 10px;
+}
+
+.menu-block {
+    margin: 20px;
+    width: 350px;
+    background: #ffcccc;
+    display: inline-block;
+    float: center;
+    text-align: center;
+}
+
+.menu-block:hover {
+    background: #ff6666;
+}
+
+.menu-blocks {
+    float: left;
+    width: 70%;
+}
+
+.cart-block {
+    margin: 20px;
+    width: 350px;
+    background: #ffcccc;
+    display: inline-block;
+    float: right;
+    text-align: center;
+    padding:10px;
+}
+
+.food-blocks {
+    float: left;
+    width: 60%;
+}
+
+.food-block {
+    margin: 20px;
+    width: 450px;
+    background: #ffcccc;
+    display: inline-block;
+    float: left;
+    text-align: left;
+    padding:10px;
+}
+
+.button-black {
+  background-color: #000;
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.button-white {
+  background-color: #fff;
+  border: none;
+  color: black;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}

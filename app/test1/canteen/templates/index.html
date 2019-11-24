@@ -5,35 +5,25 @@
 
 
         <div class="search-header">
+            <h2 class="page-title">All facilities</h2>
             <form class="search-bar" action="{% url 'search' %}">
                 <button type="submit"><i class="fa fa-search"></i></button>              
                 <input type="text" placeholder="Search..." name="search_form">
             </form>  
         </div> <!-- End search-header -->
         <div class="content">
-            <h2>All facilities</h2>
-                {% for instance in object %}
-                    <p>
-
-
-                         <a href='{{instance.get_absolute_url}}'>Name:   {{ instance.name}} </a><br>
-                        Address:    {{ instance.address }}<br>
-                        <hr>
-
-                    </p>
-
-                {% endfor %}
+            {% for instance in object %}
+            <a clss="block-link" href='{{instance.get_absolute_url}}'>
+                <div class="facility-block">
+                    <b>{{ instance.name}}</b><br>
+                    {{ instance.address }}<br>
+                </div>
+            </a>
+            {% endfor %}
             {%if user.is_authenticated%}
             <p>Hey, you are authenticated as:{{user.username}}</p>
             {%endif%}
-            <p>Number of visits: {{num_visits}}</p>
-            <p>
-                Here will be images of all facilities.
-            </p>
         </div> <!-- End content -->
-        <div class="footer">
-            <p>IIS project</p>
-        </div> <!-- End footer -->
 
         {% if user.is_staff %}
 

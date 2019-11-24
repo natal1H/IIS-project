@@ -1,19 +1,46 @@
 {% extends "base.html" %}
 
-{% block content %}
-<h1>Menu Items:</h1>
+    {% block content %}
+        <div class="search-header">
+            <h2 class="page-title">Menu items</h2>
+            <form class="search-bar" action="{% url 'search' %}">
+                <button type="submit"><i class="fa fa-search"></i></button>
+                <input type="text" placeholder="Search..." name="search_form">
+            </form>
+        </div> <!-- End search-header -->
 
-{%if item_objs%}
+    <div class="food-blocks">
+    {%if item_objs%}
 
-{% for instance_item in item_objs %}
-    Item: {{instance_item.name}} 
-    <a href="{%url 'add_to_cart' instance_item.id_item id_facility%}" class="">Add to Cart</a><br>
-    <br>
-    
+    {% for instance_item in item_objs %}
+        <div class="food-block">
+            <div style="float:left">
+                <b>{{instance_item.name}}</b><br>
+                {{instance_item.description}}<br>
+                <b>{{instance_item.price}} €</b><br>
+                <!--<a href="{%url 'add_to_cart' instance_item.id_item id_facility%}" class="">Add to Cart</a><br>-->
+            </div>
+            <div style="float:right">
+                <button class="button-white" onclick="" style="float:right"> <!-- TODO: add -->
+                    Add
+                </button>
+            </div>
+        </div>
 
-{% endfor %}
+    {% endfor %}
 
-{%endif%}
+    {%endif%}
+    </div><!-- End food-blocks -->
 
+    <div class="cart-block">
+        <h3>Your cart</h3>
 
-{% endblock %}
+        x items<br>
+        <b>Total: x €</b><br>
+
+        <button class="button-black" onclick=""> <!-- TODO: redirect to checkout -->
+        Checkout
+        </button>
+    </div><!-- End cart-block -->
+
+    {% endblock %}

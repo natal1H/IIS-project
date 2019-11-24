@@ -1,19 +1,38 @@
  {% extends "base.html" %}
 
         {% block content %}
-        
 
-        {%if menu_objs%}
-        <h1>Menus:</h1>
+        <div class="search-header">
+            <h2 class="page-title">All menus</h2>
+        </div> <!-- End search-header -->
 
+        <div class="menu-blocks">
+        {%if menu_objs %}
         {% for instance_menu in menu_objs %}
-            
-            Menu: {{instance_menu.id_menu}} <a href="{%url 'menu' instance_menu.id_menu%}" class="">link</a><br>
+            <a clss="block-link" href="{%url 'menu' instance_menu.id_menu%}">
+                <div class="menu-block">
+                    Menu #{{instance_menu.id_menu}}<br>
 
+                    {% if instance_menu.type == "d" %}
+                        Daily menu<br>
+                    {% else %}
+                        Constant menu<br>
+                    {% endif %}
+                </div><!-- End menu-block -->
+            </a>
         {% endfor %}
-        
 
-        {%endif%}
+        {% endif %}
+        </div><!-- End menu-blocks -->
+        <div class="cart-block">
+                <h3>Your cart</h3>
 
+                x items<br>
+                <b>Total: x €</b><br>
+
+                <button class="button-black" onclick=""> <!-- TODO: redirect to checkout -->
+                Checkout
+                </button>
+        </div><!-- End cart-block -->
 
         {% endblock %}
