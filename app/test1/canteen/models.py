@@ -75,6 +75,7 @@ class Person(models.Model):
     surname = models.CharField(max_length=50, blank=False)
     address = models.CharField(max_length=150, blank=False)
     telephone = models.CharField(max_length=25, blank=False)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True) #we'll use blank and null true TODO TOCHECK
 
 
 class Registered(models.Model):
@@ -108,8 +109,8 @@ class Food_order(models.Model):
     date_paid = models.DateTimeField(blank=True, null=True)
     date_approved = models.DateTimeField(blank=True, null=True)
     date_delivered = models.DateTimeField(blank=True, null=True)
-    person = models.ForeignKey(Person, on_delete=models.CASCADE, blank=True, null=True)#because if user isn't authenticated that's why we need it blank and null, It will be added later in the checkout 
-    facility = models.ForeignKey(Facility, on_delete=models.CASCADE)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, blank=True, null=True)     #because if user isn't authenticated that's why we need it blank and null, It will be added later in the checkout 
+    facility = models.ForeignKey(Facility, on_delete=models.CASCADE, blank=True, null=True) #because user can make an order just by seeing the cart and he also may remove all the items from cart and then order new items from another facility
     approved_by = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='Approved_by', blank=True, null=True)
     delivered_by = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='Delivered_by', blank=True, null=True)
 
@@ -150,8 +151,8 @@ class Food_order_item(models.Model):
     id_food_order = models.ForeignKey(Food_order, on_delete=models.CASCADE)
     id_item = models.ForeignKey(Item, on_delete=models.CASCADE)
 
-    class Meta:
-        unique_together = (('id_food_order', 'id_item'),)
+    #class Meta:
+    #    unique_together = (('id_food_order', 'id_item'),)
 
 class Facility_menus(models.Model):
     id_facility = models.ForeignKey(Facility, on_delete=models.CASCADE)

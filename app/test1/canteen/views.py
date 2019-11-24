@@ -171,6 +171,7 @@ def add_to_cart(request, id_item, id_facility):
 		Food_order_item.objects.create(id_food_order=food_order_instance,id_item=food_order_item_instance)
 
 
+
 		
 	else:
 		facility_instance		=Facility.objects.filter(id_facility=id_facility).first()
@@ -213,14 +214,15 @@ def order_view(request):#basically a cart
 		#print ("Yes, he is")
 
 	cart_id=request.session.get("cart_id", None)
-	qs=testOrder.objects.filter(id_order=cart_id)
+	qs=Food_order.objects.filter(id_food_order=cart_id)
 
 	if qs.count()==1:
 		cart_obj=qs.first()
 		print ("it is already created")
 	else:
-		cart_obj=testOrder.objects.create()
-		request.session['cart_id']=cart_obj.id_order
+		cart_obj=Food_order.objects.create()
+		request.session['cart_id']=cart_obj.id_food_order
+
 
 
 	context={
