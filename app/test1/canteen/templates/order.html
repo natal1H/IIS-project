@@ -1,7 +1,54 @@
  {% extends "base.html" %}
 
         {% block content %}
-        <h1>Order:</h1>
-        <p>TODO</p>
+        <div class="side-order-block">
+                <a style="text-decoration:underline" href="">Back to restaurant</a> <!-- TODO return to that facility -->
+                Ordering from<br>
+                <b>Facility name</b><br><!-- TODO facility name -->
+                <hr>
+
+                <!-- TODO for food item -->
+                1x food name ... x €<br>
+                <hr>
+                <b>Total: x €</b><br>
+        </div>
+        <div class="checkout-block">
+
+                <div class="contact-info-block">
+                        Contact info<br><hr>
+                        First name:
+                        <input type="text" placeholder="First name..." name="firstname"><br>
+                        Last name:
+                        <input type="text" placeholder="Last name..." name="lastname"><br>
+                        Telephone:
+                        <input type="text" placeholder="Telephone..." name="telephone"><br>
+                </div>
+                <div class="address-block">
+                        Address<br><hr>
+                        Street + number:
+                        <input type="text" placeholder="Street + number..." name="street"><br>
+                        City:
+                        <input type="text" placeholder="City..." name="city"><br>
+                        Post code:
+                        <input type="text" placeholder="Post code..." name="postcode"><br>
+                        First name:
+                        <input type="text" placeholder="First name..." name="firstname"><br>
+                        State:
+                        <input type="text" placeholder="State..." name="state"><br>
+                </div>
+                <div class="payment-block">
+                        Payment form<br><hr>
+                        <form>
+                                <input type="radio" name="cash_delivery" value="cash_delivery">Cash on delivery<br>
+                                <input type="radio" name="card_delivery" value="card_delivery">Card on delivery<br>
+                                <input type="radio" name="card_now" value="card_now">Card now<br>
+                                <input type="radio" name="meal_ticket" value="meal_ticket">Meal ticket<br>
+                        </form>
+                </div>
+
+                <button class="button-black" onclick=""> <!-- TODO: order -->
+                Order
+                </button>
+        </div>
 
         {% endblock %}

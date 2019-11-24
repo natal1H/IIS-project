@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Hey it is a Login</h1>
+    <div class="search-header">
+        <h2 class="page-title">Login</h2>
+    </div> <!-- End search-header -->
 
-
+    <div class="login-block">
     <form method="POST">
-		{%csrf_token%}
+        {%csrf_token%}
         {{form.as_p}}
-        <button>Login</button>
+        <button class="button-black">Login</button>
 	</form>
+    </div>
 {% endblock %}

@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Hey it is a registration</h1>
+    <div class="search-header">
+        <h2 class="page-title">Register</h2>
+    </div> <!-- End search-header -->
 
-    <form method="POST">
-		{%csrf_token%}
-        {{form.as_p}}
-        <button>Register</button>
-	</form>
+    <div class="register-block">
+        <form method="POST">
+            {%csrf_token%}
+            {{form.as_p}}
+            <button class="button-black">Register</button>
+        </form>
+    </div>
 {% endblock %}

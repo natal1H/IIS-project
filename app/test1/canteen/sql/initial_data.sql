@@ -1,6 +1,8 @@
 -- Inserting into 'facility' table
 INSERT INTO canteen_facility (id_facility, address, name, deadline, max_ordered_meals)
     VALUES (1, 'Božetěchova 1, Brno-Královo Pole', 'Menza Starý pivovar', '18:00:00', 5);
+INSERT INTO canteen_facility (id_facility, address, name, deadline, max_ordered_meals)
+    VALUES (2, 'Purkyňova 93, Brno-Královo Pole', 'Menza Purkyňova', '17:00:00', 5);
 
 -- Inserting into 'menu' table
 INSERT INTO canteen_menu (id_menu, type, date, max_items)
@@ -9,7 +11,8 @@ INSERT INTO canteen_menu (id_menu, type, date, max_items)
     VALUES (2, 'd', '2019-10-17', 10);
 INSERT INTO canteen_menu (id_menu, type, max_items)
     VALUES (3, 's', 10);
-
+INSERT INTO canteen_menu (id_menu, type, max_items)
+    VALUES (4, 's', 10);
 
 -- Inserting into 'item' table
 INSERT INTO canteen_item (id_item, diet_type, name, description, price)
@@ -58,6 +61,8 @@ INSERT INTO canteen_facility_menus (id_facility_id, id_menu_id)
     VALUES (1, 2);
 INSERT INTO canteen_facility_menus (id_facility_id, id_menu_id)
     VALUES (1, 3);
+INSERT INTO canteen_facility_menus (id_facility_id, id_menu_id)
+    VALUES (2, 4);
 
 -- Inserting into 'menu_items' table
 INSERT INTO canteen_menu_items (id_menu_id, id_item_id)

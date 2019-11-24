@@ -78,7 +78,7 @@ a {
     margin: 20px;
     width: 400px;
     background: #ffcccc;
-    display: block;
+    display: inline-block;
     float: center;
     text-align: center;
 }
@@ -137,23 +137,79 @@ a {
 }
 
 .button-black {
-  background-color: #000;
-  border: none;
-  color: white;
-  padding: 10px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+    background-color: #000;
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }
 
 .button-white {
-  background-color: #fff;
-  border: none;
-  color: black;
-  padding: 10px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+    background-color: #fff;
+    border: none;
+    color: black;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.login-block {
+    width: 500px;
+    background: #f2f2f2;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding:10px;
+}
+
+.register-block {
+    width: 650px;
+    background: #f2f2f2;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding:10px;
+}
+
+.side-order-block {
+    background: #f2f2f2;
+    float: left;
+    width: 20%;
+    padding: 15px;
+}
+
+.checkout-block {
+    text-align: center;
+}
+
+.contact-info-block {
+    width: 650px;
+    background: #f2f2f2;
+    margin:10px;
+    text-align: center;
+}
+
+.address-block {
+    width: 650px;
+    background: #f2f2f2;
+    margin:10px;
+    text-align: center;
+}
+
+.payment-block {
+    width: 650px;
+    background: #f2f2f2;
+    margin:10px;
+    text-align: center;
 }
