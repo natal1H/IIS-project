@@ -4,7 +4,7 @@
 
     {% load static %}
         <div class="search-header">
-            <h2 class="page-title">Menu items</h2>
+            <h2 class="page-title"><a href="/facility/{{ id_facility }}">BACK</a> | Menu items</h2>
             <form class="search-bar" action="{% url 'search' %}">
                 <button type="submit"><i class="fa fa-search"></i></button>
                 <input type="text" placeholder="Search..." name="search_form">
