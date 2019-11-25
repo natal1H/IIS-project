@@ -55,7 +55,8 @@ class Item(models.Model):
     name = models.CharField(max_length=100, blank=False)
     description = models.CharField(max_length=320, blank=True, null=True)
     price = models.IntegerField(blank=False)
-    image = models.ImageField(blank=True, null=True)
+    #image = models.ImageField(blank=True, null=True)
+    image = models.CharField(max_length=100, blank=False, null=True)
 
     DIET_TYPES = (
         ('n', 'normal'),

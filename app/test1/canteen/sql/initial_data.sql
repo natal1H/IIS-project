@@ -15,10 +15,10 @@ INSERT INTO canteen_menu (id_menu, type, max_items)
     VALUES (4, 's', 10);
 
 -- Inserting into 'item' table
-INSERT INTO canteen_item (id_item, diet_type, name, description, price)
-    VALUES (1, 'n', 'Párok v rožku', 'Proste párok v rožku', 1.5);
-INSERT INTO canteen_item (id_item, diet_type, name, description, price)
-    VALUES (2, 'n', 'Bageta', 'Proste bageta', 2.5);
+INSERT INTO canteen_item (id_item, diet_type, name, description, price, image)
+    VALUES (1, 'n', 'Párok v rožku', 'Proste párok v rožku', 1.5, 'images/hotdog.jpg');
+INSERT INTO canteen_item (id_item, diet_type, name, description, price, image)
+    VALUES (2, 'n', 'Bageta', 'Proste bageta', 2.5, 'images/bageta.jpg');
 
 -- Inserting into 'person' table
 INSERT INTO canteen_person (id_person, firstname, surname, address, telephone)

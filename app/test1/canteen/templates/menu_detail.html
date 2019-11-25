@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
     {% block content %}
+
+    {% load static %}
         <div class="search-header">
             <h2 class="page-title">Menu items</h2>
             <form class="search-bar" action="{% url 'search' %}">
@@ -14,6 +16,7 @@
 
     {% for instance_item in item_objs %}
         <div class="food-block">
+            <img src="{% static instance_item.image %}" width="100px" height="100px" style="float:left;margin-right:10px">
             <div style="float:left">
                 <b>{{instance_item.name}}</b><br>
                 {{instance_item.description}}<br>
@@ -42,5 +45,6 @@
         Checkout
         </button>
     </div><!-- End cart-block -->
+
 
     {% endblock %}
