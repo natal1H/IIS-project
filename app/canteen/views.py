@@ -138,19 +138,23 @@ def dynamic_facility_view(request, id):
 def menu_view(request, id): 
 
 	try:
-		menu=Menu_items.objects.filter(id_menu=id)
+		menu = Menu_items.objects.filter(id_menu=id)
 	except Facility_menus.DoesNotExist:
 		raise Http404
-	item_objs=[]
+	item_objs = []
 
 	for i in menu:
 		#print(i)
 		item_objs.append(i.id_item)
 		
-	
-	context={
-		"item_objs":item_objs,
-		"id_facility":id
+	facility = Facility_menus.objects.get(id_menu=id)
+
+	context = {
+		"item_objs": item_objs,
+		"menu": Menu.objects.get(id_menu=id),
+		#"id_facility": id # TODO: nie je toto id_menu?
+		"id_menu": id,
+		"facility": facility.id_facility # TODO: WHY DOES THIS WORK??
 	}
 
 	return render(request, 'menu_detail.html', context)
