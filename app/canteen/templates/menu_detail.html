@@ -14,6 +14,22 @@
     <div class="food-blocks">
     {%if item_objs%}
 
+        <!-- Deciding whether to disable add button --><!-- TODO: temp fix, find better solution -->
+        {% if menu.type == 's' %}
+            {% firstof "" as is_disabled %}
+        {% else %}
+            {% now "Y-m-d" as todays_date %}
+            {% if todays_date == menu.date|date:"Y-m-d" %}
+                {% firstof "" as is_disabled %}
+            {% else %}
+                {% firstof "disabled" as is_disabled %}
+            {% endif %}
+        {% endif %}
+
+        {% if is_disabled == "disabled" %}
+        <p><b>WARNING: You cannot order from this menu, it is not current!</b></p>
+        {% endif %}
+
     {% for instance_item in item_objs %}
         <div class="food-block">
             <img src="{% static instance_item.image %}" width="100px" height="100px" style="float:left;margin-right:10px">
@@ -24,7 +40,7 @@
                 <!--<a href="{%url 'add_to_cart' instance_item.id_item id_facility%}" class="">Add to Cart</a><br>-->
             </div>
             <div style="float:right">
-                <button class="button-white" onclick="" style="float:right"> <!-- TODO: add -->
+                <button class="button-white" onclick="" style="float:right " {{ is_disabled }}> <!-- TODO: add functionality, visually different if disabled-->
                     Add
                 </button>
             </div>

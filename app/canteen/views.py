@@ -152,7 +152,7 @@ def menu_view(request, id):
 	context = {
 		"item_objs": item_objs,
 		"menu": Menu.objects.get(id_menu=id),
-		#"id_facility": id # TODO: nie je toto id_menu?
+		"id_facility": id, # TODO: nie je toto id_menu?
 		"id_menu": id,
 		"facility": facility.id_facility # TODO: WHY DOES THIS WORK??
 	}
