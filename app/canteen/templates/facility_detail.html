@@ -3,7 +3,7 @@
         {% block content %}
 
         <div class="search-header">
-            <h2 class="page-title">All menus</h2>
+            <h2 class="page-title">All menus</h2><!-- TODO: display facility name -->
         </div> <!-- End search-header -->
 
         <div class="menu-blocks">
@@ -14,9 +14,12 @@
                     Menu #{{instance_menu.id_menu}}<br>
 
                     {% if instance_menu.type == "d" %}
+                        <!-- TODO: check if daily menu is for this day -> if not do not display -->
                         Daily menu<br>
+                        {{ instance_menu.date}}<br>
                     {% else %}
                         Constant menu<br>
+                        <br>
                     {% endif %}
                 </div><!-- End menu-block -->
             </a>

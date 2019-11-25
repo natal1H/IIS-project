@@ -1,3 +1,5 @@
+.idea
 app/.idea
-app/test1/.idea
-app/test1/test1/__pycache__
+app/app/__pycache__
+app/canteen/__pycache__
+app/canteen/migrations/__pycache__

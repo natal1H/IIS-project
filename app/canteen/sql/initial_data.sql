@@ -67,6 +67,8 @@ INSERT INTO canteen_facility_menus (id_facility_id, id_menu_id)
 -- Inserting into 'menu_items' table
 INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
     VALUES (3, 1);
+INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
+    VALUES (3, 2);
 
 -- Inserting into 'food_order_item' table
 INSERT INTO canteen_food_order_item (id_food_order_id, id_item_id)
