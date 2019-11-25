@@ -14,9 +14,17 @@
                     Menu #{{instance_menu.id_menu}}<br>
 
                     {% if instance_menu.type == "d" %}
-                        <!-- TODO: check if daily menu is for this day -> if not do not display -->
                         Daily menu<br>
                         {{ instance_menu.date}}<br>
+
+                        {% now "Y-m-d" as todays_date %}
+                        {% if todays_date == instance_menu.date|date:"Y-m-d" %}
+                            Today's menu<br>
+                        {% elif todays_date < instance_menu.date|date:"Y-m-d" %}
+                            Future menu<br><!-- TODO: can be viewed? If yes, remove option to add items to cart -->
+                        {% else %}
+                        <span style="color:red">Expired menu</span><br><!-- TODO: can be viewed? If yes, remove option to add items to cart -->
+                        {% endif %}
                     {% else %}
                         Constant menu<br>
                         <br>

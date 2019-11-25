@@ -6,13 +6,13 @@ INSERT INTO canteen_facility (id_facility, address, name, deadline, max_ordered_
 
 -- Inserting into 'menu' table
 INSERT INTO canteen_menu (id_menu, type, date, max_items)
-    VALUES (1, 'd', '2019-10-16', 10);
+    VALUES (1, 'd', '2019-11-25', 10);
 INSERT INTO canteen_menu (id_menu, type, date, max_items)
-    VALUES (2, 'd', '2019-10-17', 10);
+    VALUES (2, 'd', '2019-11-26', 10);
 INSERT INTO canteen_menu (id_menu, type, max_items)
     VALUES (3, 's', 10);
-INSERT INTO canteen_menu (id_menu, type, max_items)
-    VALUES (4, 's', 10);
+INSERT INTO canteen_menu (id_menu, type, date, max_items)
+    VALUES (4, 'd', '2019-11-24', 10);
 
 -- Inserting into 'item' table
 INSERT INTO canteen_item (id_item, diet_type, name, description, price, image)
