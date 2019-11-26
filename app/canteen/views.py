@@ -206,26 +206,38 @@ def add_to_cart(request, id_item, id_facility):
 		cart_obj=qs.first()
 		print ("it is already created")
 
+		#
 		food_order_instance		=Food_order.objects.filter(id_food_order=cart_obj.id_food_order).first()
 		food_order_item_instance=Item.objects.filter(id_item=id_item).first()
 		
-		Food_order_item.objects.create(id_food_order=food_order_instance,id_item=food_order_item_instance)
+		
+		Food_order_item.objects.create(id_food_order=food_order_instance, id_item=food_order_item_instance)
 
 
 
 		
 	else:
+		print ("Now we are makin new order")
 		facility_instance		=Facility.objects.filter(id_facility=id_facility).first()
 		food_order_item_instance=Item.objects.filter(id_item=id_item).first()
+
+		#Creates new food order
+		if request.user.is_authenticated:
+
+			person_instance		=Person.objects.filter(user=request.user).first()
+			food_order_instance	=Food_order.objects.create(facility=facility_instance, person=person_instance)#Creates new food order
+		else:
+			food_order_instance	=Food_order.objects.create(facility=facility_instance)
+
+
+		
+		Food_order_item.objects.create(id_food_order=food_order_instance, id_item=food_order_item_instance)#adds the item to the order
 		
 
-		cart_obj=Food_order.objects.create(facility=facility_instance)#add the facility
 		
-		Food_order.objects.create(id_facility=facility_instance, id_item=food_order_item_instance)
-		
-		request.session['cart_id']=cart_obj.id_food_order
+		request.session['cart_id']=food_order_instance.id_food_order
 
-		#TODO 
+		#TOCONTINUE 
 		
 
 	

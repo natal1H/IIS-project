@@ -41,7 +41,7 @@
             </div>
             <div style="float:right">
                 <button class="button-white" onclick="" style="float:right " {{ is_disabled }}> <!-- TODO: add functionality, visually different if disabled-->
-                    Add
+                    <a href="{%url 'add_to_cart' instance_item.id_item id_facility%}" class="">Add to Cart</a>
                 </button>
             </div>
         </div>
