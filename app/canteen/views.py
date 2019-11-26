@@ -13,6 +13,10 @@ from django.contrib.auth.models import User
 
 from django.http import HttpResponseRedirect
 
+from canteen.forms import SignUpForm
+
+from django.contrib.auth import login, authenticate
+
 
 # Create your views here.
 
@@ -71,6 +75,39 @@ def register_view(request):
 
 	return render(request, 'registration/register.html', {'form': form})
 
+
+def signup(request):
+	if request.method=='POST':
+		
+		form = SignUpForm(request.POST)
+
+		if form.is_valid():
+			form.save()
+			username = form.cleaned_data.get('username')
+
+			print(username)
+			raw_password = form.cleaned_data.get('password1')
+
+			firstname 	= form.cleaned_data.get('firstname')
+			surname 	= form.cleaned_data.get('surname')
+			address 	= form.cleaned_data.get('address')
+			email		= form.cleaned_data.get('email')
+			telephone	= form.cleaned_data.get('telephone')
+
+			user = authenticate(username=username, password=raw_password)
+			
+
+			login (request, user)
+			user_instance=User.objects.filter(username=username).first()
+			print(user_instance)
+			Person.objects.create(user=user_instance, firstname=firstname, surname=surname, address= address, telephone=telephone)
+
+
+			return redirect('login_url')
+	else:
+		form=SignUpForm()
+	
+	return render(request, 'registration/register.html', {'form': form})
 
 def logged_view(request):
 	context = {
