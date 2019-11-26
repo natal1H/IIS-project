@@ -34,7 +34,9 @@
                 <li><a href="/contact">Contact</a></li>
                 <li><a href="/order">Orders</a></li>
                 <li><a href="/cart">Cart</a></li>
+                {%if user.is_authenticated%}
                 <li><a href="/profile">Profile</a></li>
+                {% endif %}
             </ul>
         </div>
     {% block content %}

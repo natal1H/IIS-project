@@ -1,8 +1,44 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Profile:</h1>
-<a href="/orders" class="">Orders</a><br>
+
+<div class="search-header">
+            <h2 class="page-title">Profile</h2>
+</div> <!-- End search-header -->
+
+ <!-- Side navigation -->
+<div class="sidenav">
+    <a href="#">< Back to restaurants</a>
+
+    <p>Menu</p>
+    <hr>
+    <a href="#">Profile</a><!-- TODO: redirect -->
+    <a href="#">Edit profile</a><!-- TODO: redirect -->
+    <a href="#">My orders</a><!-- TODO: redirect -->
+
+    <!-- TODO: get user role, based on role display rest of the menu -->
+</div>
+
+<!-- Page content -->
+<div class="main">
+  <div class="profile-window">
+      <h2>Profile</h2>
+      <hr>
+      <div style="display:block">
+          <img src="" alt="profile picture" width="150px" height="150px" style="float:left"/>
+          First name<br><!-- TODO -->
+          Last name<br><!-- TODO -->
+          Email<br><!-- TODO -->
+          Telephone<br><!-- TODO -->
+          Address<br><!-- TODO -->
+      </div>
+      <hr>
+      <div style="display:block">
+          <h3>Description</h3>
+          TODO
+      </div>
+  </div>
+</div>
 
 
 {% endblock %}
