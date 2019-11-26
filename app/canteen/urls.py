@@ -8,20 +8,21 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('search', views.search_view, name='search'),
     path('contact',views.contact_view, name='contact'),
+    path('facility/<int:id>', views.dynamic_facility_view, name='facility-view'),
+    path('menu/<int:id>', views.menu_view, name='menu'),
     path('order',views.order_view, name='order'),
-    path('orders',views.order_view, name='order'),
+    path('cart',views.cart_view, name='cart'),
+    path('add_to_cart/<int:id_item>/<int:id_facility>', views.add_to_cart, name='add_to_cart'),
 
 ]
 
 #user authentication
 urlpatterns+=[
-    path('facility/<int:id>', views.dynamic_facility_view, name='facility-view'),
-    path('add_to_cart/<int:id_item>/<int:id_facility>', views.add_to_cart, name='add_to_cart'),
+   
     path('register', views.signup, name='register'),
     path('login', LoginView.as_view(), name='login_url'),
     path('logged', views.logged_view, name='loggend_on'),
     path('logout', LogoutView.as_view(next_page='/'), name='logout'),
     path('profile', views.profile_view, name='profile'),
-    path('menu/<int:id>', views.menu_view, name='menu')
-
+    
 ]

@@ -238,16 +238,28 @@ def add_to_cart(request, id_item, id_facility):
 		request.session['cart_id']=food_order_instance.id_food_order
 
 		#TOCONTINUE 
-		
 
-	
-	context = {
-
-	}
 
 	#TODO order, checkout etc. and all
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER')) #stays on the same page
+
+#current order
+def cart_view(request):
 	
+	if request.user.is_authenticated:
+		person_instance				=Person.objects.filter(user=request.user).first()
+		food_order_instance 		=Food_order.objects.filter(person=person_instance, status='o').first()
+		food_order_items_list		=Food_order_item.objects.filter(id_food_order=food_order_instance)
+
+		print(food_order_items_list)
+
+	
+	context={
+		"food_order_items_list":food_order_items_list,
+
+	}
+
+	return render(request, 'cart.html', context)
 
 def remove_from_cart(request):
 	#TODO

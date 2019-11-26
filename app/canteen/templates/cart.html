@@ -1,6 +1,9 @@
  {% extends "base.html" %}
 
         {% block content %}
-        <p>hello</p>
+        {% for instance_item in food_order_items_list %}
+              {{instance_item.id_item.name}}<br>
+              
+        {%endfor%}
 
-         {% endblock %}
+       {% endblock %}
