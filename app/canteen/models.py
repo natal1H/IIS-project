@@ -22,16 +22,7 @@ class Facility (models.Model):
         return f"facility/{self.id_facility}"
         #return reverse("facility-view", kwargs={"id":self.id_facility})#f""
 
-class testItem(models.Model):
-    id_testItem = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=150, blank=False)
-    Facility = models.ForeignKey(Facility, on_delete=models.CASCADE)
 
-
-class testOrder(models.Model):
-    id_order =models.AutoField(primary_key=True)
-    name = models.CharField(max_length=150, blank=False)
-    #testItem = models.ForeignKey(testItem, on_delete=models.CASCADE)
 
 class Menu (models.Model):
     id_menu = models.AutoField(primary_key=True)
@@ -149,8 +140,9 @@ class Roles(models.Model):
 
 
 class Food_order_item(models.Model):
-    id_food_order = models.ForeignKey(Food_order, on_delete=models.CASCADE)
-    id_item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    id_food_order   = models.ForeignKey(Food_order, on_delete=models.CASCADE)
+    id_item         = models.ForeignKey(Item, on_delete=models.CASCADE)
+    quantity        = models.IntegerField(default=1)
     
     #class Meta:
     #    unique_together = (('id_food_order', 'id_item'),)

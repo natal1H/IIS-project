@@ -80,3 +80,17 @@ def search_result_view(request):
     return render(request, 'search_success.html', {})
 
 """
+
+class testItem(models.Model):
+    id_testItem = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=150, blank=False)
+    Facility = models.ForeignKey(Facility, on_delete=models.CASCADE)
+
+
+
+
+
+class testOrder(models.Model):
+    id_order =models.AutoField(primary_key=True)
+    name = models.CharField(max_length=150, blank=False)
+    #testItem = models.ForeignKey(testItem, on_delete=models.CASCADE)
