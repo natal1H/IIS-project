@@ -2,8 +2,8 @@
 
         {% block content %}
         {% for instance_item in food_order_items_list %}
-              {{instance_item.id_item.name}}<br>
-              
+              {{instance_item.id_item.name}} <a href="" class="">Add</a> ||<a href="" class="">Remove</a>  <br>
+              {{food_order_instance.facility}}
         {%endfor%}
 
        {% endblock %}

@@ -139,23 +139,19 @@ def dynamic_facility_view(request, id):
 		raise Http404
 	
 	
-	#print(menu)
-
-	#print(i.id_facility.id_facility)
-	print (menu)
 	menu_objs=[]
 	for i in menu:
 		menu_objs.append(i.id_menu)
 
-	print(menu_objs)
 	
 
-
+	"""
 	meals=testItem.objects.all()
 	facility_meals=[]
 	for item in meals:
 		if item.Facility.id_facility==id:
 			facility_meals.append(item)
+	"""
 	#getting meals that belongs to that facility
 
 
@@ -166,13 +162,16 @@ def dynamic_facility_view(request, id):
 		raise Http404
 
 	context = {
-		"meals":facility_meals,
+		#"meals":facility_meals,
 		"object":obj,
 		"menu_objs":menu_objs
 	}
 	return render(request, 'facility_detail.html', context)
 
 def menu_view(request, id): 
+
+
+	
 
 	try:
 		menu = Menu_items.objects.filter(id_menu=id)
@@ -184,12 +183,17 @@ def menu_view(request, id):
 		#print(i)
 		item_objs.append(i.id_item)
 		
-	facility = Facility_menus.objects.get(id_menu=id)
+	facility = Facility_menus.objects.filter(id_menu=id).first()
+
+	facility_menus_instance = Facility_menus.objects.filter(id_menu=id).first()
+	print(facility_menus_instance.id_facility.id_facility)
+	#facility_instance = Facility.objects.filter(id_facility=facility_menus_instance.id_facility)
+
 
 	context = {
 		"item_objs": item_objs,
 		"menu": Menu.objects.get(id_menu=id),
-		"id_facility": id, # TODO: nie je toto id_menu?
+		"id_facility": facility_menus_instance.id_facility.id_facility, # TODO: nie je toto id_menu?
 		"id_menu": id,
 		"facility": facility.id_facility # TODO: WHY DOES THIS WORK??
 	}
@@ -255,11 +259,16 @@ def cart_view(request):
 
 	
 	context={
+		"food_order_instance":food_order_instance,
 		"food_order_items_list":food_order_items_list,
 
 	}
 
 	return render(request, 'cart.html', context)
+
+def pay_view(request):
+	#TODO
+	pass
 
 def remove_from_cart(request):
 	#TODO
