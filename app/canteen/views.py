@@ -310,13 +310,13 @@ def all_orders_view(request):
 
 
 
-
+#this is basically all orders view
 
 def order_view(request):#basically a cart
+	"""
+	if request.user.is_authenticated:
+		print ("Yes, he is")
 	
-	#if request.user.is_authenticated:
-		#print ("Yes, he is")
-
 	cart_id=request.session.get("cart_id", None)
 	qs=Food_order.objects.filter(id_food_order=cart_id)
 
@@ -327,10 +327,26 @@ def order_view(request):#basically a cart
 		cart_obj=Food_order.objects.create()
 		request.session['cart_id']=cart_obj.id_food_order
 
+	"""
 
+	if request.user.is_authenticated:
+		
+		person_instance	=Person.objects.filter(user=request.user).first() 
+		food_order_qs	=Food_order.objects.filter(person=person_instance)
+		#print(food_order_qs)
+
+
+
+		food_order_ordered	 =Food_order.objects.filter(person=person_instance, status='o')
+		food_order_approved	 =Food_order.objects.filter(person=person_instance, status='a')
+		food_order_canceled	 =Food_order.objects.filter(person=person_instance, status='c')
+		food_order_delivered =Food_order.objects.filter(person=person_instance, status='d')
 
 	context={
-
+		"food_order_ordered":food_order_ordered,
+		"food_order_approved":food_order_approved,
+		"food_order_canceled":food_order_canceled,
+		"food_order_delivered":food_order_delivered,
 	}
 
 	return render(request, 'order.html', context)

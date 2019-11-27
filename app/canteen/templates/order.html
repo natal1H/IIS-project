@@ -51,4 +51,24 @@
                 </button>
         </div>
 
+
+        {% if food_order_ordered %}
+        <h1>Ordered</h1>
+
+        {% endif %}
+        
+        {% if food_order_approved %}
+        <h1>Approved</h1>
+
+        {% endif %}
+        {% if food_order_canceled %}
+        <h1>Canceled</h1>
+
+        {% endif %}
+
+        {% if food_order_delivered %}
+        <h1>Delivered</h1>
+
+        {% endif %}
+
         {% endblock %}
