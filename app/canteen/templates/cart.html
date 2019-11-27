@@ -2,8 +2,14 @@
 
         {% block content %}
         {% for instance_item in food_order_items_list %}
-              {{instance_item.id_item.name}} <a href="" class="">Add</a> ||<a href="" class="">Remove</a>  <br>
-              {{food_order_instance.facility}}
-        {%endfor%}
+              {{instance_item.id_item.name}} <a href="{%url 'add_to_cart' instance_item.id_item.id_item food_order_instance.facility.id_facility%}" class="">Add</a> ||
+              <a href="{%url 'remove_from_cart' instance_item.id_item.id_item food_order_instance.facility.id_facility%}" class="">Remove</a>  <br>
+                      
+              
+              {%endfor%}
+
+      
+              <a href="" class=""><h1>Checkout</h1></a>  <br>
+      
 
        {% endblock %}

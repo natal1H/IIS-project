@@ -151,7 +151,7 @@ class Roles(models.Model):
 class Food_order_item(models.Model):
     id_food_order = models.ForeignKey(Food_order, on_delete=models.CASCADE)
     id_item = models.ForeignKey(Item, on_delete=models.CASCADE)
-
+    
     #class Meta:
     #    unique_together = (('id_food_order', 'id_item'),)
 

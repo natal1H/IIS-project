@@ -247,6 +247,27 @@ def add_to_cart(request, id_item, id_facility):
 	#TODO order, checkout etc. and all
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER')) #stays on the same page
 
+
+def remove_from_cart(request, id_item, id_facility):
+
+	if request.user.is_authenticated:
+
+		item_instance		=Item.objects.filter(id_item=id_item).first()
+		person_instance		=Person.objects.filter(user=request.user).first()
+		food_order_instance =Food_order.objects.filter(person=person_instance, status='o').first()
+
+		delete_instance		=Food_order_item.objects.filter(id_item=item_instance ,id_food_order=food_order_instance).first()
+		delete_instance.delete()
+
+		#print(delete_instance)
+		#food_order_instance	=Food_order.objects.create(facility=facility_instance, person=person_instance)
+
+	#TODO for unathorized users
+
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER')) #stays on the same page
+
+	#TODO
+
 #current order
 def cart_view(request):
 	
@@ -270,9 +291,7 @@ def pay_view(request):
 	#TODO
 	pass
 
-def remove_from_cart(request):
-	#TODO
-	pass
+
 
 def all_orders_view(request):
 	#TODO
