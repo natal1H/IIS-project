@@ -54,20 +54,37 @@
 
         {% if food_order_ordered %}
         <h1>Ordered</h1>
-
+        {% for order in food_order_ordered %}
+        {{order.date_created}}<br>
+        {%endfor%}
         {% endif %}
         
         {% if food_order_approved %}
-        <h1>Approved</h1>
 
+
+        <h1>Approved</h1>
+        {% for order in food_order_approved %}
+        {{order.date_created}}<br>
+        {%endfor%}
         {% endif %}
+
         {% if food_order_canceled %}
+
+
         <h1>Canceled</h1>
+        {% for order in food_order_canceled %}
+        {{order.date_created}}<br>
+        {%endfor%}
 
         {% endif %}
 
         {% if food_order_delivered %}
+
+
         <h1>Delivered</h1>
+        {% for order in food_order_delivered %}
+        {{order.date_created}}<br>
+        {%endfor%}
 
         {% endif %}
 
