@@ -203,7 +203,7 @@ def menu_view(request, id):
 def add_to_cart(request, id_item, id_facility):
 	
 	cart_id=request.session.get("cart_id", None)
-	qs=Food_order.objects.filter(id_food_order=cart_id)
+	qs=Food_order.objects.filter(id_food_order=cart_id, status='o')
 
 
 	if qs.count()==1:
@@ -229,9 +229,9 @@ def add_to_cart(request, id_item, id_facility):
 		if request.user.is_authenticated:
 
 			person_instance		=Person.objects.filter(user=request.user).first()
-			food_order_instance	=Food_order.objects.create(facility=facility_instance, person=person_instance)#Creates new food order
+			food_order_instance	=Food_order.objects.create(facility=facility_instance, person=person_instance, status='o')#Creates new food order
 		else:
-			food_order_instance	=Food_order.objects.create(facility=facility_instance)
+			food_order_instance	=Food_order.objects.create(facility=facility_instance, status='o')
 
 
 		
@@ -274,9 +274,10 @@ def cart_view(request):
 	if request.user.is_authenticated:
 		person_instance				=Person.objects.filter(user=request.user).first()
 		food_order_instance 		=Food_order.objects.filter(person=person_instance, status='o').first()
+		#print(food_order_instance.status)
 		food_order_items_list		=Food_order_item.objects.filter(id_food_order=food_order_instance)
 
-		print(food_order_items_list)
+		#print(food_order_items_list)
 
 	
 	context={
@@ -288,8 +289,18 @@ def cart_view(request):
 	return render(request, 'cart.html', context)
 
 def pay_view(request):
+
+	if request.user.is_authenticated:
+		
+		person_instance				=Person.objects.filter(user=request.user).first()
+		Food_order.objects.filter(person=person_instance, status='o').update(status='a')
+		#print(food_order_instance.status)
+		#food_order_instance.status='a'
+		#print(food_order_instance.status)
+
 	#TODO
-	pass
+
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 
