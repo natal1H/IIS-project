@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Food orders:</h1>
+{{object_list}}
+
+{% for instance in food_order_list%}
+     <p>{{ instance.id_food_order }} - <a href="{%url 'food_order_update' instance.id_food_order %}">link</a></p>
+{% endfor %}
+
+
+{% endblock %}

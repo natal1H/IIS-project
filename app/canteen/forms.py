@@ -3,6 +3,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import *
 
+from django.views.generic.edit import *
+
+
 class NameForm(forms.Form):
     your_name = forms.CharField(label='Your name', max_length=100)
 
@@ -14,6 +17,32 @@ class SearchForm(forms.Form):
 
     pass
 
+class Food_order_form(forms.ModelForm):
+    class Meta:
+        model = Food_order
+        fields =[
+            'id_food_order',
+            'date_created',
+            'date_paid',
+            'date_approved',
+            'date_delivered',
+            'person',
+            'facility',
+            'delivered_by',
+        ]
+
+
+class UserUpdate(UpdateView):
+
+
+    """
+    model = Author
+    fields = ['name']
+    template_name_suffix = '_update_form'
+    """
+
+
+    pass
 
 class SignUpForm(UserCreationForm):
 

@@ -13,10 +13,11 @@ from django.contrib.auth.models import User
 
 from django.http import HttpResponseRedirect
 
-from canteen.forms import SignUpForm
+from canteen.forms import *
 
 from django.contrib.auth import login, authenticate
 
+from django.views.generic import *
 
 # Create your views here.
 
@@ -398,6 +399,51 @@ def admin_view(request):
 def admin_edit_users(request):
 	#TODO
 	pass
+
+
+class Food_order_update_view(generic.UpdateView):
+    template_name = 'food_order_update_view.html'
+    form_class = Food_order_form
+    def get_object(self):
+        id = self.kwargs.get("id")
+        
+        return get_object_or_404(Food_order, id_food_order=id)
+
+    def form_valid(self, form):
+        print("hello")
+        print(form.cleaned_data)
+        return super().form_valid(form)
+
+"""
+class Food_order_list_view(ListView):
+    template_name = 'Food_order_list.html'
+    queryset = list(Food_order.objects.all())
+"""
+class user_update_view(generic.UpdateView):
+	
+	pass
+
+def  food_order_list_view(request):
+	if request.user.is_authenticated:
+		person_instance		=Person.objects.filter(user=request.user).first()
+		
+
+
+		if person_instance.role == 'a' or person_instance.role == 'o':
+			food_order_list=Food_order.objects.all()
+			context={
+				"food_order_list":food_order_list
+			}
+		else:
+			raise Http404
+
+		
+	else: 
+		raise Http404
+
+	
+
+	return render(request, 'Food_order_list.html', context)
 
 def driver_view(request):
 

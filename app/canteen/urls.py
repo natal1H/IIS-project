@@ -23,6 +23,9 @@ urlpatterns+=[
     path('admin_view', views.admin_view, name='admin_view'),
     path('driver_view', views.driver_view, name='driver_view'),
     path('operator_view', views.operator_view, name='operator_view'),
+    path('food_order/', views.food_order_list_view, name='food_order'),
+    path('food_order_update/<int:id>', views.Food_order_update_view.as_view(), name='food_order_update')
+
 ]
 
 #user authentication

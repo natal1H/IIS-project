@@ -147,6 +147,12 @@ class Food_order(models.Model):
         choices=PAYMENT_FORM,
         default='h',
     )
+    
+    def get_absolute_url(self):
+        return f"{self.id_food_order}"
+        #return reverse('food_order', kwargs={'id': self.id_food_order})
+    def get_absolute_url_id(self):
+        return reverse('food_order', kwargs={'id': self.id_food_order})
 
 
 class Roles(models.Model):
