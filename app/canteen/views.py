@@ -410,7 +410,7 @@ class Food_order_update_view(generic.UpdateView):
         return get_object_or_404(Food_order, id_food_order=id)
 
     def form_valid(self, form):
-        print("hello")
+        
         print(form.cleaned_data)
         return super().form_valid(form)
 
@@ -419,6 +419,19 @@ class Food_order_list_view(ListView):
     template_name = 'Food_order_list.html'
     queryset = list(Food_order.objects.all())
 """
+class person_update_view(generic.UpdateView):
+    template_name = 'person_update.html'
+    form_class = person_form
+    def get_object(self):
+        id = self.kwargs.get("id")
+        return get_object_or_404(Person, id_person=id)
+
+    def form_valid(self, form):
+        
+        print(form.cleaned_data)
+        return super().form_valid(form)
+
+
 class user_update_view(generic.UpdateView):
 	
 	pass
@@ -450,13 +463,15 @@ def driver_view(request):
 	if request.user.is_authenticated:
 		person_instance		=Person.objects.filter(user=request.user).first()
 
-		if person_instance.role != 'a' or person_instance.role != 'd':
+		if person_instance.role == 'a' or person_instance.role == 'd':
+			context = {
+			"role":person_instance.role
+			}
+		else:
 			raise Http404
 
 
-		context = {
-			"role":person_instance.role
-		}
+		
 
 	else: 
 		raise Http404
@@ -469,16 +484,15 @@ def operator_view(request):
 	if request.user.is_authenticated:
 		person_instance		=Person.objects.filter(user=request.user).first()
 
-		if person_instance.role != 'a' or person_instance.role != 'o' :
+		if person_instance.role == 'a' or person_instance.role == 'o':
+			context = {
+				"role":person_instance.role
+			}
+		else:
 			raise Http404
-
-
-		context = {
-			"role":person_instance.role
-		}
 
 	else: 
 		raise Http404
 
 
-	return render(request, 'driver_view.html', context)	
+	return render(request, 'operator_view.html', context)	

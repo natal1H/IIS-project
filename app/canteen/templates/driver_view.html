@@ -2,6 +2,8 @@
 
 {% block content %}
 <h1>Driver page</h1>
-
+{% if role == "d" or role == "a"%}
+    <a href="food_order">Orders</a>
+{% endif %}
 
 {% endblock %}

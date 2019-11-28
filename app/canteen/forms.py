@@ -29,6 +29,19 @@ class Food_order_form(forms.ModelForm):
             'person',
             'facility',
             'delivered_by',
+            'status'
+        ]
+
+class person_form(forms.ModelForm):
+    class Meta:
+        model = Person
+        fields =[
+            'id_person',
+            'firstname',
+            'surname',
+            'address',
+            'telephone',
+            'user'
         ]
 
 

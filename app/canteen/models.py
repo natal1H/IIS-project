@@ -22,6 +22,9 @@ class Facility (models.Model):
         return f"facility/{self.id_facility}"
         #return reverse("facility-view", kwargs={"id":self.id_facility})#f""
 
+    def __str__(self):
+        """String for representing the MyModelName object (in Admin site etc.)."""
+        return self.name
 
 
 class Menu (models.Model):
@@ -70,6 +73,8 @@ class Person(models.Model):
     telephone = models.CharField(max_length=25, blank=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True) #we'll use blank and null true TODO TOCHECK
 
+    
+
     ROLES = (
         ('a', 'administrator'),
         ('o', 'operator'),
@@ -84,7 +89,12 @@ class Person(models.Model):
         default='v'
     )
 
+    def __str__(self):
+        """String for representing the MyModelName object (in Admin site etc.)."""
+        return self.user.username
 
+    def get_absolute_url(self):
+        return f"{self.id_person}"
 
 class Registered(models.Model):
     email = models.CharField(max_length=32, unique=True, blank=False, primary_key=True)
@@ -119,8 +129,8 @@ class Food_order(models.Model):
     date_delivered = models.DateTimeField(blank=True, null=True)
     person = models.ForeignKey(Person, on_delete=models.CASCADE, blank=True, null=True)     #because if user isn't authenticated that's why we need it blank and null, It will be added later in the checkout 
     facility = models.ForeignKey(Facility, on_delete=models.CASCADE, blank=True, null=True) #because user can make an order just by seeing the cart and he also may remove all the items from cart and then order new items from another facility
-    approved_by = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='Approved_by', blank=True, null=True)
-    delivered_by = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='Delivered_by', blank=True, null=True)
+    approved_by = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='Approved_by', blank=True, null=True)
+    delivered_by = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='Delivered_by', blank=True, null=True)
 
     FOOD_ORDER_STATUS = (
         ('o', 'ordered'),
