@@ -26,17 +26,17 @@
 
                 {%if user.is_authenticated%}
                 <li><a href="/logout">Logout</a></li>
+                <li><a href="/profile">Profile</a></li>
                 {% else %}
                 <li><a href="/login">Login</a></li>
                 <li><a href="/register">Register</a></li>
+                
                 {%endif%}
 
                 <li><a href="/contact">Contact</a></li>
                 <li><a href="/order">Orders</a></li>
                 <li><a href="/cart">Cart</a></li>
-                {%if user.is_authenticated%}
-                <li><a href="/profile">Profile</a></li>
-                {% endif %}
+
             </ul>
         </div>
     {% block content %}
@@ -45,7 +45,7 @@
 
     <div class="footer">
         <span style="float:left">Number of visits: {{num_visits}}</span>
-        <span style="float:center">IIS project</span>
+        <span style="float:center">IIS project || User: {{user.username}}</span>
         <span style="float:right">xholko02 xkremp01 xnovak2f</span>
     </div> <!-- End footer -->
 </body>

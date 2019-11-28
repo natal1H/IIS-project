@@ -17,6 +17,13 @@ urlpatterns = [
     path('remove_from_cart/<int:id_item>/<int:id_facility>', views.remove_from_cart, name='remove_from_cart'),
 
 ]
+#fot admin processes
+urlpatterns+=[
+   
+    path('admin_view', views.admin_view, name='admin_view'),
+    path('driver_view', views.driver_view, name='driver_view'),
+    path('operator_view', views.operator_view, name='operator_view'),
+]
 
 #user authentication
 urlpatterns+=[

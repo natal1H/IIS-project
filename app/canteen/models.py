@@ -62,12 +62,28 @@ class Item(models.Model):
     )
 
 class Person(models.Model):
+
     id_person = models.AutoField(primary_key=True)
     firstname = models.CharField(max_length=50, blank=False)
     surname = models.CharField(max_length=50, blank=False)
     address = models.CharField(max_length=150, blank=False)
     telephone = models.CharField(max_length=25, blank=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True) #we'll use blank and null true TODO TOCHECK
+
+    ROLES = (
+        ('a', 'administrator'),
+        ('o', 'operator'),
+        ('d', 'driver'),
+        ('v', 'visitor'),
+        ('r', 'registered')
+    )
+    role = models.CharField(
+        max_length=1,
+        choices=ROLES,
+        blank=False,
+        default='v'
+    )
+
 
 
 class Registered(models.Model):

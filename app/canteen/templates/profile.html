@@ -16,6 +16,24 @@
     <a href="#">Edit profile</a><!-- TODO: redirect -->
     <a href="#">My orders</a><!-- TODO: redirect -->
 
+    
+    {% if role == "a" %}
+        
+        <a href="/operator_view">Operator Page</a>
+        <a href="/driver_view">Driver Page</a>
+        <a href="/admin_view">Admin Page</a>
+        
+    {% endif %}
+
+    {% if role == "o" %}
+    <a href="/operator_view">Operator Page</a>
+    {% endif %}
+
+    {% if role == "d" %}
+    <a href="/driver_view">Driver Page</a>
+    {% endif %}
+
+
     <!-- TODO: get user role, based on role display rest of the menu -->
 </div>
 

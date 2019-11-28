@@ -100,7 +100,7 @@ def signup(request):
 			login (request, user)
 			user_instance=User.objects.filter(username=username).first()
 			print(user_instance)
-			Person.objects.create(user=user_instance, firstname=firstname, surname=surname, address= address, telephone=telephone)
+			Person.objects.create(user=user_instance, firstname=firstname, surname=surname, address= address, telephone=telephone, role='r')
 
 
 			return redirect('login_url')
@@ -123,11 +123,7 @@ def contact_view(request):
 	return render(request, 'contact.html', context)
 
 
-def  profile_view(request):
-	context = {
 
-	}
-	return render(request, 'profile.html', context)
 
 
 
@@ -229,9 +225,9 @@ def add_to_cart(request, id_item, id_facility):
 		if request.user.is_authenticated:
 
 			person_instance		=Person.objects.filter(user=request.user).first()
-			food_order_instance	=Food_order.objects.create(facility=facility_instance, person=person_instance, status='o')#Creates new food order
+			food_order_instance	=Food_order.objects.create( facility=facility_instance, person=person_instance, status='o')#Creates new food order
 		else:
-			food_order_instance	=Food_order.objects.create(facility=facility_instance, status='o')
+			food_order_instance	=Food_order.objects.create( facility=facility_instance, status='o')
 
 
 		
@@ -263,6 +259,9 @@ def remove_from_cart(request, id_item, id_facility):
 		#food_order_instance	=Food_order.objects.create(facility=facility_instance, person=person_instance)
 
 	#TODO for unathorized users
+	else: 
+		cart_id=request.session.get("cart_id", None)
+		food_order_instance=Food_order.objects.filter(id_food_order=cart_id, status='o').first()
 
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER')) #stays on the same page
 
@@ -278,17 +277,26 @@ def cart_view(request):
 		food_order_items_list		=Food_order_item.objects.filter(id_food_order=food_order_instance)
 
 		#print(food_order_items_list)
+		unregistered=False
 
+	else: 
+		unregistered=True
+		cart_id=request.session.get("cart_id", None)
+		food_order_instance = Food_order.objects.filter(id_food_order=cart_id, status='o').first()
+		food_order_items_list = Food_order_item.objects.filter(id_food_order=food_order_instance)
 	
 	context={
 		"food_order_instance":food_order_instance,
 		"food_order_items_list":food_order_items_list,
-
+		"unregistered":unregistered,
 	}
 
 	return render(request, 'cart.html', context)
 
 def pay_view(request):
+
+
+	
 
 	if request.user.is_authenticated:
 		
@@ -297,16 +305,12 @@ def pay_view(request):
 		#print(food_order_instance.status)
 		#food_order_instance.status='a'
 		#print(food_order_instance.status)
-
+	else: 
+		cart_id=request.session.get("cart_id", None)
+		Food_order.objects.filter(id_food_order=cart_id, status='o').update(status='a')
 	#TODO
 
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-
-
-def all_orders_view(request):
-	#TODO
-	pass
 
 
 
@@ -341,12 +345,94 @@ def order_view(request):#basically a cart
 		food_order_approved	 =Food_order.objects.filter(person=person_instance, status='a')
 		food_order_canceled	 =Food_order.objects.filter(person=person_instance, status='c')
 		food_order_delivered =Food_order.objects.filter(person=person_instance, status='d')
+		
+		context={
+			"food_order_ordered":food_order_ordered,
+			"food_order_approved":food_order_approved,
+			"food_order_canceled":food_order_canceled,
+			"food_order_delivered":food_order_delivered,
+		}
 
-	context={
-		"food_order_ordered":food_order_ordered,
-		"food_order_approved":food_order_approved,
-		"food_order_canceled":food_order_canceled,
-		"food_order_delivered":food_order_delivered,
-	}
+	else:
+
+		context = {
+			"message":"it is not here"
+
+		} 
+
 
 	return render(request, 'order.html', context)
+
+
+def  profile_view(request):
+
+	if request.user.is_authenticated:
+		person_instance		=Person.objects.filter(user=request.user).first()
+
+		context = {
+			"role":person_instance.role
+		}
+	else: 
+		raise Http404
+	
+	return render(request, 'profile.html', context)
+
+def admin_view(request):
+
+	if request.user.is_authenticated:
+		person_instance		=Person.objects.filter(user=request.user).first()
+
+		if person_instance.role != 'a':
+			raise Http404
+		context = {
+			"role":person_instance.role
+		}
+	else: 
+		raise Http404
+
+
+	return render(request, 'admin_view.html', context)
+	#TODO
+
+
+def admin_edit_users(request):
+	#TODO
+	pass
+
+def driver_view(request):
+
+	if request.user.is_authenticated:
+		person_instance		=Person.objects.filter(user=request.user).first()
+
+		if person_instance.role != 'a' or person_instance.role != 'd':
+			raise Http404
+
+
+		context = {
+			"role":person_instance.role
+		}
+
+	else: 
+		raise Http404
+
+
+	return render(request, 'driver_view.html', context)	
+
+
+def operator_view(request):
+	if request.user.is_authenticated:
+		person_instance		=Person.objects.filter(user=request.user).first()
+
+		if person_instance.role != 'a' or person_instance.role != 'o' :
+			raise Http404
+
+
+		context = {
+			"role":person_instance.role
+		}
+
+	else: 
+		raise Http404
+
+
+	return render(request, 'driver_view.html', context)	

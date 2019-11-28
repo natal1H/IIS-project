@@ -50,8 +50,9 @@
                 Order
                 </button>
         </div>
-
-
+        {% if message %}
+                Hey, wanna register? 
+        {% endif %}
         {% if food_order_ordered %}
         <h1>Ordered</h1>
         {% for order in food_order_ordered %}

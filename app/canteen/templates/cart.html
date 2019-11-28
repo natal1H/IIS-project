@@ -11,6 +11,8 @@
             <br>
               <a href="" class=""><h1>Checkout</h1></a>  <br>
               <a href="{%url 'pay'%}" class=""><h1>Pay</h1></a>  <br>
-      
+            {%if unregistered%}
+              <a href="" class=""><h1>Hey, wanna register</h1></a>  <br>
+            {%endif%}
 
        {% endblock %}
