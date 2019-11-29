@@ -72,7 +72,7 @@ class Person(models.Model):
     firstname = models.CharField(max_length=50, blank=False)
     surname = models.CharField(max_length=50, blank=False)
     address = models.CharField(max_length=150, blank=False)
-    telephone = models.CharField(max_length=25, blank=False)
+    telephone = models.CharField(max_length=25, blank=False, unique=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True) #we'll use blank and null true TODO TOCHECK
 
     
@@ -93,7 +93,7 @@ class Person(models.Model):
 
     def __str__(self):
         """String for representing the MyModelName object (in Admin site etc.)."""
-        return self.user.username
+        return self.surname
 
     def get_absolute_url(self):
         return f"{self.id_person}"

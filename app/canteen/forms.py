@@ -56,6 +56,17 @@ class Food_form(forms.ModelForm):
             'diet_type'
         ]
 
+class Pay_form(forms.ModelForm):
+    class Meta:
+        model = Person
+        fields =[
+            
+            'firstname',
+            'surname',
+            'address',
+            'telephone',
+            
+        ]
 
 class UserUpdate(UpdateView):
 

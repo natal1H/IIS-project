@@ -286,19 +286,35 @@ def remove_from_cart(request, id_item, id_facility):
 		cart_id=request.session.get("cart_id", None)
 		food_order_instance=Food_order.objects.filter(id_food_order=cart_id, status='o').first()
 
+
+		item_instance		=Item.objects.filter(id_item=id_item).first()
+
+		delete_instance		=Food_order_item.objects.filter(id_item=item_instance ,id_food_order=food_order_instance).first()
+		
+		if delete_instance.quantity==1:
+			delete_instance.delete()
+		else:
+			quantity=delete_instance.quantity-1
+			print(quantity)
+			Food_order_item.objects.filter(id_item=item_instance ,id_food_order=food_order_instance).update(quantity=quantity)
+
+
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER')) #stays on the same page
 
 	#TODO
 
 #current order
 def cart_view(request):
-	
+	#TODO it doesnt work
+	#might not work with migrations sometimes
 	if request.user.is_authenticated:
 		person_instance				=Person.objects.filter(user=request.user).first()
 		food_order_instance 		=Food_order.objects.filter(person=person_instance, status='o').first()
 		#print(food_order_instance.status)
 		food_order_items_list		=Food_order_item.objects.filter(id_food_order=food_order_instance)
-
+		#print(food_order_instance.id_food_order)
+		#print(person_instance)
+		#print(food_order_items_list)
 		#print(food_order_items_list)
 		unregistered=False
 
@@ -330,11 +346,46 @@ def pay_view(request):
 		#print(food_order_instance.status)
 	else: 
 		cart_id=request.session.get("cart_id", None)
-		Food_order.objects.filter(id_food_order=cart_id, status='o').update(status='a')
+		
+		#TODO think about unregistered payment
+		my_form=Pay_form()
+		if request.method=="POST":
+			
+			my_form=Pay_form(request.POST)
+			
+			if my_form.is_valid():
+				print(my_form.cleaned_data["telephone"])
+
+				person_instance=Person.objects.create(**my_form.cleaned_data)
+				Food_order.objects.filter(id_food_order=cart_id, status='o').update(status='a',person=person_instance)
+				context={
+
+				}
+				return render(request, 'paid.html', context)
+
+			else:
+				print(my_form.errors)
+			
+		context={
+			"form":my_form
+		}
+
+		return render(request, 'pay_unregistered.html', context)
 	#TODO
 
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+
+def pay_view_unreg(request):
+	if request.user.is_authenticated:
+		raise PermissionDenied()  
+	
+
+	my_form=Pay_form()
+
+
+
+	pass
 
 
 #this is basically all orders view
