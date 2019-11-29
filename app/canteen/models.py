@@ -5,10 +5,9 @@ from django.urls import reverse
 from django.contrib.auth.models import AbstractUser
 from django.utils.html import escape, mark_safe
 
-# Create your models here.
-
 from django.contrib.auth.models import User
 
+from django.core.exceptions import PermissionDenied
 
 
 class Facility (models.Model):
@@ -64,6 +63,9 @@ class Item(models.Model):
         default='n',
     )
 
+    def get_absolute_url(self):
+        return f"{self.id_item}"
+
 class Person(models.Model):
 
     id_person = models.AutoField(primary_key=True)
@@ -95,6 +97,24 @@ class Person(models.Model):
 
     def get_absolute_url(self):
         return f"{self.id_person}"
+
+    def is_admin(self):
+        if self.role == 'a' or self.role == 'o' or self.role == 'd':
+            pass
+        else: 
+            raise PermissionDenied()
+    
+    def is_operator(self):
+        if self.role == 'o' or self.role == 'a':
+            pass        
+        else: 
+            raise PermissionDenied()
+
+    def is_driver(self):
+        if self.role == 'd' or self.role == 'a':
+            pass        
+        else: 
+            raise PermissionDenied()
 
 class Registered(models.Model):
     email = models.CharField(max_length=32, unique=True, blank=False, primary_key=True)

@@ -44,6 +44,18 @@ class person_form(forms.ModelForm):
             'user'
         ]
 
+class Food_form(forms.ModelForm):
+    class Meta:
+        model = Item
+        fields =[
+            'id_item',
+            'name',
+            'description',
+            'price',
+            'image',
+            'diet_type'
+        ]
+
 
 class UserUpdate(UpdateView):
 

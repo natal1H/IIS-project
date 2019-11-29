@@ -535,3 +535,36 @@ def operator_view(request):
 
 
 	return render(request, 'operator_view.html', context)	
+
+def food_list_view(request): 
+	if request.user.is_authenticated:
+		person_instance		=Person.objects.filter(user=request.user).first()
+		person_instance.is_admin()
+		person_instance.is_operator()
+
+	else:
+		raise Http404
+
+	food_list=Item.objects.all()
+
+
+
+	context={
+		"food_list":food_list
+
+	}
+
+	return render(request, 'food_list_view.html', context)
+
+
+class food_update_view(generic.UpdateView):
+    template_name = 'food_update_view.html'
+    form_class = Food_form
+    def get_object(self):
+        id = self.kwargs.get("id")
+        return get_object_or_404(Item, id_item=id)
+
+    def form_valid(self, form):
+        
+        print(form.cleaned_data)
+        return super().form_valid(form)
