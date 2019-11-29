@@ -196,8 +196,8 @@ class Food_order_item(models.Model):
     id_item         = models.ForeignKey(Item, on_delete=models.CASCADE)
     quantity        = models.IntegerField(default=1)
     
-    #class Meta:
-    #    unique_together = (('id_food_order', 'id_item'),)
+    class Meta:
+        unique_together = (('id_food_order', 'id_item'),)
 
 class Facility_menus(models.Model):
     id_facility = models.ForeignKey(Facility, on_delete=models.CASCADE)

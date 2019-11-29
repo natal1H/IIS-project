@@ -212,7 +212,15 @@ def add_to_cart(request, id_item, id_facility):
 		food_order_item_instance=Item.objects.filter(id_item=id_item).first()
 		
 		
-		Food_order_item.objects.create(id_food_order=food_order_instance, id_item=food_order_item_instance)
+		food_order_item_instance_from_mm_table=Food_order_item.objects.filter( id_food_order=food_order_instance, id_item=food_order_item_instance ) 
+
+		if food_order_item_instance_from_mm_table.count()==1:
+			quantity=food_order_item_instance_from_mm_table.first().quantity+1
+			print(quantity)
+			Food_order_item.objects.filter( id_food_order=food_order_instance, id_item=food_order_item_instance ).update(quantity=quantity)
+			#Food_order.objects.filter(id_food_order=cart_id, status='o').update(status='a')
+		else:
+			Food_order_item.objects.create(id_food_order=food_order_instance, id_item=food_order_item_instance)
 
 
 
@@ -241,7 +249,7 @@ def add_to_cart(request, id_item, id_facility):
 		#TOCONTINUE 
 
 
-	#TODO order, checkout etc. and all
+	#TODO order, checkout etc. and all  almost done, but needs to be finalized and tested
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER')) #stays on the same page
 
 
@@ -254,7 +262,21 @@ def remove_from_cart(request, id_item, id_facility):
 		food_order_instance =Food_order.objects.filter(person=person_instance, status='o').first()
 
 		delete_instance		=Food_order_item.objects.filter(id_item=item_instance ,id_food_order=food_order_instance).first()
-		delete_instance.delete()
+		
+		if delete_instance.quantity==1:
+			delete_instance.delete()
+		else:
+			quantity=delete_instance.quantity-1
+			print(quantity)
+			Food_order_item.objects.filter(id_item=item_instance ,id_food_order=food_order_instance).update(quantity=quantity)
+			
+
+		"""
+		quantity=food_order_item_instance_from_mm_table.first().quantity+1
+		print(quantity)
+		Food_order_item.objects.filter( id_food_order=food_order_instance, id_item=food_order_item_instance ).update(quantity=quanti
+		"""
+		
 
 		#print(delete_instance)
 		#food_order_instance	=Food_order.objects.create(facility=facility_instance, person=person_instance)

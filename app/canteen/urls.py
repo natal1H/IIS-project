@@ -28,7 +28,7 @@ urlpatterns+=[
     path('person_update/<int:id>', views.person_update_view.as_view(), name='person_update'),
     path('person_list_view', views.person_list_view, name='person_list_view'),
 
-
+    
 ]
 
 
