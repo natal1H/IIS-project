@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% for instance in person_instance_list %}
+
+{{instance.id_person}} {{instance.firstname}} {{instance.surname}} || 
+<a href="{%url 'person_update' instance.id_person %}">update</a>
+
+<br>
+
+
+
+{% endfor %}
+{% endblock %}

@@ -25,7 +25,9 @@ urlpatterns+=[
     path('operator_view', views.operator_view, name='operator_view'),
     path('food_order/', views.food_order_list_view, name='food_order'),
     path('food_order_update/<int:id>', views.Food_order_update_view.as_view(), name='food_order_update'),
+    path('food_order_delete/<int:id>', views.Food_order_delete_view.as_view(), name='food_order_delete'),
     path('person_update/<int:id>', views.person_update_view.as_view(), name='person_update'),
+    path('person_list_view', views.person_list_view, name='person_list_view'),
 
 
 ]

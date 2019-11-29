@@ -414,6 +414,17 @@ class Food_order_update_view(generic.UpdateView):
         print(form.cleaned_data)
         return super().form_valid(form)
 
+
+class Food_order_delete_view(DeleteView):
+    template_name = 'food_order_delete_view.html'
+    
+    def get_object(self):
+        id = self.kwargs.get("id")
+        return get_object_or_404(Food_order, id_food_order=id)
+
+    def get_success_url(self):
+        return '../food_order'
+
 """
 class Food_order_list_view(ListView):
     template_name = 'Food_order_list.html'
@@ -430,6 +441,34 @@ class person_update_view(generic.UpdateView):
         
         print(form.cleaned_data)
         return super().form_valid(form)
+
+
+
+def  person_list_view(request):
+
+
+	if request.user.is_authenticated:
+
+		person_instance			=Person.objects.filter(user=request.user).first()
+		person_instance_list	=Person.objects.all()
+		
+
+
+		if person_instance.role == 'a':
+			
+			context={
+				"person_instance_list":person_instance_list
+			}
+		else:
+			raise Http404
+
+		
+	else: 
+		raise Http404
+
+	
+
+	return render(request, 'person_list_view.html', context)
 
 
 class user_update_view(generic.UpdateView):
