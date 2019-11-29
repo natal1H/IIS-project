@@ -568,3 +568,31 @@ class food_update_view(generic.UpdateView):
         
         print(form.cleaned_data)
         return super().form_valid(form)
+
+class food_delete_view(DeleteView):
+    template_name = 'food_delete_view.html'
+    form_class = Food_form
+
+    def get_object(self):
+        id = self.kwargs.get("id")
+        return get_object_or_404(Item, id_item=id)
+
+    def get_success_url(self):
+        return '../food_list_view'
+
+class food_create_view(CreateView):
+	
+    template_name = 'food_create_view.html'
+    form_class = Food_form
+    queryset = Item.objects.all() # <blog>/<modelname>_list.html
+    #success_url = '/'
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
+	
+    def get_success_url(self):
+        return '../food_list_view'
+
+
+

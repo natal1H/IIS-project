@@ -34,8 +34,10 @@ urlpatterns+=[
 
 urlpatterns+=[
     path('operator_view', views.operator_view, name='operator_view'),
+    path('food_create_view', views.food_create_view.as_view(), name='food_create'),
     path('food_list_view', views.food_list_view, name='food_list_view'),
     path('food_update_view/<int:id>', views.food_update_view.as_view(), name='food_update_view'),
+    path('food_delete_view/<int:id>', views.food_delete_view.as_view(), name='food_delete_view'),
 
 ]
 
