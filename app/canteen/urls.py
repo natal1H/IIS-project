@@ -28,7 +28,9 @@ urlpatterns+=[
     path('person_update/<int:id>', views.person_update_view.as_view(), name='person_update'),
     path('person_list_view', views.person_list_view, name='person_list_view'),
 
-    
+    path('menu_list_view', views.menu_list_view, name='menu_list_view'),
+    path('menu_update/<int:id>', views.menu_update_view.as_view(), name='menu_update_view'),
+
 ]
 
 

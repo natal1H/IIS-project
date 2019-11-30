@@ -667,5 +667,37 @@ class food_create_view(CreateView):
     def get_success_url(self):
         return '../food_list_view'
 
+class menu_create_view(CreateView):
+	pass
+
+class menu_update_view(UpdateView):
+
+    template_name = 'menu_update_view.html'
+    form_class = Menu_form
+    def get_object(self):
+        id = self.kwargs.get("id")
+        return get_object_or_404(Menu, id_menu=id)
+
+    def form_valid(self, form):
+        
+        print(form.cleaned_data)
+        return super().form_valid(form)
 
 
+class menu_delete_view(DeleteView):
+	pass
+
+def menu_list_view(request): 
+
+	if request.user.is_authenticated:
+		person_instance		=Person.objects.filter(user=request.user).first()
+		person_instance.is_admin()
+		person_instance.is_operator()
+
+	menu_instance_list=Menu.objects.all()
+
+	context={
+		"menu_instance_list":menu_instance_list,
+	}
+	
+	return render(request, 'menu_list_view.html', context)	

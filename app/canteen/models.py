@@ -42,6 +42,9 @@ class Menu (models.Model):
         default='s',  # By default will be static menu
     )
 
+    def get_absolute_url(self):
+        return f"{self.id_menu}"
+
 
 class Item(models.Model):
     id_item = models.AutoField(primary_key=True)

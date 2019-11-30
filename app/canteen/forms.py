@@ -68,6 +68,17 @@ class Pay_form(forms.ModelForm):
             
         ]
 
+class Menu_form(forms.ModelForm):
+    class Meta:
+        model = Menu
+        fields =[
+            
+            'date',
+            'max_items',
+            'type',
+            
+        ]
+
 class UserUpdate(UpdateView):
 
 
