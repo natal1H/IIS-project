@@ -731,7 +731,19 @@ def menu_list_view(request):
 	return render(request, 'menu_list_view.html', context)	
 
 
-def facitlity_list_view(request):
+def facitlity_list_view_for_staff(request):
+	if request.user.is_authenticated:
+		person_instance		=Person.objects.filter(user=request.user).first()
+		person_instance.is_admin()
+		person_instance.is_operator()
+
+	facility_instance_list=Facility.objects.all()
+
+	context={
+		"facility_instance_list":facility_instance_list,
+	}
+	
+	return render(request, 'facility_staff_view.html', context)	
 
 
 	pass
