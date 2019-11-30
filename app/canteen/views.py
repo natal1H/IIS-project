@@ -2,7 +2,7 @@ from django.http import Http404
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
-from canteen.models import *
+from .models import *
 
 
 from django.contrib.auth.forms import UserCreationForm
@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 
 from django.http import HttpResponseRedirect
 
-from canteen.forms import *
+from .forms import *
 
 from django.contrib.auth import login, authenticate
 
@@ -441,10 +441,11 @@ def order_view(request):#basically a cart
 def  profile_view(request):
 
 	if request.user.is_authenticated:
-		person_instance		=Person.objects.filter(user=request.user).first()
+		person_instance	= Person.objects.filter(user=request.user).first()
 
 		context = {
-			"role":person_instance.role
+			"person": person_instance,
+			"role": person_instance.role
 		}
 	else: 
 		raise Http404

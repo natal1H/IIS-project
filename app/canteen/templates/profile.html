@@ -44,16 +44,25 @@
       <hr>
       <div style="display:block">
           <img src="" alt="profile picture" width="150px" height="150px" style="float:left"/>
-          First name<br><!-- TODO -->
-          Last name<br><!-- TODO -->
-          Email<br><!-- TODO -->
-          Telephone<br><!-- TODO -->
-          Address<br><!-- TODO -->
+          Name: {{ person.firstname }}<br>
+          Surname: {{ person.surname }}<br>
+          Email: {{ person.email }}<br>
+          Telephone: {{ person.telephone }}<br>
+          Address: {{ person.address }}<br>
+          {% if role == "a" %}
+          Role: administrator<br>
+          {% elif role == "o" %}
+          Role: operator<br>
+          {% elif role == "d" %}
+          Role: driver<br>
+          {% else %}
+          Role: registered user<br>
+          {% endif %}
       </div>
       <hr>
       <div style="display:block">
           <h3>Description</h3>
-          TODO
+          {{ person.description }}
       </div>
   </div>
 </div>
