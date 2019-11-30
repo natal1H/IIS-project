@@ -70,15 +70,14 @@ class Item(models.Model):
         return f"{self.id_item}"
 
 class Person(models.Model):
-
     id_person = models.AutoField(primary_key=True)
     firstname = models.CharField(max_length=50, blank=False)
     surname = models.CharField(max_length=50, blank=False)
     address = models.CharField(max_length=150, blank=False)
     telephone = models.CharField(max_length=25, blank=False, unique=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True) #we'll use blank and null true TODO TOCHECK
-
-    
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True) # we'll use blank and null true TODO TOCHECK
+    email = models.CharField(max_length=32, unique=True, blank=True, null=True)
+    profile_info = models.CharField(max_length=300, blank=True, null=True)
 
     ROLES = (
         ('a', 'administrator'),
@@ -118,30 +117,6 @@ class Person(models.Model):
             pass        
         else: 
             raise PermissionDenied()
-
-class Registered(models.Model):
-    email = models.CharField(max_length=32, unique=True, blank=False, primary_key=True)
-    profile_info = models.CharField(max_length=300, blank=True, null=True)
-    image = models.ImageField(max_length=50, blank=True, null=True)
-    login = models.CharField(max_length=32, unique=True, blank=False)
-    password = models.CharField(max_length=32, blank=False)
-    person = models.OneToOneField(Person, on_delete=models.CASCADE)
-
-
-class Employee(models.Model):
-    registered = models.OneToOneField(Registered, primary_key=True, on_delete=models.CASCADE)
-
-    ROLES = (
-        ('a', 'administrator'),
-        ('o', 'operator'),
-        ('d', 'driver')
-    )
-
-    role = models.CharField(
-        max_length=1,
-        choices=ROLES,
-        blank=False,
-    )
 
 
 class Food_order(models.Model):
