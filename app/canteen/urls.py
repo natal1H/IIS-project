@@ -29,8 +29,9 @@ urlpatterns+=[
     path('person_list_view', views.person_list_view, name='person_list_view'),
 
     path('menu_list_view', views.menu_list_view, name='menu_list_view'),
-    path('menu_update/<int:id>', views.menu_update_view.as_view(), name='menu_update_view'),
     path('menu_create_view', views.menu_create_view.as_view(), name='menu_create_view'),
+    path('menu_update_view/<int:id>', views.menu_update_view.as_view(), name='menu_update_view'),
+    path('menu_delete_view/<int:id>', views.menu_delete_view.as_view(), name='menu_delete_view'),
 
 ]
 

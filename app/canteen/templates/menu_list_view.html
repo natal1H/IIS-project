@@ -6,8 +6,8 @@
 {% for instance in menu_instance_list %}
               
 {{instance.id_menu}}   
-<a href="" class="">Update</a> ||
-<a href="" class="">Remove</a> 
+<a href="{%url 'menu_update_view' instance.id_menu %}" class="">Update</a> ||
+<a href="{%url 'menu_delete_view' instance.id_menu %}" class="">Remove</a> 
               
 <br>        
               

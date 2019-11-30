@@ -323,6 +323,7 @@ def cart_view(request):
 		cart_id=request.session.get("cart_id", None)
 		food_order_instance = Food_order.objects.filter(id_food_order=cart_id, status='o').first()
 		food_order_items_list = Food_order_item.objects.filter(id_food_order=food_order_instance)
+	
 	facility_instance = food_order_instance.facility
 	
 	context={
@@ -698,7 +699,16 @@ class menu_update_view(UpdateView):
 
 
 class menu_delete_view(DeleteView):
-	pass
+    template_name = 'menu_delete_view.html'
+    form_class = Menu_form
+
+    def get_object(self):
+        id = self.kwargs.get("id")
+        return get_object_or_404(Menu, id_menu=id)
+
+    def get_success_url(self):
+        return '../menu_list_view'
+
 
 def menu_list_view(request): 
 
