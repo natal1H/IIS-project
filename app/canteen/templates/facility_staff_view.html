@@ -5,7 +5,8 @@
 
 {% for instance in facility_instance_list%}
      <p>{{ instance.id_facility }} {{instance.name}}: <a href="{%url 'facility_update_view' instance.id_facility %}">update</a>||
-     <a href="{%url 'facility_delete_view' instance.id_facility %}">delete</a>|| <a href="">Menus</a></p>
+     <a href="{%url 'facility_delete_view' instance.id_facility %}">delete</a>|| 
+     <a href="{%url 'facility_menus_list_staff' instance.id_facility %}">Menus</a></p>
 
 {% endfor %}
 

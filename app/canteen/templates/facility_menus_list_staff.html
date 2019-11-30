@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Menus:</h1>
+{% for instance in menu_list %}
+              
+{{instance.id_menu}}   
+<a href="{%url 'menu_update_view' instance.id_menu %}" class="">Update</a> ||
+<a href="{%url 'menu_delete_view' instance.id_menu %}" class="">Remove</a> ||
+<a href="{%url 'facility_menus_items_list_staff' instance.id_menu %}" class="">Foods</a> 
+    
+<br>        
+              
+{%endfor%}
+
+{% endblock %}

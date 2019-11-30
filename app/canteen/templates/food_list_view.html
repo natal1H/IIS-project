@@ -6,7 +6,7 @@
 {% for instance in food_list%}
      <p>{{ instance.id_item }}  {{ instance.name }}: <a href="{%url 'food_update_view' instance.id_item %}">update</a>||
      <a href="{%url 'food_delete_view' instance.id_item %}">delete</a></p>
-
+          
 {% endfor %}
 
 

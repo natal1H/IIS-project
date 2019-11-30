@@ -13,6 +13,10 @@ urlpatterns = [
     path('facility_create_view', views.facility_create_view.as_view(), name='facility_create_view'),
     path('facility_update_view/<int:id>', views.facility_update_view.as_view(), name='facility_update_view'),
     path('facility_delete_view/<int:id>', views.facility_delete_view.as_view(), name='facility_delete_view'),
+    path('facility_menus_list_staff/<int:id>', views.facility_menus_list_staff, name='facility_menus_list_staff'),
+    path('facility_menus_items_list_staff/<int:id>', views.facility_menus_items_list_staff, name='facility_menus_items_list_staff'),
+
+
 
     path('menu/<int:id>', views.menu_view, name='menu'),
     path('order',views.order_view, name='order'),
@@ -46,7 +50,7 @@ urlpatterns+=[
     path('food_create_view', views.food_create_view.as_view(), name='food_create'),
     path('food_list_view', views.food_list_view, name='food_list_view'),
     path('food_update_view/<int:id>', views.food_update_view.as_view(), name='food_update_view'),
-    path('food_delete_view/<int:id>', views.menu_create_view.as_view(), name='menu_create_view'),
+    path('food_delete_view/<int:id>', views.food_delete_view.as_view(), name='food_delete_view'),
 
 ]
 

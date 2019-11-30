@@ -789,3 +789,49 @@ class facility_delete_view(DeleteView):
 
     def get_success_url(self):
         return '../facility_list_staff_view'
+
+
+def facility_menus_list_staff(request, id):
+
+	#facility_instance=Facility.objects.filter(id_facility=id)
+	facility_menus_instance_list=Facility_menus.objects.filter(id_facility=id)
+
+	print(facility_menus_instance_list)
+
+
+	menu_list=[]
+	
+	for x in facility_menus_instance_list:
+		menu_list.append(x.id_menu)
+
+
+	#menus_instance_list=Menu.objects.filter(id_menu=facility_menus_instance_list.id_menu)
+	
+	context={
+		"menu_list": menu_list
+	}
+	return render(request, 'facility_menus_list_staff.html', context)
+
+def facility_menus_items_list_staff(request, id):
+
+	#menu_instance=Menu.objects.filter(id_menu=id)
+	facility_menus_items_list=Menu_items.objects.filter(id_menu=id)
+
+	print(facility_menus_items_list)
+
+
+	item_list=[]
+	
+	for x in facility_menus_items_list:
+		item_list.append(x.id_item)
+
+
+	#menus_instance_list=Menu.objects.filter(id_menu=facility_menus_instance_list.id_menu)
+	
+	context={
+		"item_list": item_list
+	}
+	return render(request, 'facility_menus_items_list_staff.html', context)
+
+
+
