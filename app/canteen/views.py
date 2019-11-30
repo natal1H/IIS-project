@@ -323,10 +323,12 @@ def cart_view(request):
 		cart_id=request.session.get("cart_id", None)
 		food_order_instance = Food_order.objects.filter(id_food_order=cart_id, status='o').first()
 		food_order_items_list = Food_order_item.objects.filter(id_food_order=food_order_instance)
+	facility_instance = food_order_instance.facility
 	
 	context={
 		"food_order_instance":food_order_instance,
 		"food_order_items_list":food_order_items_list,
+		"facility_instance":facility_instance,
 		"unregistered":unregistered,
 	}
 

@@ -1,18 +1,53 @@
  {% extends "base.html" %}
 
         {% block content %}
-        {% for instance_item in food_order_items_list %}
-              {{instance_item.id_item.name}} <a href="{%url 'add_to_cart' instance_item.id_item.id_item food_order_instance.facility.id_facility%}" class="">Add</a> ||
-              <a href="{%url 'remove_from_cart' instance_item.id_item.id_item food_order_instance.facility.id_facility%}" class="">Remove</a> 
-              Quantity: {{instance_item.quantity}}
-              <br>
-                      
-              
-        {%endfor%}
         
         {% if food_order_instance %}
             <br>
-              <a href="" class=""><h1>Checkout</h1></a>  <br>
+            <a href="" class=""><h1>Checkout</h1></a>  <br>
+
+            <div class="checkout-block">
+                <div class="contact-info-block" style="margin-left: auto; margin-right: auto;">
+                    <h2>Contact info</h2><hr><br>
+                    <div class="row">
+                        <div class="column left"> <label for="firstname">First name</label> <br> <input type="text" name="firstname" size="24"></div>
+                        <div class="column right"> <label for="lastname">Last name</label> <br> <input type="text" name="lastname"size="24"></div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="column left"> <label for="phone">Phone</label> <br> <input type="text" name="phone"size="24"></div>
+                        <div class="column right"> <label for="e-mail">E-mail</label> <br> <input type="text" name="e-mail"size="24"></div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="column left"> <label for="adress">Adress</label> <br> <input type="text" name="adress"size="24"></div>
+                    </div>
+                    <br style="clear:both;">
+                </div>
+                <br>
+
+                <div class="side-order-block">
+                    <a style="text-decoration:underline; color: #999999" href="">Back to restaurant</a> <!-- TODO return to that facility -->
+                    <h2>Ordering from</h2><hr><br>
+                    <b>Facility name: {{ facility_instance.name }}</b><br><!-- TODO facility name -->
+                    <hr>
+
+                    <!-- TODO for food item -->
+                    {% for instance_item in food_order_items_list %}
+                    {{instance_item.id_item.name}} <a href="{%url 'add_to_cart' instance_item.id_item.id_item food_order_instance.facility.id_facility%}" class="">Add</a> ||
+                    <a href="{%url 'remove_from_cart' instance_item.id_item.id_item food_order_instance.facility.id_facility%}" class="">Remove</a>
+                    Quantity: {{instance_item.quantity}}<br>
+                    {%endfor%}
+
+                    <hr>
+                    <b>Total: x €</b><br>
+                </div>
+                <br style="clear:both;">
+                <br>
+            <br>
+        </div>
+
+
               <a href="{%url 'pay'%}" class=""><h1>Pay</h1></a>  <br>
             {%if unregistered%}
               <a href="" class=""><h1>Hey, wanna register</h1></a>  <br>
