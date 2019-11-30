@@ -8,17 +8,12 @@ admin.site.register(Facility)
 admin.site.register(Menu)
 admin.site.register(Item)
 admin.site.register(Person)
-admin.site.register(Registered)
-admin.site.register(Employee)
 admin.site.register(Food_order)
 admin.site.register(Food_order_item)
 admin.site.register(Facility_menus)
 admin.site.register(Menu_items)
 
 admin.site.register(Roles)
-
-#admin.site.register(testItem)
-#admin.site.register(testOrder)
 
 
 """

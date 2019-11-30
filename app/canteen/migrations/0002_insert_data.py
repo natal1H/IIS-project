@@ -10,8 +10,7 @@ def load_canteen_from_sql():
 
 
 def delete_canteen_with_sql():
-    return 'DELETE from canteen_facility; DELETE from canteen_menu; DELETE from canteen_item; DELETE from canteen_person; DELETE from canteen_food_order; DELETE from canteen_registered; DELETE from canteen_employee; DELETE from canteen_facility_menus; DELETE from canteen_menu_items; DELETE from canteen_food_order_item;'
-
+    return 'DELETE from canteen_facility; DELETE from canteen_menu; DELETE from canteen_item; DELETE from canteen_person; DELETE from canteen_food_order; DELETE from canteen_facility_menus; DELETE from canteen_menu_items; DELETE from canteen_food_order_item;'
 
 class Migration(migrations.Migration):
 
