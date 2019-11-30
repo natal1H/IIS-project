@@ -16,6 +16,7 @@ urlpatterns = [
     path('facility_menus_list_staff/<int:id>', views.facility_menus_list_staff, name='facility_menus_list_staff'),
     path('facility_menus_items_list_staff/<int:id>', views.facility_menus_items_list_staff, name='facility_menus_items_list_staff'),
 
+    path('delete_from_menu/<int:id_menu>/<int:id_item>', views.delete_from_menu, name='delete_from_menu'),
 
 
     path('menu/<int:id>', views.menu_view, name='menu'),

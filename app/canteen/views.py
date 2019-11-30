@@ -817,7 +817,7 @@ def facility_menus_items_list_staff(request, id):
 	#menu_instance=Menu.objects.filter(id_menu=id)
 	facility_menus_items_list=Menu_items.objects.filter(id_menu=id)
 
-	print(facility_menus_items_list)
+	#print(facility_menus_items_list)
 
 
 	item_list=[]
@@ -829,9 +829,32 @@ def facility_menus_items_list_staff(request, id):
 	#menus_instance_list=Menu.objects.filter(id_menu=facility_menus_instance_list.id_menu)
 	
 	context={
-		"item_list": item_list
+		"item_list": item_list,
+		"id_menu":id
 	}
 	return render(request, 'facility_menus_items_list_staff.html', context)
 
+def delete_from_menu(request, id_menu, id_item):
 
+	if request.user.is_authenticated:
+		person_instance		=Person.objects.filter(user=request.user).first()
+		person_instance.is_admin()
+		person_instance.is_operator()
+	else: 
+		PermissionDenied()
+		return render(request, 'error_access.html', {})
+	
+
+	delete_instance=Menu_items.objects.filter(id_menu=id_menu, id_item=id_item).first()
+	delete_instance.delete()
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER')) #stays on the same page
+
+def controlPermissions(request, bool_var, person_instance):
+	if bool_var:
+		person_instance		=Person.objects.filter(user=request.user).first()
+		person_instance.is_admin()
+		person_instance.is_operator()
+	else: 
+		PermissionDenied()
+		return render(request, 'error_access.html', {})
 

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Food:</h1>
+<h1>facilities:</h1>
 
 {% for instance in facility_instance_list%}
      <p>{{ instance.id_facility }} {{instance.name}}: <a href="{%url 'facility_update_view' instance.id_facility %}">update</a>||
