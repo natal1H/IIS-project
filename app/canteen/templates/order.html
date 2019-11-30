@@ -1,9 +1,30 @@
  {% extends "base.html" %}
+             {% block content %}
 
-        {% block content %}
-        <div class="side-order-block">
-                <a style="text-decoration:underline" href="">Back to restaurant</a> <!-- TODO return to that facility -->
-                Ordering from<br>
+        <div class="checkout-block">
+                <div class="contact-info-block" style="margin-left: auto; margin-right: auto;">
+                    <h2>Contact info</h2><hr><br>
+                    <div class="row">
+                        <div class="column left"> <label for="firstname">First name</label> <br> <input type="text" name="firstname" size="24"></div>
+                        <div class="column right"> <label for="lastname">Last name</label> <br> <input type="text" name="lastname"size="24"></div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="column left"> <label for="phone">Phone</label> <br> <input type="text" name="phone"size="24"></div>
+                        <div class="column right"> <label for="e-mail">E-mail</label> <br> <input type="text" name="e-mail"size="24"></div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="column left"> <label for="adress">Adress</label> <br> <input type="text" name="adress"size="24"></div>
+                    </div>
+                    <br style="clear:both;">
+                </div>
+                <br>
+
+
+            <div class="side-order-block">
+                <a style="text-decoration:underline; color: #999999" href="">Back to restaurant</a> <!-- TODO return to that facility -->
+                <h2>Ordering from</h2><hr><br>
                 <b>Facility name</b><br><!-- TODO facility name -->
                 <hr>
 
@@ -11,45 +32,36 @@
                 1x food name ... x €<br>
                 <hr>
                 <b>Total: x €</b><br>
-        </div>
-        <div class="checkout-block">
+            </div>
+            <br style="clear:both;">
+            <br>
 
-                <div class="contact-info-block">
-                        Contact info<br><hr>
-                        First name:
-                        <input type="text" placeholder="First name..." name="firstname"><br>
-                        Last name:
-                        <input type="text" placeholder="Last name..." name="lastname"><br>
-                        Telephone:
-                        <input type="text" placeholder="Telephone..." name="telephone"><br>
-                </div>
-                <div class="address-block">
-                        Address<br><hr>
-                        Street + number:
-                        <input type="text" placeholder="Street + number..." name="street"><br>
-                        City:
-                        <input type="text" placeholder="City..." name="city"><br>
-                        Post code:
-                        <input type="text" placeholder="Post code..." name="postcode"><br>
-                        First name:
-                        <input type="text" placeholder="First name..." name="firstname"><br>
-                        State:
-                        <input type="text" placeholder="State..." name="state"><br>
-                </div>
-                <div class="payment-block">
-                        Payment form<br><hr>
-                        <form>
-                                <input type="radio" name="cash_delivery" value="cash_delivery">Cash on delivery<br>
-                                <input type="radio" name="card_delivery" value="card_delivery">Card on delivery<br>
-                                <input type="radio" name="card_now" value="card_now">Card now<br>
-                                <input type="radio" name="meal_ticket" value="meal_ticket">Meal ticket<br>
-                        </form>
-                </div>
 
-                <button class="button-black" onclick=""> <!-- TODO: order -->
+
+            <div class="payment-block" style="margin-left: auto; margin-right: auto;">
+                    <h2>Payment form</h2><hr><br>
+                    <form>
+                        <label class="container">Cash on delivery
+                            <input type="radio" name="cash_delivery" value="cash_delivery" checked="checked">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="container">Card on delivery
+                            <input type="radio" name="card_delivery" value="card_delivery">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="container">Card now
+                            <input type="radio" name="card_now" value="card_now">
+                            <span class="checkmark"></span>
+                        </label>
+                    </form>
+            </div>
+            <br>
+
+            <button class="button-black" onclick=""> <!-- TODO: order -->
                 Order
-                </button>
+            </button>
         </div>
+
         {% if message %}
                 Hey, wanna register? 
         {% endif %}

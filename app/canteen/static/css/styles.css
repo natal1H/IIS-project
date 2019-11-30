@@ -7,11 +7,15 @@
 
 a {
     text-decoration: none;
+    color: #ffffff;
+}
+
+ul li a {
     color: #000;
 }
 
 .main-header {
-  background-color: #cc0000;
+  background-color: #d42626;
   overflow: hidden;
   color: #fff;
   height: 36px;
@@ -36,6 +40,7 @@ a {
 .main-header ul a {
     color: #fff;
 }
+
 
 .search-header {
     background-color: #ff9999;
@@ -71,7 +76,7 @@ a {
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: #cc0000;
+    background-color: #d42626;
     color: white;
     text-align: center;
     height: 20px;
@@ -174,7 +179,7 @@ a {
 }
 
 .register-block {
-    width: 650px;
+    width: 600px;
     background: #f2f2f2;
     position: absolute;
     left: 50%;
@@ -185,37 +190,104 @@ a {
     padding:10px;
 }
 
-.side-order-block {
-    background: #f2f2f2;
-    float: left;
-    width: 20%;
-    padding: 15px;
-}
-
 .checkout-block {
-    text-align: center;
+    width: 600px;
+    display:block;
+    margin-right: auto;
+    margin-left: auto;
+    background: #f2f2f2;
+    text-align: left;
+    padding: 10px;
 }
 
-.contact-info-block {
-    width: 650px;
-    background: #f2f2f2;
-    margin:10px;
-    text-align: center;
+.side-order-block {
+    float: left;
+    width: 580px;
+    font-size:18px;
 }
 
-.address-block {
-    width: 650px;
-    background: #f2f2f2;
-    margin:10px;
-    text-align: center;
+input[type=text]{
+    padding: 10px 10px;
 }
 
-.payment-block {
-    width: 650px;
-    background: #f2f2f2;
-    margin:10px;
-    text-align: center;
+.column{
+    float: left;
+    padding-bottom: 10px;
 }
+.left{
+     margin-right: 40px;
+}
+.row:after{
+    clear: both;
+}
+
+.column label{
+    float:left;
+    margin-left: 5px;
+    margin-bottom: 4px;
+}
+
+/* The container of radio buttons*/
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+}
+
+/* Hide default radio button */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* custom radio buttons */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #ffffff;
+  border-radius: 50%;
+}
+
+.container:hover input ~ .checkmark {
+  background-color: #cccccc;
+}
+
+.container input:checked ~ .checkmark {
+  background-color: #d42626;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.container .checkmark:after {
+ 	top: 8px;
+	left: 8px;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: white;
+}
+
+.button-black{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 
  /* The sidebar menu */
 .sidenav {
@@ -237,7 +309,7 @@ a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 25px;
-  color: #black;
+  color: #000000;
   display: block;
 }
 
