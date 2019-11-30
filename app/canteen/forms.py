@@ -79,6 +79,19 @@ class Menu_form(forms.ModelForm):
             
         ]
 
+
+class Facility_form(forms.ModelForm):
+    class Meta:
+        model = Facility
+        fields =[
+            
+            'address',
+            'name',
+            'deadline',
+            'max_ordered_meals',
+            
+        ]
+
 class UserUpdate(UpdateView):
 
 

@@ -731,7 +731,7 @@ def menu_list_view(request):
 	return render(request, 'menu_list_view.html', context)	
 
 
-def facitlity_list_view_for_staff(request):
+def facility_list_staff_view(request):
 	if request.user.is_authenticated:
 		person_instance		=Person.objects.filter(user=request.user).first()
 		person_instance.is_admin()
@@ -750,32 +750,33 @@ def facitlity_list_view_for_staff(request):
 
 
 class facility_create_view(CreateView):
-    template_name = 'menu_create_view.html'
-    form_class = Menu_form
-    queryset = Menu.objects.all() # <blog>/<modelname>_list.html
-    #success_url = '/'
+    template_name = 'facility_create_view.html'
+    form_class = Facility_form
+    queryset = Facility.objects.all()
 
     def form_valid(self, form):
         print(form.cleaned_data)
         return super().form_valid(form)
 	
     def get_success_url(self):
-        return '../menu_list_view'
+        return '../facility_list_staff_view'
 
 
 class facility_update_view(UpdateView):
 
-    template_name = 'menu_update_view.html'
-    form_class = Menu_form
+    template_name = 'facility_update_view.html'
+    form_class = Facility_form
     def get_object(self):
         id = self.kwargs.get("id")
-        return get_object_or_404(Menu, id_menu=id)
+        return get_object_or_404(Facility, id_facility=id)
 
     def form_valid(self, form):
         
         print(form.cleaned_data)
         return super().form_valid(form)
 
+    def get_success_url(self):
+        return '../facility_list_staff_view'
 
 class facility_delete_view(DeleteView):
     template_name = 'menu_delete_view.html'

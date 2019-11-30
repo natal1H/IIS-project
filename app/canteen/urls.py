@@ -9,6 +9,10 @@ urlpatterns = [
     path('search', views.search_view, name='search'),
     path('contact',views.contact_view, name='contact'),
     path('facility/<int:id>', views.dynamic_facility_view, name='facility-view'),
+    path('facility_list_staff_view', views.facility_list_staff_view, name='facility_list_staff_view'),
+    path('facility_create_view', views.facility_create_view.as_view(), name='facility_create_view'),
+    path('facility_update_view/<int:id>', views.facility_update_view.as_view(), name='facility_update_view'),
+
     path('menu/<int:id>', views.menu_view, name='menu'),
     path('order',views.order_view, name='order'),
     path('cart',views.cart_view, name='cart'),

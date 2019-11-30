@@ -23,6 +23,7 @@ class Facility (models.Model):
         return f"facility/{self.id_facility}"
         #return reverse("facility-view", kwargs={"id":self.id_facility})#f""
 
+    
     def __str__(self):
         """String for representing the MyModelName object (in Admin site etc.)."""
         return self.name
