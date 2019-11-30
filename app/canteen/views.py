@@ -660,8 +660,7 @@ class food_create_view(CreateView):
 	
     template_name = 'food_create_view.html'
     form_class = Food_form
-    queryset = Item.objects.all() # <blog>/<modelname>_list.html
-    #success_url = '/'
+    queryset = Item.objects.all() 
 
     def form_valid(self, form):
         print(form.cleaned_data)
@@ -671,7 +670,18 @@ class food_create_view(CreateView):
         return '../food_list_view'
 
 class menu_create_view(CreateView):
-	pass
+    template_name = 'menu_create_view.html'
+    form_class = Menu_form
+    queryset = Menu.objects.all() # <blog>/<modelname>_list.html
+    #success_url = '/'
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
+	
+    def get_success_url(self):
+        return '../menu_list_view'
+
 
 class menu_update_view(UpdateView):
 
