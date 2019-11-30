@@ -6,11 +6,10 @@
     </div> <!-- End search-header -->
 
     <div class="login-block">
-    <form method="POST">
-        <br><br>
-        {%csrf_token%}
-        {{form.as_p}}
-        <button class="button-black">Login</button>
-	</form>
+        <form method="POST">
+            {%csrf_token%}
+            {{form.as_p}}
+            <button class="button-black">Login</button>
+	    </form>
     </div>
 {% endblock %}
