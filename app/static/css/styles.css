@@ -24,6 +24,17 @@ ul li a {
 .main-header h1 {
     display: inline
 }
+/*
+h2{
+    text-align: center;
+    font-size: 50px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+*/
+h3{
+    font-size: 24px;
+}
 
 .main-header ul {
     float: right;
@@ -41,34 +52,41 @@ ul li a {
     color: #fff;
 }
 
-
+/*
 .search-header {
     background-color: #ff9999;
     overflow: hidden;
     color: #000;
     padding: 5px;
     height:48px;
-}
+}*/
 
 .search-header form input[type=text] {
     padding: 10px;
+    position:absolute;
+    right: 6%;
+    top: 56px;
     font-size: 17px;
     border: 1px solid grey;
     float: right;
-    width: 30%;
+    width: 20%;
     background: #f1f1f1;
 }
 
 .search-header form button {
-    float: right;
-    width: 10%;
+ /*   float: right;*/
     padding: 10px;
-    background: #999999;
-    color: white;
+    position:absolute;
+    right: 20px;
+    top: 56px;
     font-size: 17px;
     border: 1px solid grey;
     border-left: none; /* Prevent double borders */
+    width: 5%;
+    background: #999999;
+    color: white;
     cursor: pointer;
+
 }
 
 .footer {
@@ -96,9 +114,17 @@ ul li a {
 }
 
 .page-title {
+    text-align: center;
+    font-size: 50px;
+    margin-top: 32px;
+    margin-bottom: 32px;/*
+    text-align: center;
+    font-size: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     display: inline;
     float: left;
-    padding-top: 10px;
+    padding-top: 10px;*/
 }
 
 .menu-block {
@@ -169,11 +195,9 @@ ul li a {
 .login-block {
     width: 460px;
     background: #f2f2f2;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    display:block;
+    margin-right: auto;
+    margin-left: auto;
     text-align: center;
     padding:10px;
 }
@@ -181,11 +205,9 @@ ul li a {
 .register-block {
     width: 600px;
     background: #f2f2f2;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    display:block;
+    margin-right: auto;
+    margin-left: auto;
     text-align: center;
     padding:10px;
 }
