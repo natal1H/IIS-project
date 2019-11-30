@@ -12,6 +12,7 @@ urlpatterns = [
     path('facility_list_staff_view', views.facility_list_staff_view, name='facility_list_staff_view'),
     path('facility_create_view', views.facility_create_view.as_view(), name='facility_create_view'),
     path('facility_update_view/<int:id>', views.facility_update_view.as_view(), name='facility_update_view'),
+    path('facility_delete_view/<int:id>', views.facility_delete_view.as_view(), name='facility_delete_view'),
 
     path('menu/<int:id>', views.menu_view, name='menu'),
     path('order',views.order_view, name='order'),

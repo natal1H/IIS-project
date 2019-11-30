@@ -780,12 +780,12 @@ class facility_update_view(UpdateView):
         return '../facility_update_view/'+str(id)
 
 class facility_delete_view(DeleteView):
-    template_name = 'menu_delete_view.html'
-    form_class = Menu_form
+    template_name = 'facility_delete_view.html'
+    form_class = Facility_form
 
     def get_object(self):
         id = self.kwargs.get("id")
-        return get_object_or_404(Menu, id_menu=id)
+        return get_object_or_404(Facility, id_facility=id)
 
     def get_success_url(self):
-        return '../menu_list_view'
+        return '../facility_list_staff_view'
