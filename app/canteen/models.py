@@ -4,6 +4,8 @@ from django.urls import reverse
 
 from django.contrib.auth.models import AbstractUser
 from django.utils.html import escape, mark_safe
+from django.conf import settings
+from django.db import models
 
 from django.contrib.auth.models import User
 
@@ -75,7 +77,8 @@ class Person(models.Model):
     surname = models.CharField(max_length=50, blank=False)
     address = models.CharField(max_length=150, blank=False)
     telephone = models.CharField(max_length=25, blank=False, unique=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True) # we'll use blank and null true TODO TOCHECK
+    # user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True) # we'll use blank and null true TODO TOCHECK
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)  # we'll use blank and null true TODO TOCHECK
     email = models.CharField(max_length=32, unique=True, blank=True, null=True)
     profile_info = models.CharField(max_length=300, blank=True, null=True)
 
