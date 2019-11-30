@@ -316,6 +316,11 @@ def cart_view(request):
 		#print(person_instance)
 		#print(food_order_items_list)
 		#print(food_order_items_list)
+		if food_order_instance is None:
+			facility_instance=  None
+		else:
+			facility_instance = food_order_instance.facility
+
 		unregistered=False
 
 	else: 
@@ -323,8 +328,11 @@ def cart_view(request):
 		cart_id=request.session.get("cart_id", None)
 		food_order_instance = Food_order.objects.filter(id_food_order=cart_id, status='o').first()
 		food_order_items_list = Food_order_item.objects.filter(id_food_order=food_order_instance)
-	
-	facility_instance = food_order_instance.facility
+		print(food_order_instance)
+		if food_order_instance is None:
+			facility_instance=  None
+		else:
+			facility_instance = food_order_instance.facility
 	
 	context={
 		"food_order_instance":food_order_instance,
@@ -555,22 +563,17 @@ class user_update_view(generic.UpdateView):
 def  food_order_list_view(request):
 	if request.user.is_authenticated:
 		person_instance		=Person.objects.filter(user=request.user).first()
-		
+		person_instance.is_admin()
+		person_instance.is_operator()
+		person_instance.is_driver()
+		food_order_list=Food_order.objects.all()
 
-
-		if person_instance.role == 'a' or person_instance.role == 'o':
-			food_order_list=Food_order.objects.all()
-			context={
-				"food_order_list":food_order_list
-			}
-		else:
-			raise Http404
-
-		
-	else: 
+		context={
+			"food_order_list":food_order_list
+		}
+	else:
 		raise Http404
 
-	
 
 	return render(request, 'Food_order_list.html', context)
 
@@ -632,6 +635,8 @@ def food_list_view(request):
 	}
 
 	return render(request, 'food_list_view.html', context)
+
+
 
 
 class food_update_view(generic.UpdateView):
@@ -724,3 +729,49 @@ def menu_list_view(request):
 	}
 	
 	return render(request, 'menu_list_view.html', context)	
+
+
+def facitlity_list_view(request):
+
+
+	pass
+
+
+class facility_create_view(CreateView):
+    template_name = 'menu_create_view.html'
+    form_class = Menu_form
+    queryset = Menu.objects.all() # <blog>/<modelname>_list.html
+    #success_url = '/'
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
+	
+    def get_success_url(self):
+        return '../menu_list_view'
+
+
+class facility_update_view(UpdateView):
+
+    template_name = 'menu_update_view.html'
+    form_class = Menu_form
+    def get_object(self):
+        id = self.kwargs.get("id")
+        return get_object_or_404(Menu, id_menu=id)
+
+    def form_valid(self, form):
+        
+        print(form.cleaned_data)
+        return super().form_valid(form)
+
+
+class facility_delete_view(DeleteView):
+    template_name = 'menu_delete_view.html'
+    form_class = Menu_form
+
+    def get_object(self):
+        id = self.kwargs.get("id")
+        return get_object_or_404(Menu, id_menu=id)
+
+    def get_success_url(self):
+        return '../menu_list_view'
