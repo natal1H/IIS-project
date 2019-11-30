@@ -190,6 +190,18 @@ ul li a {
     padding:10px;
 }
 
+.column2-left{
+    width:40%;
+    text-align: right;
+    padding: 20px;
+}
+
+.column2-right{
+    width:60%;
+    text-align: left;
+}
+
+
 .checkout-block {
     width: 600px;
     display:block;
@@ -207,6 +219,12 @@ ul li a {
 }
 
 input[type=text]{
+    padding: 10px 10px;
+    margin-bottom:6px;
+    margin-top:6px;
+}
+
+input[type=email]{
     padding: 10px 10px;
     margin-bottom:6px;
     margin-top:6px;
