@@ -776,7 +776,8 @@ class facility_update_view(UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return '../facility_list_staff_view'
+        id = self.kwargs.get("id")
+        return '../facility_update_view/'+str(id)
 
 class facility_delete_view(DeleteView):
     template_name = 'menu_delete_view.html'
