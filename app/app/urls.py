@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 #from canteen import views
 
@@ -29,3 +30,5 @@ urlpatterns = [
 urlpatterns += [
     path('', include('canteen.urls')),
 ]
+
+urlpatterns += staticfiles_urlpatterns()
