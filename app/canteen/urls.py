@@ -1,7 +1,9 @@
 from django.urls import path
 from . import views
 
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView,PasswordChangeView
+
+
 
 #basic
 urlpatterns = [
@@ -78,5 +80,6 @@ urlpatterns+=[
     path('logout', LogoutView.as_view(next_page='/'), name='logout'),
     path('profile', views.profile_view, name='profile'),
     path('profile_edit', views.profile_edit, name='profile_edit'),
+    path('change_password', PasswordChangeView.as_view( template_name='password_change_form.html'), name='change_password'),
 
 ]
