@@ -284,6 +284,15 @@ def remove_from_cart(request, id_item, id_facility):
 			Food_order_item.objects.filter(id_item=item_instance ,id_food_order=food_order_instance).update(quantity=quantity)
 			
 
+		prob_food_order_delete=Food_order_item.objects.filter(id_food_order=food_order_instance)
+		
+		if prob_food_order_delete.exists():
+			print("somethin here")
+		else: 
+			print("gotta delete food_order")
+			food_order_instance.delete()
+
+
 		"""
 		quantity=food_order_item_instance_from_mm_table.first().quantity+1
 		print(quantity)
@@ -346,8 +355,9 @@ def cart_view(request):
 
 		
 		for x in food_order_items_list:
-			price=x.id_item.price*x.quantity
-		
+			
+			price=price+x.id_item.price*x.quantity
+	
 		
 		#print(food_order_instance.id_food_order)
 		#print(person_instance)
@@ -371,7 +381,7 @@ def cart_view(request):
 		
 		price=0
 		for x in food_order_items_list:
-			price=x.id_item.price*x.quantity
+			price=price+x.id_item.price*x.quantity
 		
 		#print(food_order_instance)
 		if food_order_instance is None:
