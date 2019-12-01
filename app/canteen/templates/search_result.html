@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-{{ result }}
 
-
-	{% for instance in objects %}
-	        {{ instance.address }}<br>
-            {{ instance.name }}<hr>
-    {% endfor %}
+    {% for instance in objects%}
+            <a clss="block-link" href='{{instance.get_absolute_url}}'>
+                <div class="facility-block">
+                    <b>{{ instance.name}}</b><br>
+                    {{ instance.address }}<br>
+                </div>
+            </a>
+        {% endfor %}
 {% endblock %}

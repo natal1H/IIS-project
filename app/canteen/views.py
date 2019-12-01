@@ -47,7 +47,7 @@ def search_view(request):
 	corr_search_objs=[]
 
 	for obj in objects:
-		if search in obj.address or search in obj.name:
+		if search.lower() in obj.address.lower() or search.lower() in obj.name.lower():
 			corr_search_objs.append(obj)
 
 	context = {
@@ -209,6 +209,19 @@ def add_to_cart(request, id_item, id_facility):
 
 		#
 		food_order_instance		=Food_order.objects.filter(id_food_order=cart_obj.id_food_order).first()
+		#facility_instance=Facility.objects.filter(id_facility=id_facility).first()
+		"""
+		print("facility id:")
+		print(food_order_instance.facility.id_facility)
+		print(id_facility)
+		print("|||||")
+		"""
+		if food_order_instance.facility.id_facility!=id_facility:
+			print("you cant order from different facility")
+			return render(request, 'error_access.html', {
+				"msg":"Nemôžete pridávať jedlá z viacerých prevádzok"
+			})
+
 		food_order_item_instance=Item.objects.filter(id_item=id_item).first()
 		
 		
