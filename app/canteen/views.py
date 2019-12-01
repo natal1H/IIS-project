@@ -324,11 +324,25 @@ def cart_view(request):
 		person_instance				=Person.objects.filter(user=request.user).first()
 		food_order_instance 		=Food_order.objects.filter(person=person_instance, status='o').first()
 		#print(food_order_instance.status)
+		
+
 		food_order_items_list		=Food_order_item.objects.filter(id_food_order=food_order_instance)
+		price=0
+
+		print(food_order_items_list) 
+
+		
+		for x in food_order_items_list:
+			price=x.id_item.price*x.quantity
+		
+		
 		#print(food_order_instance.id_food_order)
 		#print(person_instance)
 		#print(food_order_items_list)
 		#print(food_order_items_list)
+
+
+
 		if food_order_instance is None:
 			facility_instance=  None
 		else:
@@ -341,7 +355,12 @@ def cart_view(request):
 		cart_id=request.session.get("cart_id", None)
 		food_order_instance = Food_order.objects.filter(id_food_order=cart_id, status='o').first()
 		food_order_items_list = Food_order_item.objects.filter(id_food_order=food_order_instance)
-		print(food_order_instance)
+		
+		price=0
+		for x in food_order_items_list:
+			price=x.id_item.price*x.quantity
+		
+		#print(food_order_instance)
 		if food_order_instance is None:
 			facility_instance=  None
 		else:
@@ -352,6 +371,7 @@ def cart_view(request):
 		"food_order_items_list":food_order_items_list,
 		"facility_instance":facility_instance,
 		"unregistered":unregistered,
+		"price":price
 	}
 
 	return render(request, 'cart.html', context)
