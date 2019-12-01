@@ -6,15 +6,18 @@
             <h2 class="page-title">Profile</h2>
 </div> <!-- End search-header -->
 
- <!-- Side navigation -->
+ <!-- Side navigation
 <div class="sidenav">
     <a href="#"> Back to restaurants</a>
-
+ TODO: to user or not to use?-->
+ <!--
     <p>Menu</p>
     <hr>
-    <a href="#">Profile</a><!-- TODO: redirect -->
-    <a href="profile_edit">Edit profile</a><!-- TODO: redirect -->
-    <a href="#">My orders</a><!-- TODO: redirect -->
+
+    <a href="#">Profile</a>
+    <a href="profile_edit">Edit profile</a>
+    <a href="#">My orders</a>
+    TODO: redirects to user or not to use?-->
 
     
     {% if role == "a" %}
@@ -36,35 +39,41 @@
 
     <!-- TODO: get user role, based on role display rest of the menu -->
 </div>
-
-<!-- Page content -->
-<div class="main">
-  <div class="profile-window">
-      <h2>Profile</h2>
-      <hr>
-      <div style="display:block">
-          <img src="" alt="profile picture" width="150px" height="150px" style="float:left"/>
-          Name: {{ person.firstname }}<br>
-          Surname: {{ person.surname }}<br>
-          Email: {{ person.email }}<br>
-          Telephone: {{ person.telephone }}<br>
-          Address: {{ person.address }}<br>
-          {% if role == "a" %}
-          Role: administrator<br>
-          {% elif role == "o" %}
-          Role: operator<br>
-          {% elif role == "d" %}
-          Role: driver<br>
-          {% else %}
-          Role: registered user<br>
-          {% endif %}
-      </div>
-      <hr>
-      <div style="display:block">
-          <h3>Description</h3>
-          {{ person.description }}
-      </div>
-  </div>
+    <!-- Page content -->
+    <div class="main">
+        <div class="profile-window">
+            <div style="float: right">
+                <a href="profile_edit">Edit profile</a><!--TODO: redirect -->
+                &nbsp;|&nbsp;
+                <a href="add_profile_picture">Upload picture</a><!--TODO: ADD PROFILE PICTURE -->
+            </div>
+            <br>
+            <hr>
+            <div style="display:block">
+                <img src="" alt="profile picture" width="150px" height="150px" style="float:left"/>
+                Name: {{ person.firstname }}<br>
+                Surname: {{ person.surname }}<br>
+                Email: {{ person.email }}<br>
+                Telephone: {{ person.telephone }}<br>
+                Address: {{ person.address }}<br>
+                {% if role == "a" %}
+                Role: administrator<br>
+                {% elif role == "o" %}
+                Role: operator<br>
+                {% elif role == "d" %}
+                Role: driver<br>
+                {% else %}
+                Role: registered user<br>
+                {% endif %}
+            </div>
+            <br><br>
+            <hr>
+            <div style="display:block">
+                <h3>Description</h3>
+                {{ person.description }}
+            </div>
+        </div>
+    </div>
 </div>
 
 

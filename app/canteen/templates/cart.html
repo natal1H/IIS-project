@@ -3,12 +3,10 @@
         {% block content %}
         
         {% if food_order_instance %}
-            <br>
-            <a href="" class=""><h1>Checkout</h1></a>  <br>
-
+            <h2 class="page-title">Checkout</h2>
             <div class="checkout-block">
                 <div class="contact-info-block" style="margin-left: auto; margin-right: auto;">
-                    <h2>Contact info</h2><hr><br>
+                    <h3>Contact info</h3><hr><br>
                     <div class="row">
                         <div class="column left"> <label for="firstname">First name</label> <br> <input type="text" name="firstname" size="24"></div>
                         <div class="column right"> <label for="lastname">Last name</label> <br> <input type="text" name="lastname"size="24"></div>
@@ -76,6 +74,6 @@
             {%endif%}
         {% else %}
 
-        <h1>hey, wanna order something?</h1>
+        <h1  class="question">hey, wanna order something?</h1>
         {% endif %}
        {% endblock %}
