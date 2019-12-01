@@ -79,6 +79,49 @@ def register_view(request):
 	return render(request, 'registration/register.html', {'form': form})
 
 
+def pay_with_signup(request):
+
+	if request.method=='POST':
+		
+		form = SignUpForm(request.POST)
+		session_id_food_order=request.session.get("cart_id", None)
+
+		if form.is_valid():
+			form.save()
+			username = form.cleaned_data.get('username')
+
+			print(username)
+			raw_password = form.cleaned_data.get('password1')
+
+			firstname 	= form.cleaned_data.get('firstname')
+			surname 	= form.cleaned_data.get('surname')
+			address 	= form.cleaned_data.get('address')
+			email		= form.cleaned_data.get('email')
+			telephone	= form.cleaned_data.get('telephone')
+
+			user = authenticate(username=username, password=raw_password)
+			
+
+			login (request, user)
+			user_instance=User.objects.filter(username=username).first()
+			print(user_instance)
+			person_instance=Person.objects.create(user=user_instance, firstname=firstname, surname=surname, address= address, telephone=telephone, role='r')
+
+
+			food_order_instance=Food_order.objects.filter(id_food_order=session_id_food_order, status='o')
+
+			food_order_instance.update(person=person_instance, status='a')
+			
+
+			return redirect('login_url')
+	else:
+		form=SignUpForm()
+	
+	return render(request, 'registration/register.html', {'form': form})
+
+
+	pass
+
 def signup(request):
 	if request.method=='POST':
 		

@@ -71,6 +71,8 @@ urlpatterns+=[
 urlpatterns+=[
    
     path('register', views.signup, name='register'),
+    path('register_with_pay', views.pay_with_signup, name='register_with_pay'),
+
     path('login', LoginView.as_view(), name='login_url'),
     path('logged', views.logged_view, name='loggend_on'),
     path('logout', LogoutView.as_view(next_page='/'), name='logout'),
