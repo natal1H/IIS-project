@@ -92,6 +92,26 @@ class Facility_form(forms.ModelForm):
             
         ]
 
+class Facility_menus_form(forms.ModelForm):
+    class Meta:
+        model = Facility_menus
+        fields =[
+            
+            'id_facility',
+            'id_menu'
+            
+        ]
+
+class Menu_items_form(forms.ModelForm):
+    class Meta:
+        model = Menu_items
+        fields =[
+            
+            'id_menu',
+            'id_item'
+            
+        ]
+
 class UserUpdate(UpdateView):
 
 
@@ -118,7 +138,7 @@ class SignUpForm(UserCreationForm):
 
 class EditProfileForm(forms.Form):
     #user = forms.CharField(max_length=30, required=False, help_text='First Name.')
-    
+
     firstname = forms.CharField(max_length=30, required=False, help_text='First Name.')
     surname = forms.CharField(max_length=30, required=False, help_text='Surname.') 
     address = forms.CharField(max_length=30, required=False, help_text='Address.')

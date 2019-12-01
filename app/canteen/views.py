@@ -744,6 +744,29 @@ class menu_delete_view(DeleteView):
     def get_success_url(self):
         return '../menu_list_view'
 
+class Facility_menus_create_view(CreateView):
+    template_name = 'facility_menus_create.html'
+    form_class = Facility_menus_form
+    queryset = Facility_menus.objects.all() 
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
+	
+    def get_success_url(self):
+        return '../menu_list_view'
+
+class Menu_items_create_view(CreateView):
+    template_name = 'facility_menus_create.html'
+    form_class = Menu_items_form
+    queryset = Menu_items.objects.all()
+	
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
+	
+    def get_success_url(self):
+        return '../menu_list_view'
 
 def menu_list_view(request): 
 

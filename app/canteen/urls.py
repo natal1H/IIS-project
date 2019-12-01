@@ -16,6 +16,10 @@ urlpatterns = [
     path('facility_menus_list_staff/<int:id>', views.facility_menus_list_staff, name='facility_menus_list_staff'),
     path('facility_menus_items_list_staff/<int:id>', views.facility_menus_items_list_staff, name='facility_menus_items_list_staff'),
 
+    path('facility_menus_create', views.Facility_menus_create_view.as_view(), name='facility_menus_create'),
+    path('menu_items_create', views.Menu_items_create_view.as_view(), name='menu_items_create'),
+
+
     path('delete_from_menu/<int:id_menu>/<int:id_item>', views.delete_from_menu, name='delete_from_menu'),
 
 

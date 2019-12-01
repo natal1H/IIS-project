@@ -49,6 +49,8 @@ class Menu (models.Model):
         return f"{self.id_menu}"
 
 
+
+
 class Item(models.Model):
     id_item = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100, blank=False)
