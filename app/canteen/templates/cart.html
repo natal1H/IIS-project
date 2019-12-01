@@ -43,19 +43,21 @@
                 <br style="clear:both;">
                 <br>
             <br>
-        </div>
-
-
-              <a href="{%url 'pay'%}" class=""><h1>Pay</h1></a>  <br>
+            <a href="{%url 'pay'%}" class=""><h1>Pay</h1></a>  <br>
             {%if unregistered%}
               <a href="{%url 'register_with_pay'%}" class=""><h1>Hey, wanna pay and register</h1></a>  <br>
             {%endif%}
+        </div>
+
+
+              
+            
         {% else %}
 
         {% endif %}
 
 
-        
+        {% comment %}
         {% for instance_item in food_order_items_list %}
               {{instance_item.id_item.name}} <a href="{%url 'add_to_cart' instance_item.id_item.id_item food_order_instance.facility.id_facility%}" class="">Add</a> ||
               <a href="{%url 'remove_from_cart' instance_item.id_item.id_item food_order_instance.facility.id_facility%}" class="">Remove</a> 
@@ -76,4 +78,6 @@
 
         <h1  class="question">hey, wanna order something?</h1>
         {% endif %}
+
+        {% endcomment %}
        {% endblock %}
