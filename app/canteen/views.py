@@ -19,6 +19,8 @@ from django.contrib.auth import login, authenticate
 
 from django.views.generic import *
 
+from datetime import date
+
 # Create your views here.
 
 
@@ -135,11 +137,12 @@ def dynamic_facility_view(request, id):
 	except Facility.DoesNotExist:
 		raise Http404
 	
-	
+	today = date.today()
 	menu_objs=[]
 	for i in menu:
-		menu_objs.append(i.id_menu)
-
+		
+		if i.id_menu.type=='s' or i.id_menu.date==today.strftime("%Y-%M-%D"):
+			menu_objs.append(i.id_menu)
 	
 
 	"""
@@ -228,9 +231,110 @@ def menu_view(request, id):
 
 def add_to_cart(request, id_item, id_facility):
 	
+
+
+	facility_instance_control=Facility.objects.filter(id_facility=id_facility).first
+
+	#if user is logged in
+	if request.user.is_authenticated:
+		person_instance		=Person.objects.filter(user=request.user).first()
+
+		food_order_instance		=Food_order.objects.filter(person=person_instance, status='o').first()
+
+		#if there is no food order
+
+		if food_order_instance is None:
+			print ("Now we are makin new order")
+			facility_instance		=Facility.objects.filter(id_facility=id_facility).first()
+			food_order_item_instance=Item.objects.filter(id_item=id_item).first()
+
+			#Creates new food order
+
+			food_order_instance	=Food_order.objects.create( facility=facility_instance, person=person_instance, status='o')#Creates new food order
+			Food_order_item.objects.create(id_food_order=food_order_instance, id_item=food_order_item_instance)#adds the item to the order
+
+		#If there is
+		else:
+			
+						
+			if food_order_instance.facility.id_facility!=id_facility:
+				print("you cant order from different facility")
+				return render(request, 'error_access.html', {
+				"msg":"Nemôžete pridávať jedlá z viacerých prevádzok"
+				})
+
+			food_order_item_instance=Item.objects.filter(id_item=id_item).first()
+		
+		
+			food_order_item_instance_from_mm_table=Food_order_item.objects.filter( id_food_order=food_order_instance, id_item=food_order_item_instance ) 
+
+			if food_order_item_instance_from_mm_table.count()==1:
+				quantity=food_order_item_instance_from_mm_table.first().quantity+1
+				print(quantity)
+				Food_order_item.objects.filter( id_food_order=food_order_instance, id_item=food_order_item_instance ).update(quantity=quantity)
+			else:
+				Food_order_item.objects.create(id_food_order=food_order_instance, id_item=food_order_item_instance)
+		
+		#ak nie je vytovrená
+		
+
+	
+
+			
+
+			
+	#unregistered
+	else: 
+		
+		session_id_food_order=request.session.get("cart_id", None)
+		food_order_instance=Food_order.objects.filter(id_food_order=session_id_food_order, status='o')
+
+		
+		#if there is an order
+		if food_order_instance.exists():
+			food_order_item_instance=Item.objects.filter(id_item=id_item).first()
+			food_order_instance=Food_order.objects.filter(id_food_order=session_id_food_order, status='o').first()
+			food_order_item_instance_from_mm_table=Food_order_item.objects.filter( id_food_order=food_order_instance, id_item=food_order_item_instance).first()
+
+
+			if food_order_item_instance_from_mm_table is None:
+
+				Food_order_item.objects.create(id_food_order=food_order_instance, id_item=food_order_item_instance)
+
+			else:
+
+				quantity=food_order_item_instance_from_mm_table.quantity+1
+				print(quantity)
+				Food_order_item.objects.filter( id_food_order=food_order_instance, id_item=food_order_item_instance ).update(quantity=quantity)
+
+		else:
+
+			facility_instance		=Facility.objects.filter(id_facility=id_facility).first()
+			food_order_item_instance=Item.objects.filter(id_item=id_item).first()
+			food_order_instance	=Food_order.objects.create(facility=facility_instance, status='o')
+			Food_order_item.objects.create(id_food_order=food_order_instance, id_item=food_order_item_instance)#adds the item to the order
+
+			request.session['cart_id']=food_order_instance.id_food_order
+			
+
+
+
+
+
+	
+
+
+	#TODO order, checkout etc. and all  almost done, but needs to be finalized and tested
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER')) #stays on the same page
+
+#TODELETE this view
+def add_to_cart2(request, id_item, id_facility):
+	
 	cart_id=request.session.get("cart_id", None)
 	qs=Food_order.objects.filter(id_food_order=cart_id, status='o')
 
+	facility_instance_control=Facility.objects.filter(id_facility=id_facility).first
+	
 
 	if qs.count()==1:
 		cart_obj=qs.first()
@@ -293,7 +397,6 @@ def add_to_cart(request, id_item, id_facility):
 
 	#TODO order, checkout etc. and all  almost done, but needs to be finalized and tested
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER')) #stays on the same page
-
 
 def remove_from_cart(request, id_item, id_facility):
 
