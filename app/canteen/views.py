@@ -20,7 +20,7 @@ from django.contrib.auth import login, authenticate
 from django.views.generic import *
 
 from datetime import date
-
+from datetime import datetime
 # Create your views here.
 
 
@@ -275,8 +275,17 @@ def menu_view(request, id):
 def add_to_cart(request, id_item, id_facility):
 	
 
+	now = datetime.now()
+	current_time = now.strftime("%H:%M:%S")
+	facility_instance_control=Facility.objects.filter(id_facility=id_facility).first()
+	deadline=facility_instance_control.deadline
+	deadline=deadline.strftime("%H:%M:%S")
 
-	facility_instance_control=Facility.objects.filter(id_facility=id_facility).first
+	
+	if current_time>deadline:
+		return render(request, 'error_access.html', {
+				"msg":"Nemôžete pridávať po deadline"
+				})
 
 	#if user is logged in
 	if request.user.is_authenticated:
