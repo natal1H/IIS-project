@@ -858,3 +858,50 @@ def controlPermissions(request, bool_var, person_instance):
 		PermissionDenied()
 		return render(request, 'error_access.html', {})
 
+
+def profile_edit(request):
+
+	person_instance		=Person.objects.filter(user=request.user).first()
+	if request.method=='POST':
+		person_instance		=Person.objects.filter(user=request.user).first()
+		user_instance= request.user
+
+
+		form = SignUpForm(request.POST or None)
+
+		if form.is_valid():
+			form.save()
+			username = form.cleaned_data.get('username')
+
+			
+			raw_password = form.cleaned_data.get('password1')
+
+			firstname 	= form.cleaned_data.get('firstname')
+			surname 	= form.cleaned_data.get('surname')
+			address 	= form.cleaned_data.get('address')
+			email		= form.cleaned_data.get('email')
+			telephone	= form.cleaned_data.get('telephone')
+			"""
+			user = authenticate(username=username, password=raw_password)
+			
+
+			login (request, user)
+			user_instance=User.objects.filter(username=username).first()
+			print(user_instance)
+			Person.objects.create(user=user_instance, firstname=firstname, surname=surname, address= address, telephone=telephone, role='r')
+
+
+			return redirect('login_url')
+			"""
+	else:
+		form=SignUpForm()
+	
+	context={
+		'form': form,
+		'user_profile':request.user,
+		'person':person_instance
+
+	}
+
+	return render(request, 'profile_edit.html', context)
+

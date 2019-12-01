@@ -64,5 +64,6 @@ urlpatterns+=[
     path('logged', views.logged_view, name='loggend_on'),
     path('logout', LogoutView.as_view(next_page='/'), name='logout'),
     path('profile', views.profile_view, name='profile'),
-    
+    path('profile_edit', views.profile_edit, name='profile_edit'),
+
 ]
