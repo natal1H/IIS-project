@@ -165,10 +165,39 @@ def dynamic_facility_view(request, id):
 	}
 	return render(request, 'facility_detail.html', context)
 
+def filter_menu(request,id_menu,diet_type):
+
+
+	try:
+		menu = Menu_items.objects.filter(id_menu=id_menu)
+	except Facility_menus.DoesNotExist:
+		raise Http404
+	item_objs = []
+
+	for i in menu:
+		if i.id_item.diet_type==diet_type:
+			item_objs.append(i.id_item)
+		
+	facility = Facility_menus.objects.filter(id_menu=id_menu).first()
+
+	facility_menus_instance = Facility_menus.objects.filter(id_menu=id_menu).first()
+	print(facility_menus_instance.id_facility.id_facility)
+	#facility_instance = Facility.objects.filter(id_facility=facility_menus_instance.id_facility)
+
+
+	context = {
+		"item_objs": item_objs,
+		"menu": Menu.objects.get(id_menu=id_menu),
+		"id_facility": facility_menus_instance.id_facility.id_facility, # TODO: nie je toto id_menu?
+		"id_menu": id_menu,
+		"facility": facility.id_facility # TODO: WHY DOES THIS WORK??
+	}
+
+	return render(request, 'menu_detail.html', context)
+
+
 def menu_view(request, id): 
 
-
-	
 
 	try:
 		menu = Menu_items.objects.filter(id_menu=id)

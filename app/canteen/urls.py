@@ -18,6 +18,8 @@ urlpatterns = [
 
     path('facility_menus_create', views.Facility_menus_create_view.as_view(), name='facility_menus_create'),
     path('menu_items_create', views.Menu_items_create_view.as_view(), name='menu_items_create'),
+    
+    path('filter_menu/<int:id_menu>/<str:diet_type>', views.filter_menu, name='filter_menu'),
 
 
     path('delete_from_menu/<int:id_menu>/<int:id_item>', views.delete_from_menu, name='delete_from_menu'),

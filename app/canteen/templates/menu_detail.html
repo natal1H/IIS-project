@@ -2,6 +2,15 @@
 
     {% block content %}
 
+    <a href="{% url 'filter_menu' menu.id_menu 'v'%}">Vegan</a>
+    <a href="{% url 'filter_menu' menu.id_menu 'n'%}">Normal</a>
+    <a href="{% url 'filter_menu' menu.id_menu 'g'%}">glueten-free</a>
+    <a href="{% url 'menu' menu.id_menu %}">All</a>
+
+    
+
+
+
     {% load static %}
         <div class="search-header">
             <h2 class="page-title"><a href="/facility/{{ facility.id_facility }}">BACK</a> | Menu items</h2>
