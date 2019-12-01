@@ -858,7 +858,7 @@ def controlPermissions(request, bool_var, person_instance):
 		PermissionDenied()
 		return render(request, 'error_access.html', {})
 
-
+@login_required
 def profile_edit(request):
 
 	person_instance		=Person.objects.filter(user=request.user).first()
@@ -867,20 +867,25 @@ def profile_edit(request):
 		user_instance= request.user
 
 
-		form = SignUpForm(request.POST or None)
+		form = EditProfileForm(request.POST or None)
 
 		if form.is_valid():
-			form.save()
-			username = form.cleaned_data.get('username')
-
-			
-			raw_password = form.cleaned_data.get('password1')
-
+			#form.save()
+			#username = form.cleaned_data.get('username')
 			firstname 	= form.cleaned_data.get('firstname')
 			surname 	= form.cleaned_data.get('surname')
 			address 	= form.cleaned_data.get('address')
 			email		= form.cleaned_data.get('email')
 			telephone	= form.cleaned_data.get('telephone')
+
+			Person.objects.filter(id_person=person_instance.id_person).update(	firstname=firstname,
+																				surname=surname,
+																				address=address,
+																				telephone=telephone, 
+																				email=email)
+			
+			person_instance		=Person.objects.filter(user=request.user).first()
+
 			"""
 			user = authenticate(username=username, password=raw_password)
 			
@@ -893,13 +898,18 @@ def profile_edit(request):
 
 			return redirect('login_url')
 			"""
+
+
+
 	else:
-		form=SignUpForm()
+		form=EditProfileForm()
 	
 	context={
 		'form': form,
 		'user_profile':request.user,
-		'person':person_instance
+		'person':person_instance,
+	
+		
 
 	}
 

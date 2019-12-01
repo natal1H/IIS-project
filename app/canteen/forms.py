@@ -115,3 +115,13 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'firstname', 'surname', 'email','address','telephone', 'password1', 'password2']
+
+class EditProfileForm(forms.Form):
+    #user = forms.CharField(max_length=30, required=False, help_text='First Name.')
+    
+    firstname = forms.CharField(max_length=30, required=False, help_text='First Name.')
+    surname = forms.CharField(max_length=30, required=False, help_text='Surname.') 
+    address = forms.CharField(max_length=30, required=False, help_text='Address.')
+    email = forms.EmailField(max_length=254, help_text='Email')
+    telephone = forms.CharField(max_length=30, required=False, help_text='Your phone number')
+
