@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="search-header">
-            <h2 class="page-title">Profile</h2>
+    <h2 class="page-title">Profile</h2>
 </div> <!-- End search-header -->
 
  <!-- Side navigation
@@ -21,19 +21,28 @@
 
     
     {% if role == "a" %}
-        
-        <a href="/operator_view">Operator Page</a>
-        <a href="/driver_view">Driver Page</a>
-        <a href="/admin_view">Admin Page</a>
-        
+        <div class="employee-panel">
+            <a href="/operator_view">Operator Page</a>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="/driver_view">Driver Page</a>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="/admin_view">Admin Page</a>
+        </div>
+        <br>
     {% endif %}
 
     {% if role == "o" %}
-    <a href="/operator_view">Operator Page</a>
+        <div class="employee-panel">
+            <a href="/operator_view">Operator Page</a>
+        </div>
+        <br>
     {% endif %}
 
     {% if role == "d" %}
-    <a href="/driver_view">Driver Page</a>
+        <div class="employee-panel">
+            <a href="/driver_view">Driver Page</a>
+        </div>
+        <br>
     {% endif %}
 
 
@@ -48,7 +57,7 @@
                 <a href="add_profile_picture">Upload picture</a><!--TODO: ADD PROFILE PICTURE -->
             </div>
             <br>
-            <hr>
+            <hr style="margin: 2px 2px">
             <div style="display:block">
                 <img src="" alt="profile picture" width="150px" height="150px" style="float:left"/>
                 Name: {{ person.firstname }}<br>
@@ -67,7 +76,7 @@
                 {% endif %}
             </div>
             <br><br>
-            <hr>
+            <hr style="margin: 2px 2px">
             <div style="display:block">
                 <h3>Description</h3>
                 {{ person.description }}
