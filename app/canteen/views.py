@@ -448,7 +448,7 @@ def order_view(request):#basically a cart
 
 	return render(request, 'order.html', context)
 
-
+@login_required
 def  profile_view(request):
 
 	if request.user.is_authenticated:
@@ -581,9 +581,17 @@ def driver_view(request):
 
 	if request.user.is_authenticated:
 		person_instance		=Person.objects.filter(user=request.user).first()
+		person_instance.is_admin()
+		person_instance.is_driver()
+
+		driver_orders_list=Food_order.objects.filter(delivered_by=person_instance, status='a')
+
+
+		print(driver_orders_list)
 
 		if person_instance.role == 'a' or person_instance.role == 'd':
 			context = {
+			"driver_orders_list":driver_orders_list,
 			"role":person_instance.role
 			}
 		else:
@@ -597,6 +605,28 @@ def driver_view(request):
 
 
 	return render(request, 'driver_view.html', context)	
+
+
+def driver_food_order_info(request, id):
+
+	food_order_instance=Food_order.objects.filter(id_food_order=id).first()
+	
+	person_customer_instance=food_order_instance.person
+
+	context={
+		'food_order_instance': food_order_instance,
+		'person_customer_instance': person_customer_instance
+	}
+	return render(request, 'driver_food_order_info.html', context)	
+
+@login_required
+def driver_deliver(request, id):
+
+	print("hello")
+	Food_order.objects.filter(id_food_order=id).update(status='d')
+	
+	
+	return redirect('driver_view')	
 
 
 def operator_view(request):
@@ -909,9 +939,9 @@ def profile_edit(request):
 		'user_profile':request.user,
 		'person':person_instance,
 	
-		
-
 	}
 
 	return render(request, 'profile_edit.html', context)
+
+
 

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Food order:</h1>
+
+
+{{food_order_instance.id_food_order}}<br>
+
+{{person_customer_instance.firstname}}<br>
+{{person_customer_instance.address}}<br>
+ <a href="{%url 'deliver_order_finally' food_order_instance.id_food_order %}"><h1>Deliver</h1></a><br>
+
+
+{% endblock %}

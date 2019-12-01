@@ -3,7 +3,11 @@
 {% block content %}
 <h1>Driver page</h1>
 {% if role == "d" or role == "a"%}
-    <a href="food_order">Orders</a>
+    <a href="food_order">Orders</a><br>
 {% endif %}
+
+{% for instance in driver_orders_list %}
+{{instance.id_food_order}} <a href="{%url 'deliver_order' instance.id_food_order %}">Order info</a><br>
+{% endfor %}
 
 {% endblock %}
