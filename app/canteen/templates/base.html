@@ -16,24 +16,16 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-
     <div class="main-header">
-
              <a href="/"><h1>Canteen</h1></a>
-
-
             <ul>
-
                 {%if user.is_authenticated%}
                 <li><a href="/logout">Logout</a></li>
                 <li><a href="/profile">Profile</a></li>
                 {% else %}
                 <li><a href="/login">Login</a></li>
                 <li><a href="/register">Register</a></li>
-                
                 {%endif%}
-
-                <li><a href="/contact">Contact</a></li>
                 <li><a href="/order">Orders</a></li>
                 <li><a href="/cart">Cart</a></li>
 
@@ -45,8 +37,8 @@
 
     <div class="footer">
         <span style="float:left">Number of visits: {{num_visits}}</span>
-        <span style="float:center">IIS project || User: {{user.username}}</span>
-        <span style="float:right">xholko02 xkremp01 xnovak2f</span>
+        <span style="float:center">IIS project | User: {{user.username}}</span>
+        <span style="float:right"><a href="mailto:xholko02@stud.fit.vutbr.cz" style="color:white">xholko02</a> <a href="mailto:xkremp01@stud.fit.vutbr.cz" style="color:white">xkremp01</a> <a href="mailto:xnovak2f@stud.fit.vutbr.cz" style="color:white">xnovak2f</a></span>
     </div> <!-- End footer -->
 </body>
 </html>

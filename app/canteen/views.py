@@ -155,6 +155,7 @@ def signup(request):
 	
 	return render(request, 'registration/register.html', {'form': form})
 
+
 def logged_view(request):
 	context = {
 
@@ -162,19 +163,8 @@ def logged_view(request):
 
 	return render(request, 'registration/logged_on.html', context)
 
-def contact_view(request):
-	context = {
-
-	}
-	return render(request, 'contact.html', context)
-
-
-
-
-
 
 def dynamic_facility_view(request, id):
-
 	try:
 		menu=Facility_menus.objects.filter(id_facility=id)
 	except Facility.DoesNotExist:
@@ -186,17 +176,8 @@ def dynamic_facility_view(request, id):
 		
 		if i.id_menu.type=='s' or i.id_menu.date==today.strftime("%Y-%M-%D"):
 			menu_objs.append(i.id_menu)
-	
 
-	"""
-	meals=testItem.objects.all()
-	facility_meals=[]
-	for item in meals:
-		if item.Facility.id_facility==id:
-			facility_meals.append(item)
-	"""
 	#getting meals that belongs to that facility
-
 
 	# handling the nonexistent page
 	try:
