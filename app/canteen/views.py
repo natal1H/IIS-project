@@ -662,7 +662,7 @@ def admin_edit_users(request):
     pass
 
 
-class Food_order_update_view(generic.UpdateView):
+class Food_order_update_view(generic.UpdateView, LoginRequiredMixin):
     template_name = 'food_order_update_view.html'
     form_class = Food_order_form
 
@@ -676,7 +676,7 @@ class Food_order_update_view(generic.UpdateView):
         return super().form_valid(form)
 
 
-class Food_order_delete_view(DeleteView):
+class Food_order_delete_view(DeleteView, LoginRequiredMixin):
     template_name = 'food_order_delete_view.html'
 
     def get_object(self):
@@ -694,7 +694,7 @@ class Food_order_list_view(ListView):
 """
 
 
-class person_update_view(generic.UpdateView):
+class person_update_view(generic.UpdateView, LoginRequiredMixin):
     template_name = 'person_update.html'
     form_class = person_form
 
@@ -728,7 +728,7 @@ def person_list_view(request):
     return render(request, 'person_list_view.html', context)
 
 
-class user_update_view(generic.UpdateView):
+class user_update_view(generic.UpdateView, LoginRequiredMixin):
     pass
 
 
@@ -832,7 +832,7 @@ def food_list_view(request):
     return render(request, 'food_list_view.html', context)
 
 
-class food_update_view(generic.UpdateView):
+class food_update_view(generic.UpdateView, LoginRequiredMixin):
     template_name = 'food_update_view.html'
     form_class = Food_form
 
@@ -845,7 +845,7 @@ class food_update_view(generic.UpdateView):
         return super().form_valid(form)
 
 
-class food_delete_view(DeleteView):
+class food_delete_view(DeleteView, LoginRequiredMixin):
     template_name = 'food_delete_view.html'
     form_class = Food_form
 
@@ -857,7 +857,7 @@ class food_delete_view(DeleteView):
         return '../food_list_view'
 
 
-class food_create_view(CreateView):
+class food_create_view(CreateView, LoginRequiredMixin):
     template_name = 'food_create_view.html'
     form_class = Food_form
     queryset = Item.objects.all()
@@ -870,7 +870,7 @@ class food_create_view(CreateView):
         return '../food_list_view'
 
 
-class menu_create_view(CreateView):
+class menu_create_view(CreateView, LoginRequiredMixin):
     template_name = 'menu_create_view.html'
     form_class = Menu_form
     queryset = Menu.objects.all()  # <blog>/<modelname>_list.html
@@ -887,7 +887,7 @@ class menu_create_view(CreateView):
         return '../menu_list_view'
 
 
-class menu_update_view(UpdateView):
+class menu_update_view(UpdateView, LoginRequiredMixin):
     template_name = 'menu_update_view.html'
     form_class = Menu_form
 
@@ -900,7 +900,7 @@ class menu_update_view(UpdateView):
         return super().form_valid(form)
 
 
-class menu_delete_view(DeleteView):
+class menu_delete_view(DeleteView, LoginRequiredMixin):
     template_name = 'menu_delete_view.html'
     form_class = Menu_form
 
@@ -912,7 +912,7 @@ class menu_delete_view(DeleteView):
         return '../menu_list_view'
 
 
-class Facility_menus_create_view(CreateView):
+class Facility_menus_create_view(CreateView, LoginRequiredMixin):
     template_name = 'facility_menus_create.html'
     form_class = Facility_menus_form
     queryset = Facility_menus.objects.all()
@@ -941,7 +941,7 @@ class Facility_menus_create_view(CreateView):
         return '../menu_list_view'
 
 
-class Menu_items_create_view(CreateView):
+class Menu_items_create_view(CreateView, LoginRequiredMixin):
     template_name = 'menu_items_create.html'
     form_class = Menu_items_form
     queryset = Menu_items.objects.all()
@@ -986,7 +986,7 @@ def facility_list_staff_view(request):
     pass
 
 
-class facility_create_view(CreateView):
+class facility_create_view(CreateView, LoginRequiredMixin):
     template_name = 'facility_create_view.html'
     form_class = Facility_form
     queryset = Facility.objects.all()
@@ -999,7 +999,7 @@ class facility_create_view(CreateView):
         return '../facility_list_staff_view'
 
 
-class facility_update_view(UpdateView):
+class facility_update_view(UpdateView, LoginRequiredMixin):
     template_name = 'facility_update_view.html'
     form_class = Facility_form
 
@@ -1016,7 +1016,7 @@ class facility_update_view(UpdateView):
         return '../facility_update_view/' + str(id)
 
 
-class facility_delete_view(DeleteView):
+class facility_delete_view(DeleteView, LoginRequiredMixin):
     template_name = 'facility_delete_view.html'
     form_class = Facility_form
 
