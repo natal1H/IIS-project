@@ -1,10 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2 class="page-title">Driver page</h2>
+
+
+<h2 class="page-title">Delivery plan</h2>
+
+{% comment %}
 {% if role == "d" or role == "a"%}
     <a href="food_order">Orders</a><br>
 {% endif %}
+{% endcomment %}
+
+
 
 {% for instance in driver_orders_list %}
 {{instance.id_food_order}} <a href="{%url 'deliver_order' instance.id_food_order %}">Order info</a><br>

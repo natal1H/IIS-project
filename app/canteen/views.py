@@ -20,7 +20,7 @@ from django.views.generic import *
 from datetime import date
 from datetime import datetime
 
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 
