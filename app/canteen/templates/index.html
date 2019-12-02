@@ -3,6 +3,7 @@
         {% block content %}
         <!-- End main-header -->
 
+        {% load static %}
 
         <div class="search-header">
             <h2 class="page-title">All facilities</h2>
@@ -15,25 +16,14 @@
             {% for instance in object %}
             <a clss="block-link" href='{{instance.get_absolute_url}}'>
                 <div class="facility-block">
+                    {% if instance.image != None %}
+                    <img src="{% static instance.image %}" width="400px" height="200px">
+                    {% endif %}
                     <b>{{ instance.name}}</b><br>
                     {{ instance.address }}<br>
                 </div>
             </a>
             {% endfor %}
-            {%if user.is_authenticated%}
-            <p>Hey, you are authenticated as:{{user.username}}</p>
-            {%endif%}
         </div> <!-- End content -->
-
-        {% if user.is_staff %}
-
-        <p>hey, you are a staff</p>>
-    <!-- We can mark a BookInstance as returned. -->
-    <!-- Perhaps add code to link to a "book return" view here. -->
-        {% endif %}
-
-        {% if perms.auth.delete_user %}
-        <button>You can delete user</button>
-        {% endif %}
 
         {% endblock %}
