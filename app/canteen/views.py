@@ -728,10 +728,6 @@ def person_list_view(request):
     return render(request, 'person_list_view.html', context)
 
 
-class user_update_view(generic.UpdateView, LoginRequiredMixin):
-    pass
-
-
 def food_order_list_view(request):
     if request.user.is_authenticated:
         person_instance = Person.objects.filter(user=request.user).first()
@@ -775,8 +771,16 @@ def driver_view(request):
 
     return render(request, 'driver_view.html', context)
 
-
+@login_required
 def driver_food_order_info(request, id):
+    if request.user.is_authenticated:
+        person_instance = Person.objects.filter(user=request.user).first()
+        person_instance.is_admin()
+        person_instance.is_operator()
+    else:
+        PermissionDenied()
+        return render(request, 'error_access.html', {})
+
     food_order_instance = Food_order.objects.filter(id_food_order=id).first()
 
     person_customer_instance = food_order_instance.person
@@ -791,11 +795,19 @@ def driver_food_order_info(request, id):
 @login_required
 def driver_deliver(request, id):
     print("hello")
+
+    if request.user.is_authenticated:
+        person_instance = Person.objects.filter(user=request.user).first()
+        person_instance.is_admin()
+        person_instance.is_operator()
+    else:
+        PermissionDenied()
+        return render(request, 'error_access.html', {})
     Food_order.objects.filter(id_food_order=id).update(status='d')
 
     return redirect('driver_view')
 
-
+@login_required
 def operator_view(request):
     if request.user.is_authenticated:
         person_instance = Person.objects.filter(user=request.user).first()
