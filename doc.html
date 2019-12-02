@@ -49,7 +49,7 @@
 
 <h3>Databáza</h3>
 
-Zde vlo¾te grafické schéma relaèní databáze (tabulek v databázi).
+<img src="db_schema.png">
 
 <h2>In¹talácia</h2>
 
@@ -62,7 +62,7 @@ Prerekvizity:
 
 Postup:
 <ol>
-	<li>S»ahnutie statický obrázkov - stiahnu» z <a href="">Google Drive</a> a prekopírova» obsah do app/static/</li><!-- TODO: update keï budú v¹etky obrázky -->
+	<li>S»ahnutie statický obrázkov - stiahnu» z <a href="https://drive.google.com/file/d/1OmQ3Uj_WO8ihmtjOvwQuI28TW7mIbyQF/view?usp=sharing">Google Drive</a> a prekopírova» obsah do app/static/</li><!-- TODO: update keï budú v¹etky obrázky -->
 	<li>Presun do zlo¾ky s Dockerfile - cd app/</li>
 	<li>Vytvorenie docker image - docker build -t canteen-docker -f Dockerfile .</li>
 	<li>Spustenie kontajneru - docker run -it -p 8888:8888 canteen-docker</li>
@@ -79,7 +79,7 @@ Prerekvizity:
 
 Postup:
 <ol>
-	<li>S»ahnutie statický obrázkov - stiahnu» z <a href="">Google Drive</a> a prekopírova» obsah do app/static/</li><!-- TODO: update keï budú v¹etky obrázky -->
+	<li>S»ahnutie statický obrázkov - stiahnu» z <a href="https://drive.google.com/file/d/1OmQ3Uj_WO8ihmtjOvwQuI28TW7mIbyQF/view?usp=sharing">Google Drive</a> a prekopírova» obsah do app/static/</li><!-- TODO: update keï budú v¹etky obrázky -->
 	<li>Presun do zlo¾ky s <i>manage.py</i> - cd app/</li>
 	<li>Nastavanie databázy a naplnenie vstupnými údajmi - python3 manage.py migrate</li>
 	<li>Zozbieranie statický súborov - python3 manage.py collectstatic --noinput</li>

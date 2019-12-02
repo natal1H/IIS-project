@@ -155,12 +155,6 @@ class Food_order(models.Model):
         return reverse('food_order', kwargs={'id': self.id_food_order})
 
 
-class Roles(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    is_driver = models.BooleanField(default=False)
-    is_operator = models.BooleanField(default=False)
-
-
 class Food_order_item(models.Model):
     id_food_order = models.ForeignKey(Food_order, on_delete=models.CASCADE)
     id_item = models.ForeignKey(Item, on_delete=models.CASCADE)
