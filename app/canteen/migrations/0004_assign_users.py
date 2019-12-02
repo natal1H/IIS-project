@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.db import migrations, models
-#from django.contrib.auth.models import User
+
 
 def assign_users(apps, schema_editor):
     User = apps.get_model('auth', 'user')
@@ -11,10 +11,10 @@ def assign_users(apps, schema_editor):
     person3 = Person.objects.get(pk=3)
     person4 = Person.objects.get(pk=4)
 
-    user1 = User.objects.get(username="mrkva1")
-    user2 = User.objects.get(username="mrkva2")
-    user3 = User.objects.get(username="mrkva3")
-    user4 = User.objects.get(username="mrkva4")
+    user1 = User.objects.get(username="mrkva_admin")
+    user2 = User.objects.get(username="mrkva_oper")
+    user3 = User.objects.get(username="mrkva_driver")
+    user4 = User.objects.get(username="mrkva_reg")
 
     person1.user = user1
     person2.user = user2

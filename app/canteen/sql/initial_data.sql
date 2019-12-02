@@ -3,18 +3,25 @@ INSERT INTO canteen_facility (id_facility, address, name, deadline, max_ordered_
     VALUES (1, 'Božetěchova 1, Brno-Královo Pole', 'Menza Starý pivovar', '18:00:00', 5, 'images/menza_stary_pivovar.jpg');
 INSERT INTO canteen_facility (id_facility, address, name, deadline, max_ordered_meals, image)
     VALUES (2, 'Purkyňova 93, Brno-Královo Pole', 'Menza Purkyňova', '17:00:00', 5, 'images/menza_purkynova.jpg');
+INSERT INTO canteen_facility (id_facility, address, name, deadline, max_ordered_meals, image)
+    VALUES (3, 'Kolejní 2, Brno-Královo Pole', 'Menza Kolejní', '14:30:00', 5, 'images/menza_kolejni.jpg');
 
 -- Inserting into 'menu' table
+-- Menu Menza Stary Pivovar
 INSERT INTO canteen_menu (id_menu, type, date, max_items)
     VALUES (1, 'd', '2019-11-25', 10);
 INSERT INTO canteen_menu (id_menu, type, date, max_items)
-    VALUES (2, 'd', '2019-11-26', 10);
+    VALUES (2, 'd', '2020-01-31', 10);
 INSERT INTO canteen_menu (id_menu, type, max_items)
     VALUES (3, 's', 10);
+-- Menu Menza Purkynova
 INSERT INTO canteen_menu (id_menu, type, date, max_items)
-    VALUES (4, 'd', '2019-11-24', 10);
+    VALUES (4, 'd', '2019-12-24', 10);
 INSERT INTO canteen_menu (id_menu, type, max_items)
     VALUES (5, 's', 10);
+-- Menu Menza Kolejni
+INSERT INTO canteen_menu (id_menu, type, max_items)
+    VALUES (6, 's', 10);
 
 -- Inserting into 'item' table
 INSERT INTO canteen_item (id_item, diet_type, name, description, price, image)
@@ -27,6 +34,12 @@ INSERT INTO canteen_item (id_item, diet_type, name, description, price, image)
     VALUES (4, 'n', 'Pizza - Hawai', 'Pizza with pineapple on top and ham', 4.25, 'images/pizza_hawai.jpg');
 INSERT INTO canteen_item (id_item, diet_type, name, description, price, image)
     VALUES (5, 'n', 'Pizza - Margheritta', 'Pizza Margherita', 4.00, 'images/pizza_margherita.jpg');
+INSERT INTO canteen_item (id_item, diet_type, name, description, price, image)
+    VALUES (6, 'n', 'Coca-cola', 'Coca-cola 0.3l', 0.75, 'images/cola.jpg');
+INSERT INTO canteen_item (id_item, diet_type, name, description, price, image)
+    VALUES (7, 'n', 'Chicken steak', 'Chicken steak with fries', 4.5 , 'images/chicken_steak.jpg');
+INSERT INTO canteen_item (id_item, diet_type, name, description, price, image)
+    VALUES (8, 'n', 'Water', 'Water bottle 0.5l', 0.6 , 'images/water.jpg');
 
 -- Inserting into 'person' table
 INSERT INTO canteen_person (id_person, firstname, surname, address, telephone, email, role)
@@ -53,18 +66,37 @@ INSERT INTO canteen_facility_menus (id_facility_id, id_menu_id)
     VALUES (2, 4);
 INSERT INTO canteen_facility_menus (id_facility_id, id_menu_id)
     VALUES (2, 5);
+INSERT INTO canteen_facility_menus (id_facility_id, id_menu_id)
+    VALUES (3, 6);
 
 -- Inserting into 'menu_items' table
 INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
-    VALUES (1, 1);
+    VALUES (1, 7);
+INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
+    VALUES (2, 7);
+INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
+    VALUES (3, 1);
 INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
     VALUES (3, 2);
+INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
+    VALUES (3, 6);
+INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
+    VALUES (3, 8);
+INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
+    VALUES (3, 7);
 INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
     VALUES (5, 3);
 INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
     VALUES (5, 4);
 INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
     VALUES (5, 5);
+INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
+    VALUES (5, 8);
+INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
+    VALUES (6, 8);
+INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
+    VALUES (6, 6);
+
 
 -- Inserting into 'food_order_item' table
 INSERT INTO canteen_food_order_item (id_food_order_id, id_item_id, quantity)

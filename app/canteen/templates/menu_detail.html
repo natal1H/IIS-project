@@ -11,8 +11,8 @@
 
     <div>
         <ul style="white-space:nowrap;margin-left:20px;font-weight:bold">
-            <li style="display:inline"><a href="{% url 'filter_menu' menu.id_menu 'v'%}">Vegan</a></li> |
             <li style="display:inline"><a href="{% url 'filter_menu' menu.id_menu 'n'%}">Normal</a></li> |
+            <li style="display:inline"><a href="{% url 'filter_menu' menu.id_menu 'v'%}">Vegetarian</a></li> |
             <li style="display:inline"><a href="{% url 'filter_menu' menu.id_menu 'g'%}">Glueten-free</a></li> |
             <li style="display:inline"><a href="{% url 'menu' menu.id_menu %}">All</a></li>
         </ul>
@@ -21,7 +21,6 @@
     <div class="food-blocks">
     {%if item_objs%}
 
-        <!-- Deciding whether to disable add button --><!-- TODO: temp fix, find better solution -->
         {% if menu.type == 's' %}
             {% firstof "" as is_disabled %}
         {% else %}
@@ -43,6 +42,13 @@
             <div style="float:left">
                 <b>{{instance_item.name}}</b><br>
                 {{instance_item.description}}<br>
+                {% if instance_item.diet_type == "n" %}
+                Diet: normal<br>
+                {% elif instance_item.diet_type == "g" %}
+                Diet: gluten-free<br>
+                {% else %}
+                Diet: Vegetarian<br>
+                {% endif %}
                 <b>{{instance_item.price}} €</b><br>
                 <!--<a href="{%url 'add_to_cart' instance_item.id_item id_facility%}" class="">Add to Cart</a><br>-->
             </div>
