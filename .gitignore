@@ -3,3 +3,4 @@ app/.idea
 app/app/__pycache__
 app/canteen/__pycache__
 app/canteen/migrations/__pycache__
+app/canteen.sqlite3
