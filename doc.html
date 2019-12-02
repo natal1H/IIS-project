@@ -49,15 +49,21 @@
 <p>
 Projekt je možné rozdeliť do niekoľkých častí a to či už abstraktne, pomocou MVC, alebo podľa súborov. Django používa MVC, avšak Views sú v prípade Djanga sú Controllers a Controllers sú Views. Následne využívame templates - html súbory uložené v priečinku templates, v ktorých prezentujeme dáta.
 Hlavnými časťami projektu sú súbory models.py, views.py, forms.py a urls.py, kde sa rieši url routing.
+<p>
 V models.py je implementované databázovú schému, v ktorej sme si zadefinovali triedy, ktoré sú podtriedami models.Model a následne sme si pomocou dátových polí z nadtriedy vytvorili jednotlivé atribúty.
 Views.py je súbor, kde je spravená väčšina logiky IS. Funkcie v tomto súbore si môžeme rozdeliť na štyri  podcelky 
 tzv. ClassBasedView, ktoré nám poskytuje framework django. My využívame CreateView, UpdateView a DeleteView, ktoré nám slúžia na náhľad, editovanie, vytváranie a vymazávanie inštancií entít/modelov. Týmito views bola vytvorená väčšina administrácie na strane personálu. Formuláre k týmto views sú v súbore forms.py. Validácia prebieha automaticky pomocou frameworku.
-
+</p>
+<p>
 Bežné views, ktoré nám zobrazujú napríklad menu, prevádzky atď. Boli implementované nami, keďže sme často potrebovali užívateľovi prezentovať len potrebné dáta.
+</p>
 
-Na manipuláciu s užívateľmi, čiže registrácia, login, zmena hesla a odhlásenie používame views dodané Djangom. Využívame pritom tzv. User Model, ktorý sme si rozšírili o vlastný model Person. Registráciu sme museli upraviť, keďže ukladáme rovnako do modelu User, ako aj do modelu Person. Tento spôsob implementácie sme si zvolili z dôvodu, že django User model nie je ľahko modifikovateľný, a preto sme si ho vzťahom 1:1 rozšírili, aby sme mohli v iných častiach implementácie jednoduchšie pracovať s užívateľmi a ich dátami.
+<p>Na manipuláciu s užívateľmi, čiže registrácia, login, zmena hesla a odhlásenie používame views dodané Djangom. Využívame pritom tzv. User Model, ktorý sme si rozšírili o vlastný model Person. Registráciu sme museli upraviť, keďže ukladáme rovnako do modelu User, ako aj do modelu Person. Tento spôsob implementácie sme si zvolili z dôvodu, že django User model nie je ľahko modifikovateľný, a preto sme si ho vzťahom 1:1 rozšírili, aby sme mohli v iných častiach implementácie jednoduchšie pracovať s užívateľmi a ich dátami.
+</p>
 
-Posledná skupina views slúži na mazanie a pridávanie položiek do objednávok, menus, atd. Jedná sa napr. o views add_to_cart() a remove_from_cart(). V prípade neregistrovaných užívateľov v nich priamo využívame sessions. Tieto funkcie sú taktiež implementované aj pre registrovaných užívateľov
+<p>Posledná skupina views slúži na mazanie a pridávanie položiek do objednávok, menus, atd. Jedná sa napr. o views add_to_cart() a remove_from_cart(). V prípade neregistrovaných užívateľov v nich priamo využívame sessions. Tieto funkcie sú taktiež implementované aj pre registrovaných užívateľov
+</p>
+
 </p>
 <h3>Databáza</h3>
 
