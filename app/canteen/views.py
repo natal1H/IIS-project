@@ -690,7 +690,7 @@ def driver_food_order_info(request, id):
     if request.user.is_authenticated:
         person_instance = Person.objects.filter(user=request.user).first()
         person_instance.is_admin()
-        person_instance.is_operator()
+        person_instance.is_driver()
     else:
         PermissionDenied()
         return render(request, 'error_access.html', {})
@@ -713,7 +713,7 @@ def driver_deliver(request, id):
     if request.user.is_authenticated:
         person_instance = Person.objects.filter(user=request.user).first()
         person_instance.is_admin()
-        person_instance.is_operator()
+        person_instance.is_driver()
     else:
         PermissionDenied()
         return render(request, 'error_access.html', {})
@@ -726,6 +726,11 @@ def operator_view(request):
     if request.user.is_authenticated:
         person_instance = Person.objects.filter(user=request.user).first()
         person_instance.is_operator()
+       
+        context = {
+                "role": person_instance.role
+        }
+        
 
     else:
         raise Http404
