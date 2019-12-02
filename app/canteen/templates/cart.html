@@ -28,13 +28,8 @@
 
                     <!-- TODO for food item -->
                     {% for instance_item in food_order_items_list %}
-                        <p style="float: left">{{instance_item.id_item.name}} : {{instance_item.quantity}}x</p>
-                        <p style="float: right">
-                            <a href="{%url 'add_to_cart' instance_item.id_item.id_item food_order_instance.facility.id_facility%}" class="">+1</a>
-                            /
-                            <a href="{%url 'remove_from_cart' instance_item.id_item.id_item food_order_instance.facility.id_facility%}" class="">-1</a>
-                         &nbsp;| ({{ instance_item.id_item.price }}€)
-                        </p>
+                        <p style="float:left">{{instance_item.id_item.name}} ({{ instance_item.id_item.price }}€)</p>
+                        <p style="float:right">{{instance_item.quantity}}x | <a href="{%url 'add_to_cart' instance_item.id_item.id_item food_order_instance.facility.id_facility%}" class="">+1 </a>/<a href="{%url 'remove_from_cart' instance_item.id_item.id_item food_order_instance.facility.id_facility%}" class=""> -1</a></p>
                         <br>
                     {%endfor%}
 
