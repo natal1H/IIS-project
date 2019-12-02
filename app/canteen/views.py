@@ -645,9 +645,9 @@ def person_list_view(request):
 def food_order_list_view(request):
     if request.user.is_authenticated:
         person_instance = Person.objects.filter(user=request.user).first()
-        person_instance.is_admin()
+        
         person_instance.is_operator()
-        person_instance.is_driver()
+        
         food_order_list = Food_order.objects.all()
 
         context = {
