@@ -336,73 +336,6 @@ def add_to_cart(request, id_item, id_facility):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  # stays on the same page
 
 
-# TODELETE this view
-def add_to_cart2(request, id_item, id_facility):
-    cart_id = request.session.get("cart_id", None)
-    qs = Food_order.objects.filter(id_food_order=cart_id, status='o')
-
-    facility_instance_control = Facility.objects.filter(id_facility=id_facility).first
-
-    if qs.count() == 1:
-        cart_obj = qs.first()
-        print("it is already created")
-
-        #
-        food_order_instance = Food_order.objects.filter(id_food_order=cart_obj.id_food_order).first()
-        # facility_instance=Facility.objects.filter(id_facility=id_facility).first()
-        """
-		print("facility id:")
-		print(food_order_instance.facility.id_facility)
-		print(id_facility)
-		print("|||||")
-		"""
-        if food_order_instance.facility.id_facility != id_facility:
-            print("you cant order from different facility")
-            return render(request, 'error_access.html', {
-                "msg": "Unable to add items from different facilities"
-            })
-
-        food_order_item_instance = Item.objects.filter(id_item=id_item).first()
-
-        food_order_item_instance_from_mm_table = Food_order_item.objects.filter(id_food_order=food_order_instance,
-                                                                                id_item=food_order_item_instance)
-
-        if food_order_item_instance_from_mm_table.count() == 1:
-            quantity = food_order_item_instance_from_mm_table.first().quantity + 1
-            print(quantity)
-            Food_order_item.objects.filter(id_food_order=food_order_instance, id_item=food_order_item_instance).update(
-                quantity=quantity)
-        # Food_order.objects.filter(id_food_order=cart_id, status='o').update(status='a')
-        else:
-            Food_order_item.objects.create(id_food_order=food_order_instance, id_item=food_order_item_instance)
-
-
-
-
-    else:
-        print("Now we are makin new order")
-        facility_instance = Facility.objects.filter(id_facility=id_facility).first()
-        food_order_item_instance = Item.objects.filter(id_item=id_item).first()
-
-        # Creates new food order
-        if request.user.is_authenticated:
-
-            person_instance = Person.objects.filter(user=request.user).first()
-            food_order_instance = Food_order.objects.create(facility=facility_instance, person=person_instance,
-                                                            status='o')  # Creates new food order
-        else:
-            food_order_instance = Food_order.objects.create(facility=facility_instance, status='o')
-
-        Food_order_item.objects.create(id_food_order=food_order_instance,
-                                       id_item=food_order_item_instance)  # adds the item to the order
-
-        request.session['cart_id'] = food_order_instance.id_food_order
-
-    # TOCONTINUE
-
-    # TODO order, checkout etc. and all  almost done, but needs to be finalized and tested
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  # stays on the same page
-
 
 def remove_from_cart(request, id_item, id_facility):
     if request.user.is_authenticated:
@@ -539,7 +472,6 @@ def pay_view(request):
     else:
         cart_id = request.session.get("cart_id", None)
 
-        # TODO think about unregistered payment
         my_form = Pay_form()
         if request.method == "POST":
 
@@ -568,33 +500,12 @@ def pay_view(request):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-def pay_view_unreg(request):
-    if request.user.is_authenticated:
-        raise PermissionDenied()
 
-    my_form = Pay_form()
-
-    pass
 
 
 # this is basically all orders view
-
+#this is the order for one user and his/hers orders
 def order_view(request):  # basically a cart
-    """
-	if request.user.is_authenticated:
-		print ("Yes, he is")
-
-	cart_id=request.session.get("cart_id", None)
-	qs=Food_order.objects.filter(id_food_order=cart_id)
-
-	if qs.count()==1:
-		cart_obj=qs.first()
-		print ("it is already created")
-	else:
-		cart_obj=Food_order.objects.create()
-		request.session['cart_id']=cart_obj.id_food_order
-
-	"""
 
     if request.user.is_authenticated:
 
@@ -654,14 +565,6 @@ def admin_view(request):
     return render(request, 'admin_view.html', context)
 
 
-# TODO
-
-
-def admin_edit_users(request):
-    # TODO
-    pass
-
-
 class Food_order_update_view(generic.UpdateView, LoginRequiredMixin):
     template_name = 'food_order_update_view.html'
     form_class = Food_order_form
@@ -686,12 +589,6 @@ class Food_order_delete_view(DeleteView, LoginRequiredMixin):
     def get_success_url(self):
         return '../food_order'
 
-
-"""
-class Food_order_list_view(ListView):
-    template_name = 'Food_order_list.html'
-    queryset = list(Food_order.objects.all())
-"""
 
 
 class person_update_view(generic.UpdateView, LoginRequiredMixin):
