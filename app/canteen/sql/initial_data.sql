@@ -31,8 +31,8 @@ INSERT INTO canteen_person (id_person, firstname, surname, address, telephone, e
     VALUES (4, 'Anna', 'Mrkvová', 'Purkyňova 93, 612 00 Brno', '0987654324', 'anna.mrkvova@mail.com', 'r');
 
 -- Inserting into 'food_order' table
-INSERT INTO canteen_food_order (id_food_order, status, payment_form, person_id, facility_id, date_created, date_approved, date_delivered, date_paid, approved_by_id, delivered_by_id)
-   VALUES (1, 'o', 'd', 1, 1, '2019-10-16 15:26', null, null, null, null, null);
+INSERT INTO canteen_food_order (id_food_order, status, person_id, facility_id, date_created, date_approved, date_delivered, date_paid, approved_by_id, delivered_by_id)
+   VALUES (1, 'o', 1, 1, '2019-10-16 15:26', null, null, null, null, null);
 
 -- Inserting into 'facility_menus' table
 INSERT INTO canteen_facility_menus (id_facility_id, id_menu_id)

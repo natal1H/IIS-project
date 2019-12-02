@@ -26,6 +26,13 @@ def assign_users(apps, schema_editor):
     person3.save()
     person4.save()
 
+    # Set user1 as superuser
+    user1.is_superuser = True
+    user1.is_staff = True
+    user1.is_admin = True
+    user1.save()
+
+
 class Migration(migrations.Migration):
 
     dependencies = [

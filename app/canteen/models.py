@@ -18,12 +18,11 @@ class Facility (models.Model):
     name = models.CharField(max_length=150, blank=False)
     deadline = models.TimeField(blank=False)
     max_ordered_meals = models.IntegerField(default=1)
+    image = models.CharField(max_length=100, blank=False, null=True)
 
     def get_absolute_url(self):
         return f"facility/{self.id_facility}"
-        #return reverse("facility-view", kwargs={"id":self.id_facility})#f""
 
-    
     def __str__(self):
         """String for representing the MyModelName object (in Admin site etc.)."""
         return self.name
@@ -49,14 +48,11 @@ class Menu (models.Model):
         return f"{self.id_menu}"
 
 
-
-
 class Item(models.Model):
     id_item = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100, blank=False)
     description = models.CharField(max_length=320, blank=True, null=True)
     price = models.IntegerField(blank=False)
-    #image = models.ImageField(blank=True, null=True)
     image = models.CharField(max_length=100, blank=False, null=True)
 
     DIET_TYPES = (
@@ -74,13 +70,13 @@ class Item(models.Model):
     def get_absolute_url(self):
         return f"{self.id_item}"
 
+
 class Person(models.Model):
     id_person = models.AutoField(primary_key=True)
     firstname = models.CharField(max_length=50, blank=False)
     surname = models.CharField(max_length=50, blank=False)
     address = models.CharField(max_length=150, blank=False)
     telephone = models.CharField(max_length=25, blank=False, unique=True)
-    # user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True) # we'll use blank and null true TODO TOCHECK
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)  # we'll use blank and null true TODO TOCHECK
     email = models.CharField(max_length=32, unique=True, blank=True, null=True)
     profile_info = models.CharField(max_length=300, blank=True, null=True)
@@ -143,28 +139,15 @@ class Food_order(models.Model):
         ('d', 'delivered'),
     )
 
-    PAYMENT_FORM = (
-        ('m', 'meal ticket'),
-        ('n', 'card now'),
-        ('d', 'card on delivery'),
-        ('h', 'cash on delivery'),
-    )
-
     status = models.CharField(
         max_length=1,
         choices=FOOD_ORDER_STATUS,
         default='o',
     )
 
-    payment_form = models.CharField(
-        max_length=1,
-        choices=PAYMENT_FORM,
-        default='h',
-    )
-    
     def get_absolute_url(self):
         return f"{self.id_food_order}"
-        #return reverse('food_order', kwargs={'id': self.id_food_order})
+
     def get_absolute_url_id(self):
         return reverse('food_order', kwargs={'id': self.id_food_order})
 
@@ -185,10 +168,7 @@ class Food_order_item(models.Model):
 
 class Facility_menus(models.Model):
     id_facility = models.ForeignKey(Facility, on_delete=models.CASCADE)
-    id_menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = (('id_facility', 'id_menu'),)
+    id_menu = models.OneToOneField(Menu, on_delete=models.CASCADE, primary_key=True)
 
 
 class Menu_items(models.Model):
