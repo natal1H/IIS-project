@@ -978,7 +978,7 @@ class Facility_menus_create_view(CreateView):
         return '../menu_list_view'
 
 class Menu_items_create_view(CreateView):
-    template_name = 'facility_menus_create.html'
+    template_name = 'menu_items_create.html'
     form_class = Menu_items_form
     queryset = Menu_items.objects.all()
 	
