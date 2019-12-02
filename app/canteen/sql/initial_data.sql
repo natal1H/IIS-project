@@ -40,20 +40,26 @@ INSERT INTO canteen_item (id_item, diet_type, name, description, price, image)
     VALUES (7, 'n', 'Chicken steak', 'Chicken steak with fries', 4.5 , 'images/chicken_steak.jpg');
 INSERT INTO canteen_item (id_item, diet_type, name, description, price, image)
     VALUES (8, 'n', 'Water', 'Water bottle 0.5l', 0.6 , 'images/water.jpg');
+INSERT INTO canteen_item (id_item, diet_type, name, description, price, image)
+    VALUES (9, 'v', 'Salad', 'Green stuff', 3.5 , 'images/salad.jpg');
+INSERT INTO canteen_item (id_item, diet_type, name, description, price, image)
+    VALUES (10, 'g', 'Apple', 'Red apple', 0.4 , 'images/apple.jpg');
 
 -- Inserting into 'person' table
 INSERT INTO canteen_person (id_person, firstname, surname, address, telephone, email, role)
     VALUES (1, 'Jozef', 'Mrkvička', 'Purkyňova 93, 612 00 Brno', '0987654321', 'jozef.mrkvicka@mail.com', 'a');
 INSERT INTO canteen_person (id_person, firstname, surname, address, telephone, email, role)
-    VALUES (2, 'Ján', 'Mrkvička', 'Purkyňova 93, 612 00 Brno', '0987654322', 'jan.mrkvicka@mail.com', 'o');
+    VALUES (2, 'Ján', 'Kováč', 'Purkyňova 93, 612 00 Brno', '0987654322', 'jan.kovac@mail.com', 'o');
 INSERT INTO canteen_person (id_person, firstname, surname, address, telephone, email, role)
-    VALUES (3, 'Jana', 'Mrkvová', 'Purkyňova 93, 612 00 Brno', '0987654323', 'jana.mrkvova@mail.com', 'd');
+    VALUES (3, 'Jana', 'Balážová', 'Purkyňova 93, 612 00 Brno', '0987654323', 'jana.balazova@mail.com', 'd');
 INSERT INTO canteen_person (id_person, firstname, surname, address, telephone, email, role)
-    VALUES (4, 'Anna', 'Mrkvová', 'Purkyňova 93, 612 00 Brno', '0987654324', 'anna.mrkvova@mail.com', 'r');
+    VALUES (4, 'Anna', 'Molnárová', 'Purkyňova 93, 612 00 Brno', '0987654324', 'anna.molnarova@mail.com', 'r');
 
 -- Inserting into 'food_order' table
 INSERT INTO canteen_food_order (id_food_order, status, person_id, facility_id, date_created, date_approved, date_delivered, date_paid, approved_by_id, delivered_by_id)
-   VALUES (1, 'o', 1, 1, '2019-10-16 15:26', null, null, null, null, null);
+   VALUES (1, 'a', 4, 1, '2019-10-16 15:26', '2019-10-16 17:26', null, '2019-10-16 15:26', 2, null);
+INSERT INTO canteen_food_order (id_food_order, status, person_id, facility_id, date_created, date_approved, date_delivered, date_paid, approved_by_id, delivered_by_id)
+   VALUES (2, 'd', 4, 3, '2019-12-02 11:22', '2019-12-02 13:00', '2019-12-02 14:00', '2019-12-02 11:22', 2, 3);
 
 -- Inserting into 'facility_menus' table
 INSERT INTO canteen_facility_menus (id_facility_id, id_menu_id)
@@ -83,7 +89,7 @@ INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
 INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
     VALUES (3, 8);
 INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
-    VALUES (3, 7);
+    VALUES (4, 7);
 INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
     VALUES (5, 3);
 INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
@@ -96,8 +102,16 @@ INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
     VALUES (6, 8);
 INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
     VALUES (6, 6);
+INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
+    VALUES (6, 9);
+INSERT INTO canteen_menu_items (id_menu_id, id_item_id)
+    VALUES (6, 10);
 
 
 -- Inserting into 'food_order_item' table
 INSERT INTO canteen_food_order_item (id_food_order_id, id_item_id, quantity)
     VALUES (1, 2, 1);
+INSERT INTO canteen_food_order_item (id_food_order_id, id_item_id, quantity)
+    VALUES (2, 9, 1);
+INSERT INTO canteen_food_order_item (id_food_order_id, id_item_id, quantity)
+    VALUES (2, 10, 1);

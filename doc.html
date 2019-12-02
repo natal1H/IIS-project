@@ -12,22 +12,22 @@
 </head>
 <body>
 
-<!-- Zkontrolujte prosÃ­m nastavenÃ­ kÃ³dovÃ¡nÃ­ v hlaviÄce dokumentu
-     podle pouÅ¾itÃ©ho editoru -->
+<!-- Zkontrolujte prosím nastavení kódování v hlavièce dokumentu
+     podle pou¾itého editoru -->
 
-<h1>JÃ­delna: objednÃ¡vka a rozvoz jÃ­del</h1> <!-- Nahradte nÃ¡zvem svÃ©ho zadÃ¡nÃ­ -->
+<h1>Jídelna: objednávka a rozvoz jídel</h1> <!-- Nahradte názvem svého zadání -->
 
 <dl>
 	<dt>Autori</dt>
-	<dd>NatÃ¡lia HolkovÃ¡ <!-- NahraÄte skuteÄnÃ½m jmÃ©nem a e-mailem autora a popisem Äinnosti -->
+	<dd>Natália Holková <!-- Nahraïte skuteènım jménem a e-mailem autora a popisem èinnosti -->
 	    <a href="mailto:xholko02@stud.fit.vutbr.cz">xholko02@stud.fit.vutbr.cz</a> -
-		databÃ¡za, HTML templates, Docker, hosting
+		databáza, HTML templates, Docker, hosting
 	</dd>
-	<dd>Samuel KrempaskÃ½<!-- NahraÄte skuteÄnÃ½m jmÃ©nem a e-mailem autora a popisem Äinnosti -->
+	<dd>Samuel Krempaskı<!-- Nahraïte skuteènım jménem a e-mailem autora a popisem èinnosti -->
 	    <a href="mailto:xkremp01@stud.fit.vutbr.cz">xkremp01@stud.fit.vutbr.cz</a> -
 		backend
 	</dd>
-  <dd>Matej NovÃ¡k<!-- NahraÄte skuteÄnÃ½m jmÃ©nem a e-mailem autora a popisem Äinnosti -->
+  <dd>Matej Novák<!-- Nahraïte skuteènım jménem a e-mailem autora a popisem èinnosti -->
 	    <a href="mailto:xnovak2f@stud.fit.vutbr.cz">xnovak2f@stud.fit.vutbr.cz</a> -
 		dizajn
 	</dd>
@@ -35,43 +35,43 @@
 	<dd><a href="https://canteen-docker-gnb42qlp2a-uc.a.run.app/">https://canteen-docker-gnb42qlp2a-uc.a.run.app/</a></dd>
 </dl>
 
-<h2>UÅ¾Ã­vatelia systÃ©mu pre testovanie</h2>
+<h2>U¾ívatelia systému pre testovanie</h2>
 <table>
 <tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
-<tr><td>mrkva_admin</td><td>123456</td><td>AdministrÃ¡tor</td></tr>
-<tr><td>mrkva_oper</td><td>123456</td><td>OperÃ¡tor</td></tr>
-<tr><td>mrkva_driver</td><td>123456</td><td>VodiÄ</td></tr>
-<tr><td>mrkva_reg</td><td>123456</td><td>StravnÃ­k</td></tr>
+<tr><td>xmrkva</td><td>123456</td><td>Administrátor</td></tr>
+<tr><td>xkovac</td><td>123456</td><td>Operátor</td></tr>
+<tr><td>xbalaz</td><td>123456</td><td>Vodiè</td></tr>
+<tr><td>xmolna</td><td>123456</td><td>Stravník</td></tr>
 </table>
 
-<h2>ImplementÃ¡cia</h2>
-<p>StruÄnÃ¡ dokumentace k implementaci, kterÃ¡ popisuje, kterÃ© ÄÃ¡sti projektu (napÅ™. PHP skripty) implementujÃ­ jednotlivÃ© pÅ™Ã­pady pouÅ¾itÃ­.</p>
+<h2>Implementácia</h2>
+<p>Struèná dokumentace k implementaci, která popisuje, které èásti projektu (napø. PHP skripty) implementují jednotlivé pøípady pou¾ití.</p>
 <p>
-Projekt je moÅ¾nÃ© rozdeliÅ¥ do niekoÄ¾kÃ½ch ÄastÃ­ a to Äi uÅ¾ abstraktne, pomocou MVC, alebo podÄ¾a sÃºborov. Django pouÅ¾Ã­va MVC, avÅ¡ak Views sÃº v prÃ­pade Djanga sÃº Controllers a Controllers sÃº Views. NÃ¡sledne vyuÅ¾Ã­vame templates - html sÃºbory uloÅ¾enÃ© v prieÄinku templates, v ktorÃ½ch prezentujeme dÃ¡ta.
-HlavnÃ½mi ÄasÅ¥ami projektu sÃº sÃºbory models.py, views.py, forms.py a urls.py, kde sa rieÅ¡i url routing.
+Projekt je mo¾né rozdeli» do niekoµkıch èastí a to èi u¾ abstraktne, pomocou MVC, alebo podµa súborov. Django pou¾íva MVC, av¹ak Views sú v prípade Djanga sú Controllers a Controllers sú Views. Následne vyu¾ívame templates - html súbory ulo¾ené v prieèinku templates, v ktorıch prezentujeme dáta.
+Hlavnımi èas»ami projektu sú súbory models.py, views.py, forms.py a urls.py, kde sa rie¹i url routing.
 <p>
-V models.py je implementovanÃ© databÃ¡zovÃº schÃ©mu, v ktorej sme si zadefinovali triedy, ktorÃ© sÃº podtriedami models.Model a nÃ¡sledne sme si pomocou dÃ¡tovÃ½ch polÃ­ z nadtriedy vytvorili jednotlivÃ© atribÃºty.
-Views.py je sÃºbor, kde je spravenÃ¡ vÃ¤ÄÅ¡ina logiky IS. Funkcie v tomto sÃºbore si mÃ´Å¾eme rozdeliÅ¥ na Å¡tyri  podcelky 
-tzv. ClassBasedView, ktorÃ© nÃ¡m poskytuje framework django. My vyuÅ¾Ã­vame CreateView, UpdateView a DeleteView, ktorÃ© nÃ¡m slÃºÅ¾ia na nÃ¡hÄ¾ad, editovanie, vytvÃ¡ranie a vymazÃ¡vanie inÅ¡tanciÃ­ entÃ­t/modelov. TÃ½mito views bola vytvorenÃ¡ vÃ¤ÄÅ¡ina administrÃ¡cie na strane personÃ¡lu. FormulÃ¡re k tÃ½mto views sÃº v sÃºbore forms.py. ValidÃ¡cia prebieha automaticky pomocou frameworku.
+V models.py je implementované databázovú schému, v ktorej sme si zadefinovali triedy, ktoré sú podtriedami models.Model a následne sme si pomocou dátovıch polí z nadtriedy vytvorili jednotlivé atribúty.
+Views.py je súbor, kde je spravená väè¹ina logiky IS. Funkcie v tomto súbore si mô¾eme rozdeli» na ¹tyri  podcelky 
+tzv. ClassBasedView, ktoré nám poskytuje framework django. My vyu¾ívame CreateView, UpdateView a DeleteView, ktoré nám slú¾ia na náhµad, editovanie, vytváranie a vymazávanie in¹tancií entít/modelov. Tımito views bola vytvorená väè¹ina administrácie na strane personálu. Formuláre k tımto views sú v súbore forms.py. Validácia prebieha automaticky pomocou frameworku.
 </p>
 <p>
-BeÅ¾nÃ© views, ktorÃ© nÃ¡m zobrazujÃº naprÃ­klad menu, prevÃ¡dzky atÄ. Boli implementovanÃ© nami, keÄÅ¾e sme Äasto potrebovali uÅ¾Ã­vateÄ¾ovi prezentovaÅ¥ len potrebnÃ© dÃ¡ta.
+Be¾né views, ktoré nám zobrazujú napríklad menu, prevádzky atï. Boli implementované nami, keï¾e sme èasto potrebovali u¾ívateµovi prezentova» len potrebné dáta.
 </p>
 
-<p>Na manipulÃ¡ciu s uÅ¾Ã­vateÄ¾mi, ÄiÅ¾e registrÃ¡cia, login, zmena hesla a odhlÃ¡senie pouÅ¾Ã­vame views dodanÃ© Djangom. VyuÅ¾Ã­vame pritom tzv. User Model, ktorÃ½ sme si rozÅ¡Ã­rili o vlastnÃ½ model Person. RegistrÃ¡ciu sme museli upraviÅ¥, keÄÅ¾e ukladÃ¡me rovnako do modelu User, ako aj do modelu Person. Tento spÃ´sob implementÃ¡cie sme si zvolili z dÃ´vodu, Å¾e django User model nie je Ä¾ahko modifikovateÄ¾nÃ½, a preto sme si ho vzÅ¥ahom 1:1 rozÅ¡Ã­rili, aby sme mohli v inÃ½ch Äastiach implementÃ¡cie jednoduchÅ¡ie pracovaÅ¥ s uÅ¾Ã­vateÄ¾mi a ich dÃ¡tami.
+<p>Na manipuláciu s u¾ívateµmi, èi¾e registrácia, login, zmena hesla a odhlásenie pou¾ívame views dodané Djangom. Vyu¾ívame pritom tzv. User Model, ktorı sme si roz¹írili o vlastnı model Person. Registráciu sme museli upravi», keï¾e ukladáme rovnako do modelu User, ako aj do modelu Person. Tento spôsob implementácie sme si zvolili z dôvodu, ¾e django User model nie je µahko modifikovateµnı, a preto sme si ho vz»ahom 1:1 roz¹írili, aby sme mohli v inıch èastiach implementácie jednoduch¹ie pracova» s u¾ívateµmi a ich dátami.
 </p>
 
-<p>PoslednÃ¡ skupina views slÃºÅ¾i na mazanie a pridÃ¡vanie poloÅ¾iek do objednÃ¡vok, menus, atd. JednÃ¡ sa napr. o views add_to_cart() a remove_from_cart(). V prÃ­pade neregistrovanÃ½ch uÅ¾Ã­vateÄ¾ov v nich priamo vyuÅ¾Ã­vame sessions. Tieto funkcie sÃº taktieÅ¾ implementovanÃ© aj pre registrovanÃ½ch uÅ¾Ã­vateÄ¾ov
+<p>Posledná skupina views slú¾i na mazanie a pridávanie polo¾iek do objednávok, menus, atd. Jedná sa napr. o views add_to_cart() a remove_from_cart(). V prípade neregistrovanıch u¾ívateµov v nich priamo vyu¾ívame sessions. Tieto funkcie sú taktie¾ implementované aj pre registrovanıch u¾ívateµov
 </p>
 
 </p>
-<h3>DatabÃ¡za</h3>
+<h3>Databáza</h3>
 
 <img src="db_schema.png">
 
-<h2>InÅ¡talÃ¡cia</h2>
+<h2>In¹talácia</h2>
 
-<h3>InÅ¡talÃ¡cia pomocou Docker</h3>
+<h3>In¹talácia pomocou Docker</h3>
 
 Prerekvizity:
 <ul>
@@ -80,14 +80,14 @@ Prerekvizity:
 
 Postup:
 <ol>
-	<li>SÅ¥ahnutie statickÃ½ obrÃ¡zkov - stiahnuÅ¥ z <a href="https://drive.google.com/file/d/1OmQ3Uj_WO8ihmtjOvwQuI28TW7mIbyQF/view?usp=sharing">Google Drive</a> a prekopÃ­rovaÅ¥ obsah do app/static/</li>
-	<li>Presun do zloÅ¾ky s Dockerfile - <i>cd app/</i></li>
+	<li>S»ahnutie statickı obrázkov - stiahnu» z <a href="https://drive.google.com/file/d/1uHsfpln8rxuFnZLN_9o6wJJKOpXe8hK4/view?usp=sharing">Google Drive</a> a prekopírova» obsah do app/static/</li>
+	<li>Presun do zlo¾ky s Dockerfile - <i>cd app/</i></li>
 	<li>Vytvorenie docker image (niekedy treba <i>sudo</i>) - <i>docker build -t canteen-docker .</i></li>
 	<i>Spustenie kontajneru (niekedy treba <i>sudo</i>) - <i>docker run -it -p 8888:8888 canteen-docker</i></li>
-	<li>StrÃ¡nky bude dostupnÃ¡ na <a href="http://localhost:8888/">localhost:8888</a></li>
+	<li>Stránky bude dostupná na <a href="http://localhost:8888/">localhost:8888</a></li>
 </ol>
 
-<h3>InÅ¡talÃ¡cia bez Docker</h3>
+<h3>In¹talácia bez Docker</h3>
 
 Prerekvizity:
 <ul>
@@ -97,21 +97,13 @@ Prerekvizity:
 
 Postup:
 <ol>
-	<li>SÅ¥ahnutie statickÃ½ obrÃ¡zkov - stiahnuÅ¥ z <a href="https://drive.google.com/file/d/1OmQ3Uj_WO8ihmtjOvwQuI28TW7mIbyQF/view?usp=sharing">Google Drive</a> a prekopÃ­rovaÅ¥ obsah do app/static/</li>
-	<li>Presun do zloÅ¾ky s <i>manage.py</i> - cd app/</li>
-	<li>Nastavanie databÃ¡zy a naplnenie vstupnÃ½mi Ãºdajmi - python3 manage.py migrate</li>
-	<li>Zozbieranie statickÃ½ sÃºborov - python3 manage.py collectstatic --noinput</li>
+	<li>S»ahnutie statickı obrázkov - stiahnu» z <a href="https://drive.google.com/file/d/1uHsfpln8rxuFnZLN_9o6wJJKOpXe8hK4/view?usp=sharing">Google Drive</a> a prekopírova» obsah do app/static/</li>
+	<li>Presun do zlo¾ky s <i>manage.py</i> - cd app/</li>
+	<li>Nastavanie databázy a naplnenie vstupnımi údajmi - python3 manage.py migrate</li>
+	<li>Zozbieranie statickı súborov - python3 manage.py collectstatic --noinput</li>
 	<li>Sputenie serveru - python3 manage.py runserver
-	<li>StrÃ¡nka je teraz dostupnÃ¡ na <a href="http://127.0.0.1:8000/">127.0.0.1:8000</a></li>
+	<li>Stránka je teraz dostupná na <a href="http://127.0.0.1:8000/">127.0.0.1:8000</a></li>
 </ol>
-
-
-StruÄnÄ› popiÅ¡te:
-<ul>
-	<li>postup instalace na server,</li>
-	<li>softwarovÃ© poÅ¾adavky (verze PHP apod.),</li>
-	<li>jak rozbalit, konfigurovat, inicializovat databÃ¡zi, ...</li>
-</ul>
 
 </body>
 </html>

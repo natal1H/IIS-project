@@ -11,10 +11,10 @@ def assign_users(apps, schema_editor):
     person3 = Person.objects.get(pk=3)
     person4 = Person.objects.get(pk=4)
 
-    user1 = User.objects.get(username="mrkva_admin")
-    user2 = User.objects.get(username="mrkva_oper")
-    user3 = User.objects.get(username="mrkva_driver")
-    user4 = User.objects.get(username="mrkva_reg")
+    user1 = User.objects.get(username="xmrkva")
+    user2 = User.objects.get(username="xkovac")
+    user3 = User.objects.get(username="xbalaz")
+    user4 = User.objects.get(username="xmolna")
 
     person1.user = user1
     person2.user = user2
