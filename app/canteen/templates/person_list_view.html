@@ -11,7 +11,8 @@ Login: {{instance.user}} <br>
 Firstname: {{instance.firstname}} <br>
 Surname:{{instance.surname}} <br>
 
-<a href="{%url 'person_update' instance.id_person %}">UPDATE</a>
+<a href="{%url 'person_update' instance.id_person %}">UPDATE</a> || 
+<a href="{%url 'person_delete' instance.id_person %}">DELETE</a>
 <br>
 <hr>
 

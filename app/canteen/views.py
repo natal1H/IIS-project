@@ -603,6 +603,16 @@ class person_update_view(generic.UpdateView, LoginRequiredMixin):
         print(form.cleaned_data)
         return super().form_valid(form)
 
+class person_delete_view(DeleteView, LoginRequiredMixin):
+    template_name = 'person_delete_view.html'
+
+    def get_object(self):
+        id = self.kwargs.get("id")
+        return get_object_or_404(Person, id_person=id)
+
+    def get_success_url(self):
+        return '../person_list_view'
+
 
 def person_list_view(request):
     if request.user.is_authenticated:

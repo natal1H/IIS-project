@@ -38,8 +38,12 @@ urlpatterns += [
     path('food_order_delete/<int:id>', views.Food_order_delete_view.as_view(), name='food_order_delete'),
     path('deliver_order/<int:id>', views.driver_food_order_info, name='deliver_order'),
     path('deliver_order_finally/<int:id>', views.driver_deliver, name='deliver_order_finally'),
+    
     path('person_update/<int:id>', views.person_update_view.as_view(), name='person_update'),
     path('person_list_view', views.person_list_view, name='person_list_view'),
+    path('person_delete/<int:id>', views.person_delete_view.as_view(), name='person_delete'),
+
+
     path('menu_list_view', views.menu_list_view, name='menu_list_view'),
     path('menu_create_view', views.menu_create_view.as_view(), name='menu_create_view'),
     path('menu_update_view/<int:id>', views.menu_update_view.as_view(), name='menu_update_view'),
