@@ -805,7 +805,35 @@ class menu_update_view(UpdateView, LoginRequiredMixin):
         return get_object_or_404(Menu, id_menu=id)
 
     def form_valid(self, form):
-        print(id)
+        id = self.kwargs.get("id")
+        
+        id_menu_check=Menu.objects.filter(id_menu=id).first()
+
+        facilitiy_instance=Facility_menus.objects.filter(id_menu=id_menu_check).first()
+        
+        facilitiy_instance=facilitiy_instance.id_facility
+
+        print(facilitiy_instance)
+        facility_menus=Facility_menus.objects.filter(id_facility=facilitiy_instance)
+        print(facility_menus)
+
+
+        print(form.cleaned_data['type'])
+
+        if form.cleaned_data['type']=='s':
+            cnt=0
+            for x in facility_menus:
+                x=x.id_menu
+
+                if x.type=='s':
+                    print("is already created")
+                    PermissionDenied()
+                    raise Http404
+                    
+                        
+
+
+
         print(form.cleaned_data)
 
 
