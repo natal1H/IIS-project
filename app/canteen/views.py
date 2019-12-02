@@ -725,13 +725,7 @@ def driver_deliver(request, id):
 def operator_view(request):
     if request.user.is_authenticated:
         person_instance = Person.objects.filter(user=request.user).first()
-
-        if person_instance.role == 'a' or person_instance.role == 'o':
-            context = {
-                "role": person_instance.role
-            }
-        else:
-            raise Http404
+        person_instance.is_operator()
 
     else:
         raise Http404
