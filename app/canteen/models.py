@@ -52,7 +52,7 @@ class Item(models.Model):
     id_item = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100, blank=False)
     description = models.CharField(max_length=320, blank=True, null=True)
-    price = models.IntegerField(blank=False)
+    price = models.DecimalField(max_digits=10, decimal_places=2, blank=False)
     image = models.CharField(max_length=100, blank=False, null=True)
 
     DIET_TYPES = (
