@@ -130,6 +130,7 @@ h3{
 .menu-block {
     margin: 20px;
     width: 350px;
+    min-height: 60px;
     background: #ffcccc;
     display: inline-block;
     float: center;
@@ -147,7 +148,7 @@ h3{
 
 .cart-block {
     margin: 20px;
-    width: 350px;
+    width: 250px;
     background: #ffcccc;
     display: inline-block;
     float: right;
@@ -157,7 +158,7 @@ h3{
 
 .food-blocks {
     float: left;
-    width: 60%;
+    width: 80%;
 }
 
 .food-block {
@@ -283,62 +284,6 @@ input[type=number]{
     margin-left: 5px;
     margin-bottom: 4px;
 }
-
-/* The container of radio buttons*/
-.container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-}
-
-/* Hide default radio button */
-.container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-}
-
-/* custom radio buttons */
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #ffffff;
-    border-radius: 50%;
-}
-
-.container:hover input ~ .checkmark {
-    background-color: #cccccc;
-}
-
-.container input:checked ~ .checkmark {
-    background-color: #d42626;
-}
-
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-.container input:checked ~ .checkmark:after {
-    display: block;
-}
-
-.container .checkmark:after {
- 	top: 8px;
-	left: 8px;
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	background: white;
-}
-
 
 input[type=submit]{
     background-color: #333333;
