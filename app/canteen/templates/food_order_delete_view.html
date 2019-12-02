@@ -5,14 +5,13 @@
     <div class="register-block-choice">
 
 
-        <form action='' method='POST'>{% csrf_token %}
-            <h1>Do you want to delete the order "{{ object.id_food_order }}"?</h1>
-            <div style="margin-left: auto; margin-right: auto; display:inline-block">
-                <input type='submit' value='Yes' />
-                <form action="../">
-                    <input type="submit"  value="No">
-                </form>
-            </div>
+        <h1>Do you want to delete the order "{{ object.id_food_order }}"?</h1>
+
+        <form action='' method='POST' style="display:inline; margin:0px; padding:0px;">{% csrf_token %}
+            <input type='submit' value='Yes'/>
+        </form>
+        <form action="/food_order" style="display: inline; margin:0px; padding: 0px">
+            <input type="submit"  value="No">
         </form>
     </div>
 {% endblock %}
