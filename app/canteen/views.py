@@ -4,12 +4,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from .models import *
 
-
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.models import User
-
 
 from django.http import HttpResponseRedirect
 
@@ -21,13 +19,13 @@ from django.views.generic import *
 
 from datetime import date
 from datetime import datetime
+
+
 # Create your views here.
 
 
 def index(request):
-
     obj = Facility.objects.all()
-
 
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
@@ -40,593 +38,552 @@ def index(request):
     return render(request, 'index.html', context=context)
 
 
-
 def search_view(request):
-	search=request.GET.get('search_form')
+    search = request.GET.get('search_form')
 
-	objects = Facility.objects.all()
+    objects = Facility.objects.all()
 
-	corr_search_objs=[]
+    corr_search_objs = []
 
-	for obj in objects:
-		if search.lower() in obj.address.lower() or search.lower() in obj.name.lower():
-			corr_search_objs.append(obj)
+    for obj in objects:
+        if search.lower() in obj.address.lower() or search.lower() in obj.name.lower():
+            corr_search_objs.append(obj)
 
-	context = {
-		"result":	search,
-		"objects":	corr_search_objs
-	}
+    context = {
+        "result": search,
+        "objects": corr_search_objs
+    }
 
-	return render(request, 'search_result.html', context=context)
+    return render(request, 'search_result.html', context=context)
+
 
 def register_view(request):
+    context = {
 
-	context = {
+    }
 
-	}
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
 
-	if request.method =="POST":
-		form = UserCreationForm(request.POST)
-
-		if form.is_valid():
-			form.save()
-			return redirect('login_url')
+        if form.is_valid():
+            form.save()
+            return redirect('login_url')
 
 
-	else:
-		form = UserCreationForm()
+    else:
+        form = UserCreationForm()
 
-	return render(request, 'registration/register.html', {'form': form})
+    return render(request, 'registration/register.html', {'form': form})
 
 
 def pay_with_signup(request):
+    if request.method == 'POST':
 
-	if request.method=='POST':
-		
-		form = SignUpForm(request.POST)
-		session_id_food_order=request.session.get("cart_id", None)
+        form = SignUpForm(request.POST)
+        session_id_food_order = request.session.get("cart_id", None)
 
-		if form.is_valid():
-			form.save()
-			username = form.cleaned_data.get('username')
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
 
-			print(username)
-			raw_password = form.cleaned_data.get('password1')
+            print(username)
+            raw_password = form.cleaned_data.get('password1')
 
-			firstname 	= form.cleaned_data.get('firstname')
-			surname 	= form.cleaned_data.get('surname')
-			address 	= form.cleaned_data.get('address')
-			email		= form.cleaned_data.get('email')
-			telephone	= form.cleaned_data.get('telephone')
+            firstname = form.cleaned_data.get('firstname')
+            surname = form.cleaned_data.get('surname')
+            address = form.cleaned_data.get('address')
+            email = form.cleaned_data.get('email')
+            telephone = form.cleaned_data.get('telephone')
 
-			user = authenticate(username=username, password=raw_password)
-			
+            user = authenticate(username=username, password=raw_password)
 
-			login (request, user)
-			user_instance=User.objects.filter(username=username).first()
-			print(user_instance)
-			person_instance=Person.objects.create(user=user_instance, firstname=firstname, surname=surname, address= address, telephone=telephone, role='r')
+            login(request, user)
+            user_instance = User.objects.filter(username=username).first()
+            print(user_instance)
+            person_instance = Person.objects.create(user=user_instance, firstname=firstname, surname=surname,
+                                                    address=address, telephone=telephone, role='r')
 
+            food_order_instance = Food_order.objects.filter(id_food_order=session_id_food_order, status='o')
 
-			food_order_instance=Food_order.objects.filter(id_food_order=session_id_food_order, status='o')
+            food_order_instance.update(person=person_instance, status='a')
 
-			food_order_instance.update(person=person_instance, status='a')
-			
+            return redirect('login_url')
+    else:
+        form = SignUpForm()
 
-			return redirect('login_url')
-	else:
-		form=SignUpForm()
-	
-	return render(request, 'registration/register.html', {'form': form})
+    return render(request, 'registration/register.html', {'form': form})
 
+    pass
 
-	pass
 
 def signup(request):
-	if request.method=='POST':
-		
-		form = SignUpForm(request.POST)
+    if request.method == 'POST':
 
-		if form.is_valid():
-			form.save()
-			username = form.cleaned_data.get('username')
+        form = SignUpForm(request.POST)
 
-			print(username)
-			raw_password = form.cleaned_data.get('password1')
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
 
-			firstname 	= form.cleaned_data.get('firstname')
-			surname 	= form.cleaned_data.get('surname')
-			address 	= form.cleaned_data.get('address')
-			email		= form.cleaned_data.get('email')
-			telephone	= form.cleaned_data.get('telephone')
+            print(username)
+            raw_password = form.cleaned_data.get('password1')
 
-			user = authenticate(username=username, password=raw_password)
-			
+            firstname = form.cleaned_data.get('firstname')
+            surname = form.cleaned_data.get('surname')
+            address = form.cleaned_data.get('address')
+            email = form.cleaned_data.get('email')
+            telephone = form.cleaned_data.get('telephone')
 
-			login (request, user)
-			user_instance=User.objects.filter(username=username).first()
-			print(user_instance)
-			Person.objects.create(user=user_instance, firstname=firstname, surname=surname, address= address, telephone=telephone, role='r')
+            user = authenticate(username=username, password=raw_password)
 
+            login(request, user)
+            user_instance = User.objects.filter(username=username).first()
+            print(user_instance)
+            Person.objects.create(user=user_instance, firstname=firstname, surname=surname, address=address,
+                                  telephone=telephone, role='r')
 
-			return redirect('login_url')
-	else:
-		form=SignUpForm()
-	
-	return render(request, 'registration/register.html', {'form': form})
+            return redirect('login_url')
+    else:
+        form = SignUpForm()
+
+    return render(request, 'registration/register.html', {'form': form})
 
 
 def logged_view(request):
-	context = {
+    context = {
 
-	}
+    }
 
-	return render(request, 'registration/logged_on.html', context)
+    return render(request, 'registration/logged_on.html', context)
 
 
 def dynamic_facility_view(request, id):
-	try:
-		menu=Facility_menus.objects.filter(id_facility=id)
-	except Facility.DoesNotExist:
-		raise Http404
-	
-	today = date.today()
-	menu_objs=[]
-	for i in menu:
-		#if i.id_menu.type=='s' or i.id_menu.date==today.strftime("%Y-%M-%D"):
-		#	menu_objs.append(i.id_menu)
-		menu_objs.append(i.id_menu)
+    try:
+        menu = Facility_menus.objects.filter(id_facility=id)
+    except Facility.DoesNotExist:
+        raise Http404
 
-	#getting meals that belongs to that facility
+    today = date.today()
+    menu_objs = []
+    for i in menu:
+        # if i.id_menu.type=='s' or i.id_menu.date==today.strftime("%Y-%M-%D"):
+        #	menu_objs.append(i.id_menu)
+        menu_objs.append(i.id_menu)
 
-	# handling the nonexistent page
-	try:
-		obj =Facility.objects.get(id_facility=id)
-	except Facility.DoesNotExist:
-		raise Http404
+    # getting meals that belongs to that facility
 
-	context = {
-		#"meals":facility_meals,
-		"object":obj,
-		"menu_objs":menu_objs
-	}
-	return render(request, 'facility_detail.html', context)
+    # handling the nonexistent page
+    try:
+        obj = Facility.objects.get(id_facility=id)
+    except Facility.DoesNotExist:
+        raise Http404
 
-def filter_menu(request,id_menu,diet_type):
+    context = {
+        # "meals":facility_meals,
+        "object": obj,
+        "menu_objs": menu_objs
+    }
+    return render(request, 'facility_detail.html', context)
 
 
-	try:
-		menu = Menu_items.objects.filter(id_menu=id_menu)
-	except Facility_menus.DoesNotExist:
-		raise Http404
-	item_objs = []
+def filter_menu(request, id_menu, diet_type):
+    try:
+        menu = Menu_items.objects.filter(id_menu=id_menu)
+    except Facility_menus.DoesNotExist:
+        raise Http404
+    item_objs = []
 
-	for i in menu:
-		if i.id_item.diet_type==diet_type:
-			item_objs.append(i.id_item)
-		
-	facility = Facility_menus.objects.filter(id_menu=id_menu).first()
+    for i in menu:
+        if i.id_item.diet_type == diet_type:
+            item_objs.append(i.id_item)
 
-	facility_menus_instance = Facility_menus.objects.filter(id_menu=id_menu).first()
-	print(facility_menus_instance.id_facility.id_facility)
-	#facility_instance = Facility.objects.filter(id_facility=facility_menus_instance.id_facility)
+    facility = Facility_menus.objects.filter(id_menu=id_menu).first()
 
+    facility_menus_instance = Facility_menus.objects.filter(id_menu=id_menu).first()
+    print(facility_menus_instance.id_facility.id_facility)
+    # facility_instance = Facility.objects.filter(id_facility=facility_menus_instance.id_facility)
 
-	context = {
-		"item_objs": item_objs,
-		"menu": Menu.objects.get(id_menu=id_menu),
-		"id_facility": facility_menus_instance.id_facility.id_facility, # TODO: nie je toto id_menu?
-		"id_menu": id_menu,
-		"facility": facility.id_facility # TODO: WHY DOES THIS WORK??
-	}
+    context = {
+        "item_objs": item_objs,
+        "menu": Menu.objects.get(id_menu=id_menu),
+        "id_facility": facility_menus_instance.id_facility.id_facility,  # TODO: nie je toto id_menu?
+        "id_menu": id_menu,
+        "facility": facility.id_facility  # TODO: WHY DOES THIS WORK??
+    }
 
-	return render(request, 'menu_detail.html', context)
-
-
-def menu_view(request, id): 
+    return render(request, 'menu_detail.html', context)
 
 
-	try:
-		menu = Menu_items.objects.filter(id_menu=id)
-	except Facility_menus.DoesNotExist:
-		raise Http404
-	item_objs = []
+def menu_view(request, id):
+    try:
+        menu = Menu_items.objects.filter(id_menu=id)
+    except Facility_menus.DoesNotExist:
+        raise Http404
+    item_objs = []
 
-	for i in menu:
-		#print(i)
-		item_objs.append(i.id_item)
-		
-	facility = Facility_menus.objects.filter(id_menu=id).first()
+    for i in menu:
+        # print(i)
+        item_objs.append(i.id_item)
 
-	facility_menus_instance = Facility_menus.objects.filter(id_menu=id).first()
-	print(facility_menus_instance.id_facility.id_facility)
-	#facility_instance = Facility.objects.filter(id_facility=facility_menus_instance.id_facility)
+    facility = Facility_menus.objects.filter(id_menu=id).first()
 
+    facility_menus_instance = Facility_menus.objects.filter(id_menu=id).first()
+    print(facility_menus_instance.id_facility.id_facility)
+    # facility_instance = Facility.objects.filter(id_facility=facility_menus_instance.id_facility)
 
-	context = {
-		"item_objs": item_objs,
-		"menu": Menu.objects.get(id_menu=id),
-		"id_facility": facility_menus_instance.id_facility.id_facility, # TODO: nie je toto id_menu?
-		"id_menu": id,
-		"facility": facility.id_facility # TODO: WHY DOES THIS WORK??
-	}
+    context = {
+        "item_objs": item_objs,
+        "menu": Menu.objects.get(id_menu=id),
+        "id_facility": facility_menus_instance.id_facility.id_facility,  # TODO: nie je toto id_menu?
+        "id_menu": id,
+        "facility": facility.id_facility  # TODO: WHY DOES THIS WORK??
+    }
 
-	return render(request, 'menu_detail.html', context)
+    return render(request, 'menu_detail.html', context)
+
 
 def add_to_cart(request, id_item, id_facility):
-	
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+    facility_instance_control = Facility.objects.filter(id_facility=id_facility).first()
+    deadline = facility_instance_control.deadline
+    deadline = deadline.strftime("%H:%M:%S")
 
-	now = datetime.now()
-	current_time = now.strftime("%H:%M:%S")
-	facility_instance_control=Facility.objects.filter(id_facility=id_facility).first()
-	deadline=facility_instance_control.deadline
-	deadline=deadline.strftime("%H:%M:%S")
+    if current_time > deadline:
+        return render(request, 'error_access.html', {
+            "msg": "Unable to add item, its already after deadline"
+        })
 
-	
-	if current_time>deadline:
-		return render(request, 'error_access.html', {
-				"msg":"Unable to add item, its already after deadline"
-				})
+    # if user is logged in
+    if request.user.is_authenticated:
+        person_instance = Person.objects.filter(user=request.user).first()
 
-	#if user is logged in
-	if request.user.is_authenticated:
-		person_instance		=Person.objects.filter(user=request.user).first()
+        food_order_instance = Food_order.objects.filter(person=person_instance, status='o').first()
 
-		food_order_instance		=Food_order.objects.filter(person=person_instance, status='o').first()
+        # if there is no food order
 
-		#if there is no food order
+        if food_order_instance is None:
+            print("Now we are makin new order")
+            facility_instance = Facility.objects.filter(id_facility=id_facility).first()
+            food_order_item_instance = Item.objects.filter(id_item=id_item).first()
 
-		if food_order_instance is None:
-			print ("Now we are makin new order")
-			facility_instance		=Facility.objects.filter(id_facility=id_facility).first()
-			food_order_item_instance=Item.objects.filter(id_item=id_item).first()
+            # Creates new food order
 
-			#Creates new food order
+            food_order_instance = Food_order.objects.create(facility=facility_instance, person=person_instance,
+                                                            status='o')  # Creates new food order
+            Food_order_item.objects.create(id_food_order=food_order_instance,
+                                           id_item=food_order_item_instance)  # adds the item to the order
 
-			food_order_instance	=Food_order.objects.create( facility=facility_instance, person=person_instance, status='o')#Creates new food order
-			Food_order_item.objects.create(id_food_order=food_order_instance, id_item=food_order_item_instance)#adds the item to the order
+        # If there is
+        else:
 
-		#If there is
-		else:
-			
-						
-			if food_order_instance.facility.id_facility!=id_facility:
-				print("you cant order from different facility")
-				return render(request, 'error_access.html', {
-				"msg":"Unable to order from more facilities at once"
-				})
+            if food_order_instance.facility.id_facility != id_facility:
+                print("you cant order from different facility")
+                return render(request, 'error_access.html', {
+                    "msg": "Unable to order from more facilities at once"
+                })
 
-			food_order_item_instance=Item.objects.filter(id_item=id_item).first()
-		
-		
-			food_order_item_instance_from_mm_table=Food_order_item.objects.filter( id_food_order=food_order_instance, id_item=food_order_item_instance ) 
+            food_order_item_instance = Item.objects.filter(id_item=id_item).first()
 
-			if food_order_item_instance_from_mm_table.count()==1:
-				quantity=food_order_item_instance_from_mm_table.first().quantity+1
-				print(quantity)
-				Food_order_item.objects.filter( id_food_order=food_order_instance, id_item=food_order_item_instance ).update(quantity=quantity)
-			else:
-				Food_order_item.objects.create(id_food_order=food_order_instance, id_item=food_order_item_instance)
-		
-		#ak nie je vytovrená
-		
+            food_order_item_instance_from_mm_table = Food_order_item.objects.filter(id_food_order=food_order_instance,
+                                                                                    id_item=food_order_item_instance)
 
-	
+            if food_order_item_instance_from_mm_table.count() == 1:
+                quantity = food_order_item_instance_from_mm_table.first().quantity + 1
+                print(quantity)
+                Food_order_item.objects.filter(id_food_order=food_order_instance,
+                                               id_item=food_order_item_instance).update(quantity=quantity)
+            else:
+                Food_order_item.objects.create(id_food_order=food_order_instance, id_item=food_order_item_instance)
 
-			
+    # ak nie je vytovrená
 
-			
-	#unregistered
-	else: 
-		
-		session_id_food_order=request.session.get("cart_id", None)
-		food_order_instance=Food_order.objects.filter(id_food_order=session_id_food_order, status='o')
+    # unregistered
+    else:
 
-		
-		#if there is an order
-		if food_order_instance.exists():
-			food_order_item_instance=Item.objects.filter(id_item=id_item).first()
-			food_order_instance=Food_order.objects.filter(id_food_order=session_id_food_order, status='o').first()
-			food_order_item_instance_from_mm_table=Food_order_item.objects.filter( id_food_order=food_order_instance, id_item=food_order_item_instance).first()
+        session_id_food_order = request.session.get("cart_id", None)
+        food_order_instance = Food_order.objects.filter(id_food_order=session_id_food_order, status='o')
 
+        # if there is an order
+        if food_order_instance.exists():
+            food_order_item_instance = Item.objects.filter(id_item=id_item).first()
+            food_order_instance = Food_order.objects.filter(id_food_order=session_id_food_order, status='o').first()
+            food_order_item_instance_from_mm_table = Food_order_item.objects.filter(id_food_order=food_order_instance,
+                                                                                    id_item=food_order_item_instance).first()
 
-			if food_order_item_instance_from_mm_table is None:
+            if food_order_item_instance_from_mm_table is None:
 
-				Food_order_item.objects.create(id_food_order=food_order_instance, id_item=food_order_item_instance)
+                Food_order_item.objects.create(id_food_order=food_order_instance, id_item=food_order_item_instance)
 
-			else:
+            else:
 
-				quantity=food_order_item_instance_from_mm_table.quantity+1
-				print(quantity)
-				Food_order_item.objects.filter( id_food_order=food_order_instance, id_item=food_order_item_instance ).update(quantity=quantity)
+                quantity = food_order_item_instance_from_mm_table.quantity + 1
+                print(quantity)
+                Food_order_item.objects.filter(id_food_order=food_order_instance,
+                                               id_item=food_order_item_instance).update(quantity=quantity)
 
-		else:
+        else:
 
-			facility_instance		=Facility.objects.filter(id_facility=id_facility).first()
-			food_order_item_instance=Item.objects.filter(id_item=id_item).first()
-			food_order_instance	=Food_order.objects.create(facility=facility_instance, status='o')
-			Food_order_item.objects.create(id_food_order=food_order_instance, id_item=food_order_item_instance)#adds the item to the order
+            facility_instance = Facility.objects.filter(id_facility=id_facility).first()
+            food_order_item_instance = Item.objects.filter(id_item=id_item).first()
+            food_order_instance = Food_order.objects.create(facility=facility_instance, status='o')
+            Food_order_item.objects.create(id_food_order=food_order_instance,
+                                           id_item=food_order_item_instance)  # adds the item to the order
 
-			request.session['cart_id']=food_order_instance.id_food_order
-			
+            request.session['cart_id'] = food_order_instance.id_food_order
+
+    # TODO order, checkout etc. and all  almost done, but needs to be finalized and tested
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  # stays on the same page
 
 
-
-
-
-	
-
-
-	#TODO order, checkout etc. and all  almost done, but needs to be finalized and tested
-	return HttpResponseRedirect(request.META.get('HTTP_REFERER')) #stays on the same page
-
-#TODELETE this view
+# TODELETE this view
 def add_to_cart2(request, id_item, id_facility):
-	
-	cart_id=request.session.get("cart_id", None)
-	qs=Food_order.objects.filter(id_food_order=cart_id, status='o')
+    cart_id = request.session.get("cart_id", None)
+    qs = Food_order.objects.filter(id_food_order=cart_id, status='o')
 
-	facility_instance_control=Facility.objects.filter(id_facility=id_facility).first
-	
+    facility_instance_control = Facility.objects.filter(id_facility=id_facility).first
 
-	if qs.count()==1:
-		cart_obj=qs.first()
-		print ("it is already created")
+    if qs.count() == 1:
+        cart_obj = qs.first()
+        print("it is already created")
 
-		#
-		food_order_instance		=Food_order.objects.filter(id_food_order=cart_obj.id_food_order).first()
-		#facility_instance=Facility.objects.filter(id_facility=id_facility).first()
-		"""
+        #
+        food_order_instance = Food_order.objects.filter(id_food_order=cart_obj.id_food_order).first()
+        # facility_instance=Facility.objects.filter(id_facility=id_facility).first()
+        """
 		print("facility id:")
 		print(food_order_instance.facility.id_facility)
 		print(id_facility)
 		print("|||||")
 		"""
-		if food_order_instance.facility.id_facility!=id_facility:
-			print("you cant order from different facility")
-			return render(request, 'error_access.html', {
-				"msg":"Unable to add items from different facilities"
-			})
+        if food_order_instance.facility.id_facility != id_facility:
+            print("you cant order from different facility")
+            return render(request, 'error_access.html', {
+                "msg": "Unable to add items from different facilities"
+            })
 
-		food_order_item_instance=Item.objects.filter(id_item=id_item).first()
-		
-		
-		food_order_item_instance_from_mm_table=Food_order_item.objects.filter( id_food_order=food_order_instance, id_item=food_order_item_instance ) 
+        food_order_item_instance = Item.objects.filter(id_item=id_item).first()
 
-		if food_order_item_instance_from_mm_table.count()==1:
-			quantity=food_order_item_instance_from_mm_table.first().quantity+1
-			print(quantity)
-			Food_order_item.objects.filter( id_food_order=food_order_instance, id_item=food_order_item_instance ).update(quantity=quantity)
-			#Food_order.objects.filter(id_food_order=cart_id, status='o').update(status='a')
-		else:
-			Food_order_item.objects.create(id_food_order=food_order_instance, id_item=food_order_item_instance)
+        food_order_item_instance_from_mm_table = Food_order_item.objects.filter(id_food_order=food_order_instance,
+                                                                                id_item=food_order_item_instance)
 
-
-
-		
-	else:
-		print ("Now we are makin new order")
-		facility_instance		=Facility.objects.filter(id_facility=id_facility).first()
-		food_order_item_instance=Item.objects.filter(id_item=id_item).first()
-
-		#Creates new food order
-		if request.user.is_authenticated:
-
-			person_instance		=Person.objects.filter(user=request.user).first()
-			food_order_instance	=Food_order.objects.create( facility=facility_instance, person=person_instance, status='o')#Creates new food order
-		else:
-			food_order_instance	=Food_order.objects.create( facility=facility_instance, status='o')
+        if food_order_item_instance_from_mm_table.count() == 1:
+            quantity = food_order_item_instance_from_mm_table.first().quantity + 1
+            print(quantity)
+            Food_order_item.objects.filter(id_food_order=food_order_instance, id_item=food_order_item_instance).update(
+                quantity=quantity)
+        # Food_order.objects.filter(id_food_order=cart_id, status='o').update(status='a')
+        else:
+            Food_order_item.objects.create(id_food_order=food_order_instance, id_item=food_order_item_instance)
 
 
-		
-		Food_order_item.objects.create(id_food_order=food_order_instance, id_item=food_order_item_instance)#adds the item to the order
-		
-
-		
-		request.session['cart_id']=food_order_instance.id_food_order
-
-		#TOCONTINUE 
 
 
-	#TODO order, checkout etc. and all  almost done, but needs to be finalized and tested
-	return HttpResponseRedirect(request.META.get('HTTP_REFERER')) #stays on the same page
+    else:
+        print("Now we are makin new order")
+        facility_instance = Facility.objects.filter(id_facility=id_facility).first()
+        food_order_item_instance = Item.objects.filter(id_item=id_item).first()
+
+        # Creates new food order
+        if request.user.is_authenticated:
+
+            person_instance = Person.objects.filter(user=request.user).first()
+            food_order_instance = Food_order.objects.create(facility=facility_instance, person=person_instance,
+                                                            status='o')  # Creates new food order
+        else:
+            food_order_instance = Food_order.objects.create(facility=facility_instance, status='o')
+
+        Food_order_item.objects.create(id_food_order=food_order_instance,
+                                       id_item=food_order_item_instance)  # adds the item to the order
+
+        request.session['cart_id'] = food_order_instance.id_food_order
+
+    # TOCONTINUE
+
+    # TODO order, checkout etc. and all  almost done, but needs to be finalized and tested
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  # stays on the same page
+
 
 def remove_from_cart(request, id_item, id_facility):
+    if request.user.is_authenticated:
 
-	if request.user.is_authenticated:
+        item_instance = Item.objects.filter(id_item=id_item).first()
+        person_instance = Person.objects.filter(user=request.user).first()
+        food_order_instance = Food_order.objects.filter(person=person_instance, status='o').first()
 
-		item_instance		=Item.objects.filter(id_item=id_item).first()
-		person_instance		=Person.objects.filter(user=request.user).first()
-		food_order_instance =Food_order.objects.filter(person=person_instance, status='o').first()
+        delete_instance = Food_order_item.objects.filter(id_item=item_instance,
+                                                         id_food_order=food_order_instance).first()
 
-		delete_instance		=Food_order_item.objects.filter(id_item=item_instance ,id_food_order=food_order_instance).first()
-		
-		if delete_instance.quantity==1:
-			delete_instance.delete()
-		else:
-			quantity=delete_instance.quantity-1
-			print(quantity)
-			Food_order_item.objects.filter(id_item=item_instance ,id_food_order=food_order_instance).update(quantity=quantity)
-			
+        if delete_instance.quantity == 1:
+            delete_instance.delete()
+        else:
+            quantity = delete_instance.quantity - 1
+            print(quantity)
+            Food_order_item.objects.filter(id_item=item_instance, id_food_order=food_order_instance).update(
+                quantity=quantity)
 
-		prob_food_order_delete=Food_order_item.objects.filter(id_food_order=food_order_instance)
-		
-		if prob_food_order_delete.exists():
-			print("somethin here")
-		else: 
-			print("gotta delete food_order")
-			food_order_instance.delete()
+        prob_food_order_delete = Food_order_item.objects.filter(id_food_order=food_order_instance)
 
+        if prob_food_order_delete.exists():
+            print("somethin here")
+        else:
+            print("gotta delete food_order")
+            food_order_instance.delete()
 
-		"""
+        """
 		quantity=food_order_item_instance_from_mm_table.first().quantity+1
 		print(quantity)
 		Food_order_item.objects.filter( id_food_order=food_order_instance, id_item=food_order_item_instance ).update(quantity=quanti
 		"""
-		
-
-		#print(delete_instance)
-		#food_order_instance	=Food_order.objects.create(facility=facility_instance, person=person_instance)
-
-	#TODO for unathorized users
-	else: 
-		cart_id=request.session.get("cart_id", None)
-		food_order_instance=Food_order.objects.filter(id_food_order=cart_id, status='o').first()
 
 
+    # print(delete_instance)
+    # food_order_instance	=Food_order.objects.create(facility=facility_instance, person=person_instance)
 
-		item_instance		=Item.objects.filter(id_item=id_item).first()
+    # TODO for unathorized users
+    else:
+        cart_id = request.session.get("cart_id", None)
+        food_order_instance = Food_order.objects.filter(id_food_order=cart_id, status='o').first()
 
-		delete_instance		=Food_order_item.objects.filter(id_item=item_instance ,id_food_order=food_order_instance).first()
-		
-		
+        item_instance = Item.objects.filter(id_item=id_item).first()
 
-		if delete_instance.quantity==1:
-			delete_instance.delete()
-		else:
-			quantity=delete_instance.quantity-1
-			print(quantity)
-			Food_order_item.objects.filter(id_item=item_instance ,id_food_order=food_order_instance).update(quantity=quantity)
+        delete_instance = Food_order_item.objects.filter(id_item=item_instance,
+                                                         id_food_order=food_order_instance).first()
 
-		#checking if the food order still has something
-		prob_food_order_delete=Food_order_item.objects.filter(id_food_order=food_order_instance)
-		
-		if prob_food_order_delete.exists():
-			print("somethin here")
-		else: 
-			print("gotta delete food_order")
-			food_order_instance.delete()
+        if delete_instance.quantity == 1:
+            delete_instance.delete()
+        else:
+            quantity = delete_instance.quantity - 1
+            print(quantity)
+            Food_order_item.objects.filter(id_item=item_instance, id_food_order=food_order_instance).update(
+                quantity=quantity)
+
+        # checking if the food order still has something
+        prob_food_order_delete = Food_order_item.objects.filter(id_food_order=food_order_instance)
+
+        if prob_food_order_delete.exists():
+            print("somethin here")
+        else:
+            print("gotta delete food_order")
+            food_order_instance.delete()
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  # stays on the same page
 
 
+# TODO
 
-	return HttpResponseRedirect(request.META.get('HTTP_REFERER')) #stays on the same page
-
-	#TODO
-
-#current order
+# current order
 def cart_view(request):
-	#TODO it doesnt work
-	#might not work with migrations sometimes
-	if request.user.is_authenticated:
-		person_instance				=Person.objects.filter(user=request.user).first()
-		food_order_instance 		=Food_order.objects.filter(person=person_instance, status='o').first()
-		#print(food_order_instance.status)
-		
+    # TODO it doesnt work
+    # might not work with migrations sometimes
+    if request.user.is_authenticated:
+        person_instance = Person.objects.filter(user=request.user).first()
+        food_order_instance = Food_order.objects.filter(person=person_instance, status='o').first()
+        # print(food_order_instance.status)
 
-		food_order_items_list		=Food_order_item.objects.filter(id_food_order=food_order_instance)
-		price=0
+        food_order_items_list = Food_order_item.objects.filter(id_food_order=food_order_instance)
+        price = 0
 
-		print(food_order_items_list) 
+        print(food_order_items_list)
 
-		
-		for x in food_order_items_list:
-			
-			price=price+x.id_item.price*x.quantity
-	
-		
-		#print(food_order_instance.id_food_order)
-		#print(person_instance)
-		#print(food_order_items_list)
-		#print(food_order_items_list)
+        for x in food_order_items_list:
+            price = price + x.id_item.price * x.quantity
 
+        # print(food_order_instance.id_food_order)
+        # print(person_instance)
+        # print(food_order_items_list)
+        # print(food_order_items_list)
 
+        if food_order_instance is None:
+            facility_instance = None
+        else:
+            facility_instance = food_order_instance.facility
 
-		if food_order_instance is None:
-			facility_instance=  None
-		else:
-			facility_instance = food_order_instance.facility
+        unregistered = False
 
-		unregistered=False
+    else:
+        unregistered = True
+        cart_id = request.session.get("cart_id", None)
+        food_order_instance = Food_order.objects.filter(id_food_order=cart_id, status='o').first()
+        food_order_items_list = Food_order_item.objects.filter(id_food_order=food_order_instance)
 
-	else: 
-		unregistered=True
-		cart_id=request.session.get("cart_id", None)
-		food_order_instance = Food_order.objects.filter(id_food_order=cart_id, status='o').first()
-		food_order_items_list = Food_order_item.objects.filter(id_food_order=food_order_instance)
-		
-		price=0
-		for x in food_order_items_list:
-			price=price+x.id_item.price*x.quantity
-		
-		#print(food_order_instance)
-		if food_order_instance is None:
-			facility_instance=  None
-		else:
-			facility_instance = food_order_instance.facility
-	
-	context={
-		"food_order_instance":food_order_instance,
-		"food_order_items_list":food_order_items_list,
-		"facility_instance":facility_instance,
-		"unregistered":unregistered,
-		"price":price
-	}
+        price = 0
+        for x in food_order_items_list:
+            price = price + x.id_item.price * x.quantity
 
-	return render(request, 'cart.html', context)
+        # print(food_order_instance)
+        if food_order_instance is None:
+            facility_instance = None
+        else:
+            facility_instance = food_order_instance.facility
+
+    context = {
+        "food_order_instance": food_order_instance,
+        "food_order_items_list": food_order_items_list,
+        "facility_instance": facility_instance,
+        "unregistered": unregistered,
+        "price": price
+    }
+
+    return render(request, 'cart.html', context)
+
 
 def pay_view(request):
+    if request.user.is_authenticated:
 
+        person_instance = Person.objects.filter(user=request.user).first()
+        Food_order.objects.filter(person=person_instance, status='o').update(status='a')
+    # print(food_order_instance.status)
+    # food_order_instance.status='a'
+    # print(food_order_instance.status)
+    else:
+        cart_id = request.session.get("cart_id", None)
 
-	
+        # TODO think about unregistered payment
+        my_form = Pay_form()
+        if request.method == "POST":
 
-	if request.user.is_authenticated:
-		
-		person_instance				=Person.objects.filter(user=request.user).first()
-		Food_order.objects.filter(person=person_instance, status='o').update(status='a')
-		#print(food_order_instance.status)
-		#food_order_instance.status='a'
-		#print(food_order_instance.status)
-	else: 
-		cart_id=request.session.get("cart_id", None)
-		
-		#TODO think about unregistered payment
-		my_form=Pay_form()
-		if request.method=="POST":
-			
-			my_form=Pay_form(request.POST)
-			
-			if my_form.is_valid():
-				print(my_form.cleaned_data["telephone"])
+            my_form = Pay_form(request.POST)
 
-				person_instance=Person.objects.create(**my_form.cleaned_data)
-				Food_order.objects.filter(id_food_order=cart_id, status='o').update(status='a',person=person_instance)
-				context={
+            if my_form.is_valid():
+                print(my_form.cleaned_data["telephone"])
 
-				}
-				return render(request, 'paid.html', context)
+                person_instance = Person.objects.create(**my_form.cleaned_data)
+                Food_order.objects.filter(id_food_order=cart_id, status='o').update(status='a', person=person_instance)
+                context = {
 
-			else:
-				print(my_form.errors)
-			
-		context={
-			"form":my_form
-		}
+                }
+                return render(request, 'paid.html', context)
 
-		return render(request, 'pay_unregistered.html', context)
-	#TODO
+            else:
+                print(my_form.errors)
 
-	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        context = {
+            "form": my_form
+        }
+
+        return render(request, 'pay_unregistered.html', context)
+    # TODO
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def pay_view_unreg(request):
-	if request.user.is_authenticated:
-		raise PermissionDenied()  
-	
+    if request.user.is_authenticated:
+        raise PermissionDenied()
 
-	my_form=Pay_form()
+    my_form = Pay_form()
 
-
-
-	pass
+    pass
 
 
-#this is basically all orders view
+# this is basically all orders view
 
-def order_view(request):#basically a cart
-	"""
+def order_view(request):  # basically a cart
+    """
 	if request.user.is_authenticated:
 		print ("Yes, he is")
-	
+
 	cart_id=request.session.get("cart_id", None)
 	qs=Food_order.objects.filter(id_food_order=cart_id)
 
@@ -639,91 +596,89 @@ def order_view(request):#basically a cart
 
 	"""
 
-	if request.user.is_authenticated:
-		
-		person_instance	=Person.objects.filter(user=request.user).first() 
-		food_order_qs	=Food_order.objects.filter(person=person_instance)
-		#print(food_order_qs)
+    if request.user.is_authenticated:
 
+        person_instance = Person.objects.filter(user=request.user).first()
+        food_order_qs = Food_order.objects.filter(person=person_instance)
+        # print(food_order_qs)
 
+        food_order_ordered = Food_order.objects.filter(person=person_instance, status='o')
+        food_order_approved = Food_order.objects.filter(person=person_instance, status='a')
+        food_order_canceled = Food_order.objects.filter(person=person_instance, status='c')
+        food_order_delivered = Food_order.objects.filter(person=person_instance, status='d')
 
-		food_order_ordered	 =Food_order.objects.filter(person=person_instance, status='o')
-		food_order_approved	 =Food_order.objects.filter(person=person_instance, status='a')
-		food_order_canceled	 =Food_order.objects.filter(person=person_instance, status='c')
-		food_order_delivered =Food_order.objects.filter(person=person_instance, status='d')
-		
-		context={
-			"food_order_ordered":food_order_ordered,
-			"food_order_approved":food_order_approved,
-			"food_order_canceled":food_order_canceled,
-			"food_order_delivered":food_order_delivered,
-		}
+        context = {
+            "food_order_ordered": food_order_ordered,
+            "food_order_approved": food_order_approved,
+            "food_order_canceled": food_order_canceled,
+            "food_order_delivered": food_order_delivered,
+        }
 
-	else:
+    else:
 
-		context = {
-			"message":"it is not here"
+        context = {
+            "message": "it is not here"
 
-		} 
+        }
 
+    return render(request, 'order.html', context)
 
-	return render(request, 'order.html', context)
 
 @login_required
-def  profile_view(request):
+def profile_view(request):
+    if request.user.is_authenticated:
+        person_instance = Person.objects.filter(user=request.user).first()
 
-	if request.user.is_authenticated:
-		person_instance	= Person.objects.filter(user=request.user).first()
+        context = {
+            "person": person_instance,
+            "role": person_instance.role
+        }
+    else:
+        raise Http404
 
-		context = {
-			"person": person_instance,
-			"role": person_instance.role
-		}
-	else: 
-		raise Http404
-	
-	return render(request, 'profile.html', context)
+    return render(request, 'profile.html', context)
+
 
 def admin_view(request):
+    if request.user.is_authenticated:
+        person_instance = Person.objects.filter(user=request.user).first()
 
-	if request.user.is_authenticated:
-		person_instance		=Person.objects.filter(user=request.user).first()
+        if person_instance.role != 'a':
+            raise Http404
+        context = {
+            "role": person_instance.role
+        }
+    else:
+        raise Http404
 
-		if person_instance.role != 'a':
-			raise Http404
-		context = {
-			"role":person_instance.role
-		}
-	else: 
-		raise Http404
+    return render(request, 'admin_view.html', context)
 
 
-	return render(request, 'admin_view.html', context)
-	#TODO
+# TODO
 
 
 def admin_edit_users(request):
-	#TODO
-	pass
+    # TODO
+    pass
 
 
 class Food_order_update_view(generic.UpdateView):
     template_name = 'food_order_update_view.html'
     form_class = Food_order_form
+
     def get_object(self):
         id = self.kwargs.get("id")
-        
+
         return get_object_or_404(Food_order, id_food_order=id)
 
     def form_valid(self, form):
-        
         print(form.cleaned_data)
         return super().form_valid(form)
 
 
 class Food_order_delete_view(DeleteView):
     template_name = 'food_order_delete_view.html'
-    
+
     def get_object(self):
         id = self.kwargs.get("id")
         return get_object_or_404(Food_order, id_food_order=id)
@@ -731,176 +686,164 @@ class Food_order_delete_view(DeleteView):
     def get_success_url(self):
         return '../food_order'
 
+
 """
 class Food_order_list_view(ListView):
     template_name = 'Food_order_list.html'
     queryset = list(Food_order.objects.all())
 """
+
+
 class person_update_view(generic.UpdateView):
     template_name = 'person_update.html'
     form_class = person_form
+
     def get_object(self):
         id = self.kwargs.get("id")
         return get_object_or_404(Person, id_person=id)
 
     def form_valid(self, form):
-        
         print(form.cleaned_data)
         return super().form_valid(form)
 
 
+def person_list_view(request):
+    if request.user.is_authenticated:
 
-def  person_list_view(request):
+        person_instance = Person.objects.filter(user=request.user).first()
+        person_instance_list = Person.objects.all()
+
+        if person_instance.role == 'a':
+
+            context = {
+                "person_instance_list": person_instance_list
+            }
+        else:
+            raise Http404
 
 
-	if request.user.is_authenticated:
+    else:
+        raise Http404
 
-		person_instance			=Person.objects.filter(user=request.user).first()
-		person_instance_list	=Person.objects.all()
-		
-
-
-		if person_instance.role == 'a':
-			
-			context={
-				"person_instance_list":person_instance_list
-			}
-		else:
-			raise Http404
-
-		
-	else: 
-		raise Http404
-
-	
-
-	return render(request, 'person_list_view.html', context)
+    return render(request, 'person_list_view.html', context)
 
 
 class user_update_view(generic.UpdateView):
-	
-	pass
-
-def  food_order_list_view(request):
-	if request.user.is_authenticated:
-		person_instance		=Person.objects.filter(user=request.user).first()
-		person_instance.is_admin()
-		person_instance.is_operator()
-		person_instance.is_driver()
-		food_order_list=Food_order.objects.all()
-
-		context={
-			"food_order_list":food_order_list
-		}
-	else:
-		raise Http404
+    pass
 
 
-	return render(request, 'Food_order_list.html', context)
+def food_order_list_view(request):
+    if request.user.is_authenticated:
+        person_instance = Person.objects.filter(user=request.user).first()
+        person_instance.is_admin()
+        person_instance.is_operator()
+        person_instance.is_driver()
+        food_order_list = Food_order.objects.all()
+
+        context = {
+            "food_order_list": food_order_list
+        }
+    else:
+        raise Http404
+
+    return render(request, 'Food_order_list.html', context)
+
 
 def driver_view(request):
+    if request.user.is_authenticated:
+        person_instance = Person.objects.filter(user=request.user).first()
+        person_instance.is_admin()
+        person_instance.is_driver()
 
-	if request.user.is_authenticated:
-		person_instance		=Person.objects.filter(user=request.user).first()
-		person_instance.is_admin()
-		person_instance.is_driver()
+        driver_orders_list = Food_order.objects.filter(delivered_by=person_instance, status='a')
 
-		driver_orders_list=Food_order.objects.filter(delivered_by=person_instance, status='a')
+        print(driver_orders_list)
 
-
-		print(driver_orders_list)
-
-		if person_instance.role == 'a' or person_instance.role == 'd':
-			context = {
-			"driver_orders_list":driver_orders_list,
-			"role":person_instance.role
-			}
-		else:
-			raise Http404
+        if person_instance.role == 'a' or person_instance.role == 'd':
+            context = {
+                "driver_orders_list": driver_orders_list,
+                "role": person_instance.role
+            }
+        else:
+            raise Http404
 
 
-		
-
-	else: 
-		raise Http404
 
 
-	return render(request, 'driver_view.html', context)	
+    else:
+        raise Http404
+
+    return render(request, 'driver_view.html', context)
 
 
 def driver_food_order_info(request, id):
+    food_order_instance = Food_order.objects.filter(id_food_order=id).first()
 
-	food_order_instance=Food_order.objects.filter(id_food_order=id).first()
-	
-	person_customer_instance=food_order_instance.person
+    person_customer_instance = food_order_instance.person
 
-	context={
-		'food_order_instance': food_order_instance,
-		'person_customer_instance': person_customer_instance
-	}
-	return render(request, 'driver_food_order_info.html', context)	
+    context = {
+        'food_order_instance': food_order_instance,
+        'person_customer_instance': person_customer_instance
+    }
+    return render(request, 'driver_food_order_info.html', context)
+
 
 @login_required
 def driver_deliver(request, id):
+    print("hello")
+    Food_order.objects.filter(id_food_order=id).update(status='d')
 
-	print("hello")
-	Food_order.objects.filter(id_food_order=id).update(status='d')
-	
-	
-	return redirect('driver_view')	
+    return redirect('driver_view')
 
 
 def operator_view(request):
-	if request.user.is_authenticated:
-		person_instance		=Person.objects.filter(user=request.user).first()
+    if request.user.is_authenticated:
+        person_instance = Person.objects.filter(user=request.user).first()
 
-		if person_instance.role == 'a' or person_instance.role == 'o':
-			context = {
-				"role":person_instance.role
-			}
-		else:
-			raise Http404
+        if person_instance.role == 'a' or person_instance.role == 'o':
+            context = {
+                "role": person_instance.role
+            }
+        else:
+            raise Http404
 
-	else: 
-		raise Http404
+    else:
+        raise Http404
 
-
-	return render(request, 'operator_view.html', context)	
-
-def food_list_view(request): 
-	if request.user.is_authenticated:
-		person_instance		=Person.objects.filter(user=request.user).first()
-		person_instance.is_admin()
-		person_instance.is_operator()
-
-	else:
-		raise Http404
-
-	food_list=Item.objects.all()
+    return render(request, 'operator_view.html', context)
 
 
+def food_list_view(request):
+    if request.user.is_authenticated:
+        person_instance = Person.objects.filter(user=request.user).first()
+        person_instance.is_admin()
+        person_instance.is_operator()
 
-	context={
-		"food_list":food_list
+    else:
+        raise Http404
 
-	}
+    food_list = Item.objects.all()
 
-	return render(request, 'food_list_view.html', context)
+    context = {
+        "food_list": food_list
 
+    }
 
+    return render(request, 'food_list_view.html', context)
 
 
 class food_update_view(generic.UpdateView):
     template_name = 'food_update_view.html'
     form_class = Food_form
+
     def get_object(self):
         id = self.kwargs.get("id")
         return get_object_or_404(Item, id_item=id)
 
     def form_valid(self, form):
-        
         print(form.cleaned_data)
         return super().form_valid(form)
+
 
 class food_delete_view(DeleteView):
     template_name = 'food_delete_view.html'
@@ -913,45 +856,46 @@ class food_delete_view(DeleteView):
     def get_success_url(self):
         return '../food_list_view'
 
+
 class food_create_view(CreateView):
-	
     template_name = 'food_create_view.html'
     form_class = Food_form
-    queryset = Item.objects.all() 
+    queryset = Item.objects.all()
 
     def form_valid(self, form):
         print(form.cleaned_data)
         return super().form_valid(form)
-	
+
     def get_success_url(self):
         return '../food_list_view'
+
 
 class menu_create_view(CreateView):
     template_name = 'menu_create_view.html'
     form_class = Menu_form
-    queryset = Menu.objects.all() # <blog>/<modelname>_list.html
-    #success_url = '/'
-	#static=trvalé
+    queryset = Menu.objects.all()  # <blog>/<modelname>_list.html
+
+    # success_url = '/'
+    # static=trvalé
 
     def form_valid(self, form):
         print(form.cleaned_data)
         form.cleaned_data
         return super().form_valid(form)
-	
+
     def get_success_url(self):
         return '../menu_list_view'
 
 
 class menu_update_view(UpdateView):
-
     template_name = 'menu_update_view.html'
     form_class = Menu_form
+
     def get_object(self):
         id = self.kwargs.get("id")
         return get_object_or_404(Menu, id_menu=id)
 
     def form_valid(self, form):
-        
         print(form.cleaned_data)
         return super().form_valid(form)
 
@@ -967,80 +911,79 @@ class menu_delete_view(DeleteView):
     def get_success_url(self):
         return '../menu_list_view'
 
+
 class Facility_menus_create_view(CreateView):
     template_name = 'facility_menus_create.html'
     form_class = Facility_menus_form
-    queryset = Facility_menus.objects.all() 
-
+    queryset = Facility_menus.objects.all()
 
     def form_valid(self, form):
-        id_menu_check=form.cleaned_data['id_menu']
-        if_facility_check=form.cleaned_data['id_facility']
+        id_menu_check = form.cleaned_data['id_menu']
+        if_facility_check = form.cleaned_data['id_facility']
 
-        all_facility_menus_from_facility=Facility_menus.objects.filter(id_facility=if_facility_check)
+        all_facility_menus_from_facility = Facility_menus.objects.filter(id_facility=if_facility_check)
         print(all_facility_menus_from_facility)
-		
-        if id_menu_check.type=='s':
+
+        if id_menu_check.type == 's':
             for x in all_facility_menus_from_facility:
-                if x.id_menu.type=='s':
+                if x.id_menu.type == 's':
                     print("something bad")
                     PermissionDenied()
                     raise Http404
-
 
         print(id_menu_check)
         print(if_facility_check)
 
         print(form.cleaned_data)
         return super().form_valid(form)
-	
+
     def get_success_url(self):
         return '../menu_list_view'
+
 
 class Menu_items_create_view(CreateView):
     template_name = 'menu_items_create.html'
     form_class = Menu_items_form
     queryset = Menu_items.objects.all()
-	
+
     def form_valid(self, form):
         print(form.cleaned_data)
         return super().form_valid(form)
-	
+
     def get_success_url(self):
         return '../menu_list_view'
 
-def menu_list_view(request): 
 
-	if request.user.is_authenticated:
-		person_instance		=Person.objects.filter(user=request.user).first()
-		person_instance.is_admin()
-		person_instance.is_operator()
+def menu_list_view(request):
+    if request.user.is_authenticated:
+        person_instance = Person.objects.filter(user=request.user).first()
+        person_instance.is_admin()
+        person_instance.is_operator()
 
-	menu_instance_list=Menu.objects.all()
+    menu_instance_list = Menu.objects.all()
 
-	context={
-		"menu_instance_list":menu_instance_list,
-	}
-	
-	return render(request, 'menu_list_view.html', context)	
+    context = {
+        "menu_instance_list": menu_instance_list,
+    }
+
+    return render(request, 'menu_list_view.html', context)
 
 
 def facility_list_staff_view(request):
-	if request.user.is_authenticated:
-		person_instance		=Person.objects.filter(user=request.user).first()
-		person_instance.is_admin()
-		person_instance.is_operator()
+    if request.user.is_authenticated:
+        person_instance = Person.objects.filter(user=request.user).first()
+        person_instance.is_admin()
+        person_instance.is_operator()
 
-	facility_instance_list=Facility.objects.all()
+    facility_instance_list = Facility.objects.all()
 
-	context={
-		"facility_instance_list":facility_instance_list,
-	}
-	
-	return render(request, 'facility_staff_view.html', context)	
+    context = {
+        "facility_instance_list": facility_instance_list,
+    }
 
+    return render(request, 'facility_staff_view.html', context)
 
-	pass
+    pass
 
 
 class facility_create_view(CreateView):
@@ -1051,27 +994,27 @@ class facility_create_view(CreateView):
     def form_valid(self, form):
         print(form.cleaned_data)
         return super().form_valid(form)
-	
+
     def get_success_url(self):
         return '../facility_list_staff_view'
 
 
 class facility_update_view(UpdateView):
-
     template_name = 'facility_update_view.html'
     form_class = Facility_form
+
     def get_object(self):
         id = self.kwargs.get("id")
         return get_object_or_404(Facility, id_facility=id)
 
     def form_valid(self, form):
-        
         print(form.cleaned_data)
         return super().form_valid(form)
 
     def get_success_url(self):
         id = self.kwargs.get("id")
-        return '../facility_update_view/'+str(id)
+        return '../facility_update_view/' + str(id)
+
 
 class facility_delete_view(DeleteView):
     template_name = 'facility_delete_view.html'
@@ -1086,103 +1029,97 @@ class facility_delete_view(DeleteView):
 
 
 def facility_menus_list_staff(request, id):
+    # facility_instance=Facility.objects.filter(id_facility=id)
+    facility_menus_instance_list = Facility_menus.objects.filter(id_facility=id)
 
-	#facility_instance=Facility.objects.filter(id_facility=id)
-	facility_menus_instance_list=Facility_menus.objects.filter(id_facility=id)
+    print(facility_menus_instance_list)
 
-	print(facility_menus_instance_list)
+    menu_list = []
 
+    for x in facility_menus_instance_list:
+        menu_list.append(x.id_menu)
 
-	menu_list=[]
-	
-	for x in facility_menus_instance_list:
-		menu_list.append(x.id_menu)
+    # menus_instance_list=Menu.objects.filter(id_menu=facility_menus_instance_list.id_menu)
 
+    context = {
+        "menu_list": menu_list
+    }
+    return render(request, 'facility_menus_list_staff.html', context)
 
-	#menus_instance_list=Menu.objects.filter(id_menu=facility_menus_instance_list.id_menu)
-	
-	context={
-		"menu_list": menu_list
-	}
-	return render(request, 'facility_menus_list_staff.html', context)
 
 def facility_menus_items_list_staff(request, id):
+    # menu_instance=Menu.objects.filter(id_menu=id)
+    facility_menus_items_list = Menu_items.objects.filter(id_menu=id)
 
-	#menu_instance=Menu.objects.filter(id_menu=id)
-	facility_menus_items_list=Menu_items.objects.filter(id_menu=id)
+    # print(facility_menus_items_list)
 
-	#print(facility_menus_items_list)
+    item_list = []
 
+    for x in facility_menus_items_list:
+        item_list.append(x.id_item)
 
-	item_list=[]
-	
-	for x in facility_menus_items_list:
-		item_list.append(x.id_item)
+    # menus_instance_list=Menu.objects.filter(id_menu=facility_menus_instance_list.id_menu)
 
+    context = {
+        "item_list": item_list,
+        "id_menu": id
+    }
+    return render(request, 'facility_menus_items_list_staff.html', context)
 
-	#menus_instance_list=Menu.objects.filter(id_menu=facility_menus_instance_list.id_menu)
-	
-	context={
-		"item_list": item_list,
-		"id_menu":id
-	}
-	return render(request, 'facility_menus_items_list_staff.html', context)
 
 def delete_from_menu(request, id_menu, id_item):
+    if request.user.is_authenticated:
+        person_instance = Person.objects.filter(user=request.user).first()
+        person_instance.is_admin()
+        person_instance.is_operator()
+    else:
+        PermissionDenied()
+        return render(request, 'error_access.html', {})
 
-	if request.user.is_authenticated:
-		person_instance		=Person.objects.filter(user=request.user).first()
-		person_instance.is_admin()
-		person_instance.is_operator()
-	else: 
-		PermissionDenied()
-		return render(request, 'error_access.html', {})
-	
+    delete_instance = Menu_items.objects.filter(id_menu=id_menu, id_item=id_item).first()
+    delete_instance.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  # stays on the same page
 
-	delete_instance=Menu_items.objects.filter(id_menu=id_menu, id_item=id_item).first()
-	delete_instance.delete()
-	return HttpResponseRedirect(request.META.get('HTTP_REFERER')) #stays on the same page
 
 def controlPermissions(request, bool_var, person_instance):
-	if bool_var:
-		person_instance		=Person.objects.filter(user=request.user).first()
-		person_instance.is_admin()
-		person_instance.is_operator()
-	else: 
-		PermissionDenied()
-		return render(request, 'error_access.html', {})
+    if bool_var:
+        person_instance = Person.objects.filter(user=request.user).first()
+        person_instance.is_admin()
+        person_instance.is_operator()
+    else:
+        PermissionDenied()
+        return render(request, 'error_access.html', {})
+
 
 @login_required
 def profile_edit(request):
+    person_instance = Person.objects.filter(user=request.user).first()
+    if request.method == 'POST':
+        person_instance = Person.objects.filter(user=request.user).first()
+        user_instance = request.user
 
-	person_instance		=Person.objects.filter(user=request.user).first()
-	if request.method=='POST':
-		person_instance		=Person.objects.filter(user=request.user).first()
-		user_instance= request.user
+        form = EditProfileForm(request.POST or None)
 
+        if form.is_valid():
+            # form.save()
+            # username = form.cleaned_data.get('username')
+            firstname = form.cleaned_data.get('firstname')
+            surname = form.cleaned_data.get('surname')
+            address = form.cleaned_data.get('address')
+            email = form.cleaned_data.get('email')
+            telephone = form.cleaned_data.get('telephone')
 
-		form = EditProfileForm(request.POST or None)
+            Person.objects.filter(id_person=person_instance.id_person).update(firstname=firstname,
+                                                                              surname=surname,
+                                                                              address=address,
+                                                                              telephone=telephone,
+                                                                              email=email)
 
-		if form.is_valid():
-			#form.save()
-			#username = form.cleaned_data.get('username')
-			firstname 	= form.cleaned_data.get('firstname')
-			surname 	= form.cleaned_data.get('surname')
-			address 	= form.cleaned_data.get('address')
-			email		= form.cleaned_data.get('email')
-			telephone	= form.cleaned_data.get('telephone')
+            person_instance = Person.objects.filter(user=request.user).first()
 
-			Person.objects.filter(id_person=person_instance.id_person).update(	firstname=firstname,
-																				surname=surname,
-																				address=address,
-																				telephone=telephone, 
-																				email=email)
-			
-			person_instance		=Person.objects.filter(user=request.user).first()
-
-			"""
+            """
 			user = authenticate(username=username, password=raw_password)
-			
+
 
 			login (request, user)
 			user_instance=User.objects.filter(username=username).first()
@@ -1195,17 +1132,17 @@ def profile_edit(request):
 
 
 
-	else:
-		form=EditProfileForm()
-	
-	context={
-		'form': form,
-		'user_profile':request.user,
-		'person':person_instance,
-	
-	}
+    else:
+        form = EditProfileForm()
 
-	return render(request, 'profile_edit.html', context)
+    context = {
+        'form': form,
+        'user_profile': request.user,
+        'person': person_instance,
+
+    }
+
+    return render(request, 'profile_edit.html', context)
 
 
 
