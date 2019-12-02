@@ -48,28 +48,4 @@
         <h2 class="notice">Cart is empty</h2>
         {% endif %}
 
-
-        {% comment %}
-        {% for instance_item in food_order_items_list %}
-              {{instance_item.id_item.name}} <a href="{%url 'add_to_cart' instance_item.id_item.id_item food_order_instance.facility.id_facility%}" class="">Add</a> ||
-              <a href="{%url 'remove_from_cart' instance_item.id_item.id_item food_order_instance.facility.id_facility%}" class="">Remove</a> 
-              Quantity: {{instance_item.quantity}}
-              <br>
-                      
-              
-        {%endfor%}
-        <!-- TODO WHEN DOES THIS PART TRIGGER?????????-->
-        {% if food_order_instance %}
-            <br>
-              <a href="" class=""><h1>Checkout</h1></a>  <br>
-              <a href="{%url 'pay'%}" class=""><h1>Pay</h1></a>  <br>
-            {%if unregistered%}
-              <a href="" class=""><h1>Hey, wanna register</h1></a>  <br>
-            {%endif%}
-        {% else %}
-
-        <h1 class="notice">hey, wanna order something?</h1>
-        {% endif %}
-
-        {% endcomment %}
        {% endblock %}
