@@ -931,9 +931,11 @@ class menu_create_view(CreateView):
     form_class = Menu_form
     queryset = Menu.objects.all() # <blog>/<modelname>_list.html
     #success_url = '/'
+	#static=trvalé
 
     def form_valid(self, form):
         print(form.cleaned_data)
+        form.cleaned_data
         return super().form_valid(form)
 	
     def get_success_url(self):
@@ -970,7 +972,25 @@ class Facility_menus_create_view(CreateView):
     form_class = Facility_menus_form
     queryset = Facility_menus.objects.all() 
 
+
     def form_valid(self, form):
+        id_menu_check=form.cleaned_data['id_menu']
+        if_facility_check=form.cleaned_data['id_facility']
+
+        all_facility_menus_from_facility=Facility_menus.objects.filter(id_facility=if_facility_check)
+        print(all_facility_menus_from_facility)
+		
+        if id_menu_check.type=='s':
+            for x in all_facility_menus_from_facility:
+                if x.id_menu.type=='s':
+                    print("something bad")
+                    PermissionDenied()
+                    raise Http404
+
+
+        print(id_menu_check)
+        print(if_facility_check)
+
         print(form.cleaned_data)
         return super().form_valid(form)
 	
