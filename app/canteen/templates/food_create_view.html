@@ -7,35 +7,12 @@
     <div class="register-block">
 
 
-    <form action='' method='POST'>{% csrf_token %}
-            <div class="row" style="display: flex;">
-                        <div class="column2-left"><label for="id_name">Name:</label></div>
-                        <div class="column2-right"><input type="text" name="name" maxlength="100" required id="id_name"></div>
+        <form action='' method='POST'>{% csrf_token %}
+            <div class="form-class">
+                {{ form.as_p }}
             </div>
-            <div class="row" style="display: flex;">
-                        <div class="column2-left"><label for="id_description">Description:</label></div>
-                        <div class="column2-right"><input type="text" name="description" maxlength="320" id="id_description"></div>
-            </div>
-            <div class="row" style="display: flex;">
-                        <div class="column2-left"><label for="id_price">Price:</label></div>
-                        <div class="column2-right"><input type="number" name="price" required id="id_price"></div>
-            </div>
-            <div class="row" style="display: flex;">
-                        <div class="column2-left"><label for="id_image">Image:</label></div>
-                        <div class="column2-right"><input type="text" name="image" maxlength="100" required id="id_image"></div>
-            </div>
-            <div class="row" style="display: flex;">
-                        <div class="column2-left"><label for="id_diet_type">Diet type:</label></div>
-                        <div class="column2-right">
-                            <select name="diet_type" id="id_diet_type" width="100px">  <!-- TODO: stacia tieto moznosti staticky, alebo sa mozu zmenit??? -->
-                                <option value="n" selected>normal</option>
-                                <option value="v">vegetarian</option>
-                                <option value="g">gluten-free</option>
-                            </select>
-                        </div>
-            </div>
+            <input type='submit' value='Save' />
+        </form>
+    </div>
 
-
-        <input type='submit' value='Save' />
-    </form>
 {% endblock %}

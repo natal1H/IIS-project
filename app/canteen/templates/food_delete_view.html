@@ -2,14 +2,15 @@
 
 {% block content %}
 
-    <div class="register-block" style="width: 800px">
+    <div class="register-block-choice">
 
 
         <form action='' method='POST'>{% csrf_token %}
             <h1>Do you want to delete "{{ object.name }}"?</h1>
-            <input type='submit' value='Yes' />
-            &nbsp;
-            <a href='../food_list_view' class="cancel-button">Cancel</a>
+            <div style="margin-left: auto; margin-right: auto; display:inline-block">
+                <input type='submit' value='Yes' />
+                <button class="button-black" onclick="window.location='/food_list_view'">No</button>
+            </div>
         </form>
     </div>
 {% endblock %}
