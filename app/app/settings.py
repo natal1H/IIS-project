@@ -82,19 +82,6 @@ DATABASES = {
     }
 }
 
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'canteen',
-        'USER': 'admin',
-        'PASSWORD': 'adminadmin',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
-"""
-
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -140,3 +127,6 @@ STATICFILES_DIRS = (
 )
 
 LOGIN_REDIRECT_URL='/logged'
+
+SESSION_COOKIE_AGE = 60 * 10
+SESSION_SAVE_EVERY_REQUEST = True
