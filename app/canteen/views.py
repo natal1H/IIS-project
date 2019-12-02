@@ -265,7 +265,7 @@ def add_to_cart(request, id_item, id_facility):
 	
 	if current_time>deadline:
 		return render(request, 'error_access.html', {
-				"msg":"Nemôžete pridávať po deadline"
+				"msg":"Unable to add item, its already after deadline"
 				})
 
 	#if user is logged in
@@ -293,7 +293,7 @@ def add_to_cart(request, id_item, id_facility):
 			if food_order_instance.facility.id_facility!=id_facility:
 				print("you cant order from different facility")
 				return render(request, 'error_access.html', {
-				"msg":"Nemôžete pridávať jedlá z viacerých prevádzok"
+				"msg":"Unable to order from more facilities at once"
 				})
 
 			food_order_item_instance=Item.objects.filter(id_item=id_item).first()
@@ -385,7 +385,7 @@ def add_to_cart2(request, id_item, id_facility):
 		if food_order_instance.facility.id_facility!=id_facility:
 			print("you cant order from different facility")
 			return render(request, 'error_access.html', {
-				"msg":"Nemôžete pridávať jedlá z viacerých prevádzok"
+				"msg":"Unable to add items from different facilities"
 			})
 
 		food_order_item_instance=Item.objects.filter(id_item=id_item).first()
