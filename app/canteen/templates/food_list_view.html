@@ -1,13 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Foods:</h1>
 
-{% for instance in food_list%}
-     <p>{{ instance.id_item }}  {{ instance.name }}: <a href="{%url 'food_update_view' instance.id_item %}">update</a>||
-     <a href="{%url 'food_delete_view' instance.id_item %}">delete</a></p>
-          
-{% endfor %}
+    <h2 class="page-title"><a href="/operator_view"><i class="fa fa-angle-left"></i></a> Food</h2>
 
 
+    <div class="register-block">
+
+        {% for instance in food_list%}
+            <div style="display: flex;">
+                <div style=" width:40%; text-align: left; padding: 10px; display: inline-block">
+                    {{ instance.id_item }}.  {{ instance.name }}
+                </div>
+                <div style="width:60%; padding: 10px; text-align: right;"><a href="{%url 'food_update_view' instance.id_item %}">update</a> | <a href="{%url 'food_delete_view' instance.id_item %}">delete</a></div>
+            </div>
+            <hr>
+        {% endfor %}
+        <br>
+        <a href="food_create_view"><button class="button-black">Add new food</button></a>
+    </div>
 {% endblock %}

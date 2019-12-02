@@ -2,19 +2,14 @@
 
 {% block content %}
 
+    <h2 class="page-title"><a href=/profile><i class="fa fa-angle-left" style="font-size: 55px"></i> </a>Delivery plan</h2>
 
-<h2 class="page-title"><a href=/profile><i class="fa fa-angle-left" style="font-size: 55px"></i> </a>Delivery plan</h2>
-
-{% comment %}
-{% if role == "d" or role == "a"%}
-    <a href="food_order">Orders</a><br>
-{% endif %}
-{% endcomment %}
+    <div class="register-block" style="text-align: left">
 
 
-
-{% for instance in driver_orders_list %}
-{{instance.id_food_order}} <a href="{%url 'deliver_order' instance.id_food_order %}">Order info</a><br>
-{% endfor %}
+    {% for instance in driver_orders_list %}
+        {{instance.id_food_order}} <a href="{%url 'deliver_order' instance.id_food_order %}">Order info</a><br>
+    {% endfor %}
+    </div>
 
 {% endblock %}

@@ -1,24 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="register-block">
-<h1>Food Orders:</h1>
+    <h2 class="page-title"><a href="/operator_view"><i class="fa fa-angle-left"></i></a> Food</h2>
 
-<h2>Today's orders:</h2>
-{% for instance in today_list%}
-     <p>{{ instance.id_food_order }} - <a href="{%url 'food_order_update' instance.id_food_order %}">update</a>||
-     <a href="{%url 'food_order_delete' instance.id_food_order %}">delete</a></p>
+    <div class="register-block" style="text-align: left">
 
-{% endfor %}
+        {% for instance in food_order_list%}
+            <div style="display: flex;">
+                <div style=" width:40%; text-align: left; padding: 10px; display: inline-block">
+                    Order #{{ instance.id_food_order }}
+                </div>
+                <div style="width:60%; padding: 10px; text-align: right;">
+                    <a href="{%url 'food_order_update' instance.id_food_order %}">update</a> | <a href="{%url 'food_order_delete' instance.id_food_order %}">delete</a>
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
 
-
-<h2>All orders:</h2>
-
-{% for instance in food_order_list%}
-     <p>{{ instance.id_food_order }} - <a href="{%url 'food_order_update' instance.id_food_order %}">update</a>||
-     <a href="{%url 'food_order_delete' instance.id_food_order %}">delete</a></p>
-
-{% endfor %}
-
-</div>
 {% endblock %}

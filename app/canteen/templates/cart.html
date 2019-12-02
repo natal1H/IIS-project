@@ -7,11 +7,9 @@
             <div class="checkout-block">
 
                 <div class="side-order-block">
-                    <!--<a href="/facility/{{ facility_instance.id_facility  }}" style="text-decoration:underline; color: #999999" href="">Back to restaurant</a>  TODO return to that facility -->
                     <h2><a href=/facility/{{ facility_instance.id_facility }}><i class="fa fa-angle-left" style="font-size: 30px"></i></a> Ordering from: {{ facility_instance.name }}</h2>
                     <hr style="margin: 8px 0 4px">
 
-                    <!-- TODO for food item -->
                     {% for instance_item in food_order_items_list %}
                         <p style="float:left">{{instance_item.id_item.name}} ({{ instance_item.id_item.price }}€)</p>
                         <p style="float:right">{{instance_item.quantity}}x | <a href="{%url 'add_to_cart' instance_item.id_item.id_item food_order_instance.facility.id_facility%}" class="">+1 </a>/<a href="{%url 'remove_from_cart' instance_item.id_item.id_item food_order_instance.facility.id_facility%}" class=""> -1</a></p>
