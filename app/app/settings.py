@@ -24,7 +24,7 @@ SECRET_KEY = '_&ukg@(umcv(fry(wy_4o)&xbsg(arit@x)79&d6oc-78=1^rx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get('DEBUG', default=1))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
