@@ -38,7 +38,9 @@
 
     {% for instance_item in item_objs %}
         <div class="food-block">
+            {% if instance_item.image != None %}
             <img src="{% static instance_item.image %}" width="100px" height="100px" style="float:left;margin-right:10px">
+            {% endif %}
             <div style="float:left; max-width: 150px">
                 <b>{{instance_item.name}}</b><br>
                 {{instance_item.description}}<br>

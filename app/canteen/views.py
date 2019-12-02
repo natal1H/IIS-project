@@ -476,16 +476,12 @@ def pay_view(request):
         }
 
         return render(request, 'pay_unregistered.html', context)
-    # TODO
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-
-
-
 # this is basically all orders view
-#this is the order for one user and his/hers orders
+# this is the order for one user and his/hers orders
 def order_view(request):  # basically a cart
 
     if request.user.is_authenticated:
