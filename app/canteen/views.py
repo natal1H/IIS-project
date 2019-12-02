@@ -721,7 +721,7 @@ def operator_view(request):
 
     return render(request, 'operator_view.html', context)
 
-
+@login_required
 def food_list_view(request):
     if request.user.is_authenticated:
         person_instance = Person.objects.filter(user=request.user).first()
@@ -805,7 +805,11 @@ class menu_update_view(UpdateView, LoginRequiredMixin):
         return get_object_or_404(Menu, id_menu=id)
 
     def form_valid(self, form):
+        print(id)
         print(form.cleaned_data)
+
+
+
         return super().form_valid(form)
 
 
@@ -975,7 +979,7 @@ def facility_menus_items_list_staff(request, id):
     }
     return render(request, 'facility_menus_items_list_staff.html', context)
 
-
+@login_required
 def delete_from_menu(request, id_menu, id_item):
     if request.user.is_authenticated:
         person_instance = Person.objects.filter(user=request.user).first()
