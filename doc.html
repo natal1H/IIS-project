@@ -21,7 +21,7 @@
 	<dt>Autoøi</dt>
 	<dd>Natália Holková <!-- Nahraïte skuteèným jménem a e-mailem autora a popisem èinnosti -->
 	    <a href="mailto:xholko02@stud.fit.vutbr.cz">xholko02@stud.fit.vutbr.cz</a> -
-		tvorba databázy, HTML templates
+		databáza, HTML templates, Docker, hosting
 	</dd>
 	<dd>Samuel Krempaský<!-- Nahraïte skuteèným jménem a e-mailem autora a popisem èinnosti -->
 	    <a href="mailto:xkremp01@stud.fit.vutbr.cz">xkremp01@stud.fit.vutbr.cz</a> -
@@ -29,19 +29,20 @@
 	</dd>
   <dd>Matej Novák<!-- Nahraïte skuteèným jménem a e-mailem autora a popisem èinnosti -->
 	    <a href="mailto:xnovak2f@stud.fit.vutbr.cz">xnovak2f@stud.fit.vutbr.cz</a> -
-		-
+		dizajn
 	</dd>
 	<dt>URL aplikace</dt>
-	<dd><a href="http://www.stud.fit.vutbr.cz/~xautor01/IIS">http://www.stud.fit.vutbr.cz/~xautor01/IIS</a></dd>
+	<dd><a href="https://canteen-docker-gnb42qlp2a-uc.a.run.app/">https://canteen-docker-gnb42qlp2a-uc.a.run.app/</a></dd>
 </dl>
 
 <h2>U¾ivatelé systému pro testování</h2>
 <p>Uveïte prosím existující zástupce <strong>v¹ech rolí u¾ivatelù</strong>.</p>
 <table>
 <tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
-<tr><td>admin</td><td>admin</td><td>Administrátor</td></tr>
-<tr><td>prodavac</td><td>prodavac</td><td>Prodavaè</td></tr>
-<tr><td>franta</td><td>franta</td><td>Zákazník</td></tr>
+<tr><td>mrkva1</td><td>123456</td><td>Administrátor</td></tr>
+<tr><td>mrkva2</td><td>123456</td><td>Prodavaè</td></tr>
+<tr><td>mrkva3</td><td>123456</td><td>Zákazník</td></tr>
+<tr><td>mrkva4</td><td>123456</td><td>Zákazník</td></tr>
 </table>
 
 <p>(Diagram pøípadù u¾ití není nutné vkládat, pokud IS implementuje role a pøípady u¾ití definované zadáním.)</p>
@@ -53,14 +54,42 @@
 
 Zde vlo¾te grafické schéma relaèní databáze (tabulek v databázi).
 
-<h2>Instalace</h2>
+<h2>In¹talácia</h2>
+
+<h3>In¹talácia pomocou Docker</h3>
 
 Prerekvizity:
 <ul>
-    <li>Python 3.5+</li>
-    <li>Django 2.2+</li>
-    <li>Postgres 11.6+</li>
+	<li>Docker</li>
 </ul>
+
+Postup:
+<ol>
+	<li>S»ahnutie statický obrázkov - stiahnu» z ---TODO--- a prekopírova» obsah do app/static/</li>
+	<li>Presun do zlo¾ky s Dockerfile - cd app/</li>
+	<li>Vytvorenie docker image - docker build -t canteen-docker -f Dockerfile .</li>
+	<li>Spustenie kontajneru - docker run -it -p 8888:8888 canteen-docker</li>
+	<li>Stránky bude dostupná na <a href="http://localhost:8888/">localhost:8888</a></li>
+</ol>
+
+<h3>In¹talácia bez Docker</h3>
+
+Prerekvizity:
+<ul>
+    <li>Python 3.6+</li>
+    <li>Django 2.2+</li>
+</ul>
+
+Postup:
+<ol>
+	<li>S»ahnutie statický obrázkov - stiahnu» z ---TODO--- a prekopírova» obsah do app/static/</li>
+	<li>Presun do zlo¾ky s <i>manage.py</i> - cd app/</li>
+	<li>Nastavanie databázy a naplnenie vstupnými údajmi - python3 manage.py migrate</li>
+	<li>Zozbieranie statický súborov - python3 manage.py collectstatic --noinput</li>
+	<li>Sputenie serveru - python3 manage.py runserver
+	<li>Stránka je teraz dostupná na <a href="http://127.0.0.1:8000/">127.0.0.1:8000</a></li>
+</ol>
+
 
 Struènì popi¹te:
 <ul>
