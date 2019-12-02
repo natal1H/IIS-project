@@ -173,9 +173,9 @@ def dynamic_facility_view(request, id):
 	today = date.today()
 	menu_objs=[]
 	for i in menu:
-		
-		if i.id_menu.type=='s' or i.id_menu.date==today.strftime("%Y-%M-%D"):
-			menu_objs.append(i.id_menu)
+		#if i.id_menu.type=='s' or i.id_menu.date==today.strftime("%Y-%M-%D"):
+		#	menu_objs.append(i.id_menu)
+		menu_objs.append(i.id_menu)
 
 	#getting meals that belongs to that facility
 

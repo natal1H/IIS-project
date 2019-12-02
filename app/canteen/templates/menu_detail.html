@@ -2,23 +2,21 @@
 
     {% block content %}
 
-    <a href="{% url 'filter_menu' menu.id_menu 'v'%}">Vegan</a>
-    <a href="{% url 'filter_menu' menu.id_menu 'n'%}">Normal</a>
-    <a href="{% url 'filter_menu' menu.id_menu 'g'%}">glueten-free</a>
-    <a href="{% url 'menu' menu.id_menu %}">All</a>
-
-    
-
-
 
     {% load static %}
+
         <div class="search-header">
             <h2 class="page-title"><a href="/facility/{{ facility.id_facility }}">BACK</a> | Menu items</h2>
-            <form class="search-bar" action="{% url 'search' %}">
-                <button type="submit"><i class="fa fa-search"></i></button>
-                <input type="text" placeholder="Search..." name="search_form">
-            </form>
         </div> <!-- End search-header -->
+
+    <div>
+        <ul style="white-space:nowrap;margin-left:20px;font-weight:bold">
+            <li style="display:inline"><a href="{% url 'filter_menu' menu.id_menu 'v'%}">Vegan</a></li> |
+            <li style="display:inline"><a href="{% url 'filter_menu' menu.id_menu 'n'%}">Normal</a></li> |
+            <li style="display:inline"><a href="{% url 'filter_menu' menu.id_menu 'g'%}">Glueten-free</a></li> |
+            <li style="display:inline"><a href="{% url 'menu' menu.id_menu %}">All</a></li>
+        </ul>
+    </div>
 
     <div class="food-blocks">
     {%if item_objs%}
@@ -36,7 +34,7 @@
         {% endif %}
 
         {% if is_disabled == "disabled" %}
-        <p><b>WARNING: You cannot order from this menu, it is not current!</b></p>
+        <br><p style="font-weight:bold;color:red;margin-left:20px"><b>WARNING: You cannot order from this menu, it is not current!</b></p>
         {% endif %}
 
     {% for instance_item in item_objs %}
@@ -49,9 +47,13 @@
                 <!--<a href="{%url 'add_to_cart' instance_item.id_item id_facility%}" class="">Add to Cart</a><br>-->
             </div>
             <div style="float:right">
-                <button class="button-white" onclick="" style="float:right " {{ is_disabled }}> <!-- TODO: add functionality, visually different if disabled-->
+                {% if is_disabled == "disabled" %}
+                <span style="font-weight:bold;color:red">Cannot order</span>
+                {% else %}
+                <button class="button-white" onclick="" style="float:right ">
                     <a href="{%url 'add_to_cart' instance_item.id_item id_facility%}" class="">Add to Cart</a>
                 </button>
+                {% endif %}
             </div>
         </div>
 

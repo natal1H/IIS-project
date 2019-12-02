@@ -3,7 +3,7 @@
         {% block content %}
 
         <div class="search-header">
-            <h2 class="page-title"><a href="/">BACK</a> | All menus from {{ object.name }}</h2><!-- TODO: display facility name -->
+            <h2 class="page-title"><a href="/">BACK</a> | All menus from {{ object.name }}</h2>
         </div> <!-- End search-header -->
 
         <div class="menu-blocks">
@@ -21,9 +21,9 @@
                         {% if todays_date == instance_menu.date|date:"Y-m-d" %}
                             Today's menu<br>
                         {% elif todays_date < instance_menu.date|date:"Y-m-d" %}
-                            Future menu<br><!-- TODO: can be viewed? If yes, remove option to add items to cart -->
+                            Future menu<br>
                         {% else %}
-                        <span style="color:red">Expired menu</span><br><!-- TODO: can be viewed? If yes, remove option to add items to cart -->
+                        <span style="color:red">Expired menu</span><br>
                         {% endif %}
                     {% else %}
                         Constant menu<br>
