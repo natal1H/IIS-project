@@ -21,7 +21,7 @@ from datetime import date
 from datetime import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-# Create your views here.
+
 
 
 def index(request):
@@ -166,13 +166,10 @@ def dynamic_facility_view(request, id):
     today = date.today()
     menu_objs = []
     for i in menu:
-        # if i.id_menu.type=='s' or i.id_menu.date==today.strftime("%Y-%M-%D"):
-        #	menu_objs.append(i.id_menu)
+
         menu_objs.append(i.id_menu)
 
-    # getting meals that belongs to that facility
 
-    # handling the nonexistent page
     try:
         obj = Facility.objects.get(id_facility=id)
     except Facility.DoesNotExist:
@@ -201,14 +198,13 @@ def filter_menu(request, id_menu, diet_type):
 
     facility_menus_instance = Facility_menus.objects.filter(id_menu=id_menu).first()
     print(facility_menus_instance.id_facility.id_facility)
-    # facility_instance = Facility.objects.filter(id_facility=facility_menus_instance.id_facility)
 
     context = {
         "item_objs": item_objs,
         "menu": Menu.objects.get(id_menu=id_menu),
-        "id_facility": facility_menus_instance.id_facility.id_facility,  # TODO: nie je toto id_menu?
+        "id_facility": facility_menus_instance.id_facility.id_facility,  
         "id_menu": id_menu,
-        "facility": facility.id_facility  # TODO: WHY DOES THIS WORK??
+        "facility": facility.id_facility  
     }
 
     return render(request, 'menu_detail.html', context)
@@ -222,21 +218,19 @@ def menu_view(request, id):
     item_objs = []
 
     for i in menu:
-        # print(i)
+        
         item_objs.append(i.id_item)
 
     facility = Facility_menus.objects.filter(id_menu=id).first()
 
     facility_menus_instance = Facility_menus.objects.filter(id_menu=id).first()
-    print(facility_menus_instance.id_facility.id_facility)
-    # facility_instance = Facility.objects.filter(id_facility=facility_menus_instance.id_facility)
 
     context = {
         "item_objs": item_objs,
         "menu": Menu.objects.get(id_menu=id),
-        "id_facility": facility_menus_instance.id_facility.id_facility,  # TODO: nie je toto id_menu?
+        "id_facility": facility_menus_instance.id_facility.id_facility,  
         "id_menu": id,
-        "facility": facility.id_facility  # TODO: WHY DOES THIS WORK??
+        "facility": facility.id_facility  
     }
 
     return render(request, 'menu_detail.html', context)
@@ -339,8 +333,7 @@ def add_to_cart(request, id_item, id_facility):
 
             request.session['cart_id'] = food_order_instance.id_food_order
 
-    # TODO order, checkout etc. and all  almost done, but needs to be finalized and tested
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  # stays on the same page
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  
 
 
 
@@ -365,22 +358,13 @@ def remove_from_cart(request, id_item, id_facility):
         prob_food_order_delete = Food_order_item.objects.filter(id_food_order=food_order_instance)
 
         if prob_food_order_delete.exists():
-            print("somethin here")
+            print("")
         else:
-            print("gotta delete food_order")
+            
             food_order_instance.delete()
 
-        """
-		quantity=food_order_item_instance_from_mm_table.first().quantity+1
-		print(quantity)
-		Food_order_item.objects.filter( id_food_order=food_order_instance, id_item=food_order_item_instance ).update(quantity=quanti
-		"""
 
 
-    # print(delete_instance)
-    # food_order_instance	=Food_order.objects.create(facility=facility_instance, person=person_instance)
-
-    # TODO for unathorized users
     else:
         cart_id = request.session.get("cart_id", None)
         food_order_instance = Food_order.objects.filter(id_food_order=cart_id, status='o').first()
@@ -407,19 +391,16 @@ def remove_from_cart(request, id_item, id_facility):
             print("gotta delete food_order")
             food_order_instance.delete()
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  # stays on the same page
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  
 
-
-# TODO
 
 # current order
 def cart_view(request):
-    # TODO it doesnt work
-    # might not work with migrations sometimes
+    
     if request.user.is_authenticated:
         person_instance = Person.objects.filter(user=request.user).first()
         food_order_instance = Food_order.objects.filter(person=person_instance, status='o').first()
-        # print(food_order_instance.status)
+        
 
         food_order_items_list = Food_order_item.objects.filter(id_food_order=food_order_instance)
         price = 0
@@ -429,10 +410,6 @@ def cart_view(request):
         for x in food_order_items_list:
             price = price + x.id_item.price * x.quantity
 
-        # print(food_order_instance.id_food_order)
-        # print(person_instance)
-        # print(food_order_items_list)
-        # print(food_order_items_list)
 
         if food_order_instance is None:
             facility_instance = None
@@ -451,7 +428,6 @@ def cart_view(request):
         for x in food_order_items_list:
             price = price + x.id_item.price * x.quantity
 
-        # print(food_order_instance)
         if food_order_instance is None:
             facility_instance = None
         else:
@@ -473,9 +449,7 @@ def pay_view(request):
 
         person_instance = Person.objects.filter(user=request.user).first()
         Food_order.objects.filter(person=person_instance, status='o').update(status='a')
-    # print(food_order_instance.status)
-    # food_order_instance.status='a'
-    # print(food_order_instance.status)
+
     else:
         cart_id = request.session.get("cart_id", None)
 
@@ -518,7 +492,7 @@ def order_view(request):  # basically a cart
 
         person_instance = Person.objects.filter(user=request.user).first()
         food_order_qs = Food_order.objects.filter(person=person_instance)
-        # print(food_order_qs)
+        
 
         food_order_ordered = Food_order.objects.filter(person=person_instance, status='o')
         food_order_approved = Food_order.objects.filter(person=person_instance, status='a')
@@ -718,7 +692,6 @@ def driver_food_order_info(request, id):
 
 @login_required
 def driver_deliver(request, id):
-    print("hello")
 
     if request.user.is_authenticated:
         person_instance = Person.objects.filter(user=request.user).first()
@@ -808,10 +781,9 @@ class food_create_view(CreateView, LoginRequiredMixin):
 class menu_create_view(CreateView, LoginRequiredMixin):
     template_name = 'menu_create_view.html'
     form_class = Menu_form
-    queryset = Menu.objects.all()  # <blog>/<modelname>_list.html
+    queryset = Menu.objects.all()  
 
-    # success_url = '/'
-    # static=trvalé
+  
 
     def form_valid(self, form):
         print(form.cleaned_data)
@@ -993,7 +965,6 @@ class facility_delete_view(DeleteView, LoginRequiredMixin):
 
 
 def facility_menus_list_staff(request, id):
-    # facility_instance=Facility.objects.filter(id_facility=id)
     facility_menus_instance_list = Facility_menus.objects.filter(id_facility=id)
 
     print(facility_menus_instance_list)
@@ -1003,7 +974,6 @@ def facility_menus_list_staff(request, id):
     for x in facility_menus_instance_list:
         menu_list.append(x.id_menu)
 
-    # menus_instance_list=Menu.objects.filter(id_menu=facility_menus_instance_list.id_menu)
 
     context = {
         "menu_list": menu_list
@@ -1012,17 +982,14 @@ def facility_menus_list_staff(request, id):
 
 
 def facility_menus_items_list_staff(request, id):
-    # menu_instance=Menu.objects.filter(id_menu=id)
     facility_menus_items_list = Menu_items.objects.filter(id_menu=id)
 
-    # print(facility_menus_items_list)
 
     item_list = []
 
     for x in facility_menus_items_list:
         item_list.append(x.id_item)
 
-    # menus_instance_list=Menu.objects.filter(id_menu=facility_menus_instance_list.id_menu)
 
     context = {
         "item_list": item_list,
@@ -1042,7 +1009,7 @@ def delete_from_menu(request, id_menu, id_item):
 
     delete_instance = Menu_items.objects.filter(id_menu=id_menu, id_item=id_item).first()
     delete_instance.delete()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  # stays on the same page
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  
 
 
 def controlPermissions(request, bool_var, person_instance):
@@ -1065,8 +1032,7 @@ def profile_edit(request):
         form = EditProfileForm(request.POST or None)
 
         if form.is_valid():
-            # form.save()
-            # username = form.cleaned_data.get('username')
+
             firstname = form.cleaned_data.get('firstname')
             surname = form.cleaned_data.get('surname')
             address = form.cleaned_data.get('address')
@@ -1080,20 +1046,6 @@ def profile_edit(request):
                                                                               email=email)
 
             person_instance = Person.objects.filter(user=request.user).first()
-
-            """
-			user = authenticate(username=username, password=raw_password)
-
-
-			login (request, user)
-			user_instance=User.objects.filter(username=username).first()
-			print(user_instance)
-			Person.objects.create(user=user_instance, firstname=firstname, surname=surname, address= address, telephone=telephone, role='r')
-
-
-			return redirect('login_url')
-			"""
-
 
 
     else:
