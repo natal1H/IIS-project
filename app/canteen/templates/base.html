@@ -17,18 +17,17 @@
 </head>
 <body>
     <div class="main-header">
-             <a href="/"><h1>Canteen</h1></a>
+            <a href="/"><h1>Canteen</h1></a>
             <ul>
                 {%if user.is_authenticated%}
                 <li><a href="/logout">Logout</a></li>
                 <li><a href="/profile">Profile</a></li>
+                <li><a href="/order">Orders</a></li>
                 {% else %}
                 <li><a href="/login">Login</a></li>
                 <li><a href="/register">Register</a></li>
                 {%endif%}
-                <li><a href="/order">Orders</a></li>
                 <li><a href="/cart">Cart</a></li>
-
             </ul>
         </div>
     {% block content %}

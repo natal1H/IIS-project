@@ -22,7 +22,7 @@
 
 
                 <div class="side-order-block">
-                    <a style="text-decoration:underline; color: #999999" href="">Back to restaurant</a> <!-- TODO return to that facility -->
+                    <a href="/facility/{{ facility_instance.id_facility  }}" style="text-decoration:underline; color: #999999" href="">Back to restaurant</a> <!-- TODO return to that facility -->
                     <h2>Ordering from: {{ facility_instance.name }}</h2>
                     <hr style="margin: 8px 0 4px">
 
@@ -41,13 +41,27 @@
                         <hr style="margin: 4px 0 20px">
                         <p style="text-align: center; font-size: 40px"><b>Total:  {{price}} €</b></p><br>
                 </div>
-                <br>
-                <a href="{%url 'pay'%}" class="" style="text-align: center"><h1>Pay</h1></a> <!-- TODO: make into button-->
+
+                <form action="/pay" id="aaa">
+                    <input type="submit" style="margin-left: auto; margin-right: auto; display:block" value="Pay">
+                </form>
                 <br>
                 {%if unregistered%}
-                    <a href="{%url 'register_with_pay'%}" class=""><h1>Hey, wanna pay and register</h1></a>  <br>
+                    <input type="checkbox" id="RBP" value="RBP" onchange="selectionChanged(this)"/><label>&nbsp;I want to register before payment</label>
+                    <br>
                 {%endif%}
             </div>
+
+            <script>
+            function selectionChanged(element){
+                if (element.checked){
+                    document.getElementById('aaa').action = 'register_with_pay';
+                }
+                else{
+                    document.getElementById('aaa').action = 'pay';
+                }
+            }
+            </script>
 
 
         {% else %}
