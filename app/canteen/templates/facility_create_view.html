@@ -2,10 +2,29 @@
 
 {% block content %}
 
+    <h2 class="page-title">Create new facility</h2>
 
-<form action='' method='POST'>{% csrf_token %}
-    {{ form.as_p }}
-    <input type='submit' value='Save' />
-</form>
+    <div class="register-block">
 
+
+        <form action='' method='POST'>{% csrf_token %}
+            <div class="row" style="display: flex;">
+                        <div class="column2-left"><label for="id_address">Address:</label></div>
+                        <div class="column2-right"><input type="text" name="address" maxlength="150" required id="id_address"></div>
+            </div>
+            <div class="row" style="display: flex;">
+                        <div class="column2-left"><label for="id_name">Name:</label></div>
+                        <div class="column2-right"><input type="text" name="name" maxlength="150" required id="id_name"></div>
+            </div>
+            <div class="row" style="display: flex;">
+                        <div class="column2-left"><label for="id_deadline">Deadline:</label></div>
+                        <div class="column2-right"><input type="text" name="deadline" required id="id_deadline"></div>
+            </div>
+            <div class="row" style="display: flex;">
+                        <div class="column2-left"><label for="id_max_ordered_meals">Max ordered meals:</label></div>
+                        <div class="column2-right"><input type="number" name="max_ordered_meals" value="1" required id="id_max_ordered_meals"></div>
+            </div>
+            <input type='submit' value='Save' />
+        </form>
+    </div>
 {% endblock %}

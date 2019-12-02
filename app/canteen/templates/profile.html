@@ -51,12 +51,12 @@
     <!-- Page content -->
     <div class="main">
         <div class="profile-window">
-            <div style="float: right">
+            <div style="float: right; margin-top: 2px">
                 <a href="profile_edit">Edit profile</a> |
                 <a href="../change_password">Change password</a>
             </div>
             <br>
-            <hr style="margin: 2px 2px">
+            <hr style="margin: 4px 0 10px">
             <div style="display:block">
                 Name: {{ person.firstname }}<br>
                 Surname: {{ person.surname }}<br>
@@ -73,8 +73,7 @@
                 Role: registered user<br>
                 {% endif %}
             </div>
-            <br><br>
-            <hr style="margin: 2px 2px">
+            <hr style="margin: 10px 0 10px">
             <div style="display:block">
                 <h3>Description</h3>
                 {{ person.description }}

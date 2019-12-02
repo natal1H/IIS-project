@@ -179,6 +179,7 @@ h3{
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    cursor: pointer;
 }
 
 .button-white {
@@ -190,6 +191,7 @@ h3{
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    cursor: pointer;
 }
 
 .login-block {
@@ -253,6 +255,12 @@ input[type=email]{
 }
 
 input[type=password]{
+    padding: 10px 10px;
+    margin-bottom:6px;
+    margin-top:6px;
+}
+
+input[type=number]{
     padding: 10px 10px;
     margin-bottom:6px;
     margin-top:6px;
@@ -330,12 +338,34 @@ input[type=password]{
 	background: white;
 }
 
-.button-black{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+
+input[type=submit]{
+    background-color: #333333;
+    border: none;
+    color: white;
     margin-top: 20px;
-    margin-bottom: 20px;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+cancel-button{
+    background-color: #333333;
+    border: none;
+    color: white;
+    margin-top: 20px;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+select{
+    padding: 10px 10px;
+    margin-bottom:6px;
+    margin-top:6px;
 }
 
 
@@ -398,8 +428,9 @@ input[type=password]{
   .sidenav a {font-size: 18px;}
 }
 
-.question{
+.notice{
     position: absolute;
+    font-size: 60px;
     top: 45%;
     left: 50%;
     margin-right: -50%;

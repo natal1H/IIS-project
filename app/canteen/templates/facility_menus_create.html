@@ -2,10 +2,45 @@
 
 {% block content %}
 
+    <h2 class="page-title">Assign menu to Facility</h2>
 
-<form action='' method='POST'>{% csrf_token %}
-    {{ form.as_p }}
-    <input type='submit' value='Save' />
-</form>
+    <div class="register-block">
 
+
+        <form action='' method='POST'>{% csrf_token %}
+            {{ form.as_p }}<!--
+            <div class="row" style="display: flex;">
+                <div class="column2-left"><label for="id_id_facility">Id facility:</label></div>
+                <div class="column2-right">
+                    <select name="id_facility" required id="id_id_facility" style="width: 140px">
+                        <option value="" selected>---------</option>
+                        TODO: pre kazdu restauraciu
+                        {#% for  in  %#}
+                        <option value="">{#{  }#}</option>
+                        {#% endfor %#}
+                        napr.
+                          <option value="1">Menza Starý pivovar</option>
+                          <option value="2">Menza Purkyňova</option>
+                          <option value="4">Piccolo</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="row" style="display: flex;">
+                <div class="column2-left"><label for="id_id_menu">Id menu:</label></div>
+                <div class="column2-right">
+                    <select name="id_menu" required id="id_id_menu" style="width: 140px">
+                        <option value="" selected>---------</option>
+                        {#% for  in  %#}
+                        <option value="">{#{  }#}</option> TODO: pre kazde menu restauracie
+                        {#% endfor %#}
+                        napr.
+                        <option value="1">Menu object (1)</option>
+                        <option value="2">Menu object (2)</option>
+                    </select>
+                </div>
+            </div>-->
+            <input type='submit' value='Save' />
+        </form>
+    </div>
 {% endblock %}

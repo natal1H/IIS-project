@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="search-header">
-        <h2 class="page-title">Register</h2>
-    </div> <!-- End search-header -->
+
+    <h2 class="page-title">Register</h2>
 
     <div class="register-block">
 
@@ -42,8 +41,11 @@
                 <div class="column2-left"><label for="id_password2">Password confirmation:</label></div>
                 <div class="column2-right"><input type="password" name="password2" required id="id_password2"></div>
             </div>
+            <br>
             <span class="helptext" style="font-size:12px"><ul><li>Your password can&#39;t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can&#39;t be a commonly used password.</li><li>Your password can&#39;t be entirely numeric.</li></ul></span>
+            <br>
             <button class="button-black">Register</button>
+            <br>
         </form>
     </div>
 {% endblock %}

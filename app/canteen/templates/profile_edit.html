@@ -1,9 +1,10 @@
 {% extends "base.html" %}
-<h1>Edit Profile</h1>
+
 {% block content %}
 
+    <h2 class="page-title">Edit profile</h2>
 
-<div class="register-block">
+    <div class="register-block">
 
 
         <form method="POST">
@@ -28,7 +29,7 @@
                 <div class="column2-left"><label for="id_telephone">Telephone:</label></div>
                 <div class="column2-right"><input type="text" name="telephone" maxlength="30" id="id_telephone" value="{{person.telephone}}"></div>
             </div>
-<!--            <span class="helptext" style="font-size:12px"><ul><li>Your password can&#39;t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can&#39;t be a commonly used password.</li><li>Your password can&#39;t be entirely numeric.</li></ul></span> -->
+            <br>
             <button class="button-black">Update</button>
         </form>
     </div>
