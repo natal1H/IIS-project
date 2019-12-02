@@ -647,10 +647,20 @@ def food_order_list_view(request):
         person_instance = Person.objects.filter(user=request.user).first()
         
         person_instance.is_operator()
-        
+
         food_order_list = Food_order.objects.all()
 
+        food_order_list_test=list(food_order_list)
+
+        today_list=[]
+
+        for x in food_order_list_test:
+            
+            if datetime.today().strftime('%Y-%m-%d') ==x.date_created.strftime('%Y-%m-%d'):
+                today_list.append(x)
+        print(today_list)
         context = {
+            "today_list":today_list,
             "food_order_list": food_order_list
         }
     else:
