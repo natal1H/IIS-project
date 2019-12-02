@@ -8,7 +8,9 @@
 
 
         <form action='' method='POST'>{% csrf_token %}
-            {{ form.as_p }}
+            <div class="form-class">
+                {{ form.as_p }}
+            </div>
             <input type='submit' value='Save' />
         </form>
     </div>
