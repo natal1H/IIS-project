@@ -609,7 +609,7 @@ def person_list_view(request):
 
         person_instance = Person.objects.filter(user=request.user).first()
         person_instance_list = Person.objects.all()
-
+        
         if person_instance.role == 'a':
 
             context = {

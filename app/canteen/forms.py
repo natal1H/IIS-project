@@ -41,7 +41,8 @@ class person_form(forms.ModelForm):
             'surname',
             'address',
             'telephone',
-            'user'
+            'user',
+            'role',
         ]
 
 class Food_form(forms.ModelForm):
