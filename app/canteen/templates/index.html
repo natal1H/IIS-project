@@ -21,6 +21,7 @@
                     {% endif %}
                     <b>{{ instance.name}}</b><br>
                     {{ instance.address }}<br>
+                    Order deadline: {{ instance.deadline|date:"G:i" }}
                 </div>
             </a>
             {% endfor %}

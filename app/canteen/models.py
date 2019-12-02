@@ -12,8 +12,9 @@ from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 
 
-class Facility (models.Model):
-    id_facility = models.AutoField(primary_key=True)  # basically IntegerField but with autoincrementation so after all Primary Key
+class Facility(models.Model):
+    id_facility = models.AutoField(
+        primary_key=True)  # basically IntegerField but with autoincrementation so after all Primary Key
     address = models.CharField(max_length=150, blank=False)
     name = models.CharField(max_length=150, blank=False)
     deadline = models.TimeField(blank=False)
@@ -28,13 +29,13 @@ class Facility (models.Model):
         return self.name
 
 
-class Menu (models.Model):
+class Menu(models.Model):
     id_menu = models.AutoField(primary_key=True)
     date = models.DateField(blank=True, null=True)
     max_items = models.IntegerField(default=10)
 
     MENU_TYPES = (
-        ('d', 'Daily'),   # Changes every day
+        ('d', 'Daily'),  # Changes every day
         ('s', 'Static'),  # Doesn't change
     )
 
@@ -77,9 +78,9 @@ class Person(models.Model):
     surname = models.CharField(max_length=50, blank=False)
     address = models.CharField(max_length=150, blank=False)
     telephone = models.CharField(max_length=25, blank=False, unique=True)
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)  # we'll use blank and null true TODO TOCHECK
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True,
+                                null=True)  # we'll use blank and null true TODO TOCHECK
     email = models.CharField(max_length=32, unique=True, blank=True, null=True)
-    profile_info = models.CharField(max_length=300, blank=True, null=True)
 
     ROLES = (
         ('a', 'administrator'),
@@ -105,19 +106,19 @@ class Person(models.Model):
     def is_admin(self):
         if self.role == 'a' or self.role == 'o' or self.role == 'd':
             pass
-        else: 
+        else:
             raise PermissionDenied()
-    
+
     def is_operator(self):
         if self.role == 'o' or self.role == 'a':
-            pass        
-        else: 
+            pass
+        else:
             raise PermissionDenied()
 
     def is_driver(self):
         if self.role == 'd' or self.role == 'a':
-            pass        
-        else: 
+            pass
+        else:
             raise PermissionDenied()
 
 
@@ -127,10 +128,13 @@ class Food_order(models.Model):
     date_paid = models.DateTimeField(blank=True, null=True)
     date_approved = models.DateTimeField(blank=True, null=True)
     date_delivered = models.DateTimeField(blank=True, null=True)
-    person = models.ForeignKey(Person, on_delete=models.CASCADE, blank=True, null=True)     #because if user isn't authenticated that's why we need it blank and null, It will be added later in the checkout 
-    facility = models.ForeignKey(Facility, on_delete=models.CASCADE, blank=True, null=True) #because user can make an order just by seeing the cart and he also may remove all the items from cart and then order new items from another facility
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, blank=True,
+                               null=True)  # because if user isn't authenticated that's why we need it blank and null, It will be added later in the checkout
+    facility = models.ForeignKey(Facility, on_delete=models.CASCADE, blank=True,
+                                 null=True)  # because user can make an order just by seeing the cart and he also may remove all the items from cart and then order new items from another facility
     approved_by = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='Approved_by', blank=True, null=True)
-    delivered_by = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='Delivered_by', blank=True, null=True)
+    delivered_by = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='Delivered_by', blank=True,
+                                     null=True)
 
     FOOD_ORDER_STATUS = (
         ('o', 'ordered'),
@@ -159,12 +163,13 @@ class Roles(models.Model):
 
 
 class Food_order_item(models.Model):
-    id_food_order   = models.ForeignKey(Food_order, on_delete=models.CASCADE)
-    id_item         = models.ForeignKey(Item, on_delete=models.CASCADE)
-    quantity        = models.IntegerField(default=1)
-    
+    id_food_order = models.ForeignKey(Food_order, on_delete=models.CASCADE)
+    id_item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+
     class Meta:
         unique_together = (('id_food_order', 'id_item'),)
+
 
 class Facility_menus(models.Model):
     id_facility = models.ForeignKey(Facility, on_delete=models.CASCADE)
