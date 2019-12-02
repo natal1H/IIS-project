@@ -62,10 +62,10 @@ Prerekvizity:
 
 Postup:
 <ol>
-	<li>S»ahnutie statický obrázkov - stiahnu» z <a href="https://drive.google.com/file/d/1OmQ3Uj_WO8ihmtjOvwQuI28TW7mIbyQF/view?usp=sharing">Google Drive</a> a prekopírova» obsah do app/static/</li><!-- TODO: update keï budú v¹etky obrázky -->
-	<li>Presun do zlo¾ky s Dockerfile - cd app/</li>
-	<li>Vytvorenie docker image - docker build -t canteen-docker -f Dockerfile .</li>
-	<li>Spustenie kontajneru - docker run -it -p 8888:8888 canteen-docker</li>
+	<li>S»ahnutie statický obrázkov - stiahnu» z <a href="https://drive.google.com/file/d/1OmQ3Uj_WO8ihmtjOvwQuI28TW7mIbyQF/view?usp=sharing">Google Drive</a> a prekopírova» obsah do app/static/</li>
+	<li>Presun do zlo¾ky s Dockerfile - <i>cd app/</i></li>
+	<li>Vytvorenie docker image (niekedy treba <i>sudo</i>) - <i>docker build -t canteen-docker .</i></li>
+	<i>Spustenie kontajneru (niekedy treba <i>sudo</i>) - <i>docker run -it -p 8888:8888 canteen-docker</i></li>
 	<li>Stránky bude dostupná na <a href="http://localhost:8888/">localhost:8888</a></li>
 </ol>
 
@@ -79,7 +79,7 @@ Prerekvizity:
 
 Postup:
 <ol>
-	<li>S»ahnutie statický obrázkov - stiahnu» z <a href="https://drive.google.com/file/d/1OmQ3Uj_WO8ihmtjOvwQuI28TW7mIbyQF/view?usp=sharing">Google Drive</a> a prekopírova» obsah do app/static/</li><!-- TODO: update keï budú v¹etky obrázky -->
+	<li>S»ahnutie statický obrázkov - stiahnu» z <a href="https://drive.google.com/file/d/1OmQ3Uj_WO8ihmtjOvwQuI28TW7mIbyQF/view?usp=sharing">Google Drive</a> a prekopírova» obsah do app/static/</li>
 	<li>Presun do zlo¾ky s <i>manage.py</i> - cd app/</li>
 	<li>Nastavanie databázy a naplnenie vstupnými údajmi - python3 manage.py migrate</li>
 	<li>Zozbieranie statický súborov - python3 manage.py collectstatic --noinput</li>
@@ -90,13 +90,10 @@ Postup:
 
 Struènì popi¹te:
 <ul>
-<li>postup instalace na server,</li>
-<li>softwarové po¾adavky (verze PHP apod.),</li>
-<li>jak rozbalit, konfigurovat, inicializovat databázi, ...</li>
+	<li>postup instalace na server,</li>
+	<li>softwarové po¾adavky (verze PHP apod.),</li>
+	<li>jak rozbalit, konfigurovat, inicializovat databázi, ...</li>
 </ul>
-
-<h2>Známe problémy</h2>
-<p>Zde popi¹te, které body zadání nejsou implementovány a z jakého dùvodu. Napø. &bdquo;Z èasových dùvodù nebyla implementována správa u¾ivatelù.&rdquo; Pomù¾ete tím zrychlit hodnocení, kdy¾ neimplementované funkce nebudeme muset dlouze hledat.</p>
 
 </body>
 </html>
