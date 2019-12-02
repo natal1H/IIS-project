@@ -7,8 +7,8 @@
             <div class="checkout-block">
 
                 <div class="side-order-block">
-                    <a href="/facility/{{ facility_instance.id_facility  }}" style="text-decoration:underline; color: #999999" href="">Back to restaurant</a> <!-- TODO return to that facility -->
-                    <h2>Ordering from: {{ facility_instance.name }}</h2>
+                    <!--<a href="/facility/{{ facility_instance.id_facility  }}" style="text-decoration:underline; color: #999999" href="">Back to restaurant</a>  TODO return to that facility -->
+                    <h2><a href=/facility/{{ facility_instance.id_facility }}><i class="fa fa-angle-left" style="font-size: 30px"></i></a> Ordering from: {{ facility_instance.name }}</h2>
                     <hr style="margin: 8px 0 4px">
 
                     <!-- TODO for food item -->
@@ -22,7 +22,7 @@
                         <p style="text-align: center; font-size: 40px"><b>Total:  {{price}} €</b></p><br>
                 </div>
 
-                <form action="/pay" id="aaa">
+                <form action="/pay" id="pay_submit">
                     <input type="submit" style="margin-left: auto; margin-right: auto; display:block" value="Pay">
                 </form>
                 <br>
@@ -35,10 +35,10 @@
             <script>
             function selectionChanged(element){
                 if (element.checked){
-                    document.getElementById('aaa').action = 'register_with_pay';
+                    document.getElementById('pay_submit').action = 'register_with_pay';
                 }
                 else{
-                    document.getElementById('aaa').action = 'pay';
+                    document.getElementById('pay_submit').action = 'pay';
                 }
             }
             </script>

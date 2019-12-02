@@ -9,27 +9,9 @@
 
         <form method="POST">
             {%csrf_token%}
-            <div class="row" style="display: flex;">
-                <div class="column2-left"><label for="id_firstname">Firstname:</label></div>
-                <div class="column2-right"><input type="text" name="firstname" maxlength="30" id="id_firstname" value="{{person.firstname}}"></div>
+            <div class="form-class">
+                {{ form.as_p }}
             </div>
-            <div class="row" style="display: flex;">
-                <div class="column2-left"><label for="id_surname">Surname:</label></div>
-                <div class="column2-right"><input type="text" name="surname" maxlength="30" id="id_surname" value="{{person.surname}}"></div>
-            </div>
-            <div class="row" style="display: flex;">
-                <div class="column2-left"><label for="id_email">Email:</label></div>
-                <div class="column2-right"><input type="email" name="email" maxlength="254" required id="id_email" value="{{person.email}}"></div>
-            </div>
-            <div class="row" style="display: flex;">
-                <div class="column2-left"><label for="id_address">Address:</label></div>
-                <div class="column2-right"><input type="text" name="address" maxlength="30" id="id_address" value="{{person.address}}"></div>
-            </div>
-            <div class="row" style="display: flex;">
-                <div class="column2-left"><label for="id_telephone">Telephone:</label></div>
-                <div class="column2-right"><input type="text" name="telephone" maxlength="30" id="id_telephone" value="{{person.telephone}}"></div>
-            </div>
-            <br>
             <button class="button-black">Update</button>
         </form>
     </div>

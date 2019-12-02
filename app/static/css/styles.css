@@ -116,8 +116,8 @@ h3{
 .page-title {
     text-align: center;
     font-size: 50px;
-    margin-top: 32px;
-    margin-bottom: 32px;/*
+    margin-top: 20px;
+    margin-bottom: 20px;/*
     text-align: center;
     font-size: 50px;
     margin-top: 10px;
@@ -175,6 +175,7 @@ h3{
     border: none;
     color: white;
     margin-top: 20px;
+    margin-bottom: 20px;
     padding: 10px 32px;
     text-align: center;
     text-decoration: none;
@@ -211,7 +212,7 @@ h3{
     margin-right: auto;
     margin-left: auto;
     text-align: center;
-    padding:10px;
+    padding:20px;
 }
 
 .column2-left{
@@ -344,6 +345,7 @@ input[type=submit]{
     border: none;
     color: white;
     margin-top: 20px;
+    margin-bottom: 20px;
     padding: 10px 32px;
     text-align: center;
     text-decoration: none;
@@ -356,6 +358,7 @@ cancel-button{
     border: none;
     color: white;
     margin-top: 20px;
+    margin-bottom: 20px;
     padding: 10px 32px;
     text-align: center;
     text-decoration: none;
@@ -434,5 +437,55 @@ select{
     top: 45%;
     left: 50%;
     margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
+.tmpclass{
+    padding: 10px 10px;
+    margin-bottom:6px;
+    margin-top:6px;
+}
+
+.form-class label{
+    width:40%;
+    text-align: right;
+    padding: 20px;
+}
+.form-class input{
+    width:45%;
+    text-align: left;
+}
+
+.form-class p{
+    display: flex;
+}
+
+.helptext{
+    font-size: 0px;
+}
+
+.form-class ul:not(.errorlist){
+    font-size: 0px;
+    list-style-type: none;
+}
+
+.errorlist{
+    color: red;
+    list-style-type: none;
+    margin: 10px 0 10px;
+    font-size: 20px;
+}
+
+.register-block-choice {
+    width: 600px;
+    background: #f2f2f2;
+    display:block;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    padding:20px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
     transform: translate(-50%, -50%)
 }

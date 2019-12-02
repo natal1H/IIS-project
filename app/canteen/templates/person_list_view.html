@@ -2,15 +2,22 @@
 
 {% block content %}
 
+<div class="register-block">
 
 {% for instance in person_instance_list %}
-
-{{instance.id_person}} {{instance.firstname}} {{instance.surname}} || 
-<a href="{%url 'person_update' instance.id_person %}">update</a>
-
 <br>
+ID: {{instance.id_person}}<br>
+Login: {{instance.user}} <br>
+Firstname: {{instance.firstname}} <br>
+Surname:{{instance.surname}} <br>
 
+<a href="{%url 'person_update' instance.id_person %}">UPDATE</a>
+<br>
+<hr>
 
 
 {% endfor %}
+
+</div>
+
 {% endblock %}
