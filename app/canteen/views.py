@@ -311,6 +311,13 @@ def add_to_cart(request, id_item, id_facility):
             food_order_item_instance_from_mm_table = Food_order_item.objects.filter(id_food_order=food_order_instance,
                                                                                     id_item=food_order_item_instance).first()
 
+
+            if food_order_instance.facility.id_facility != id_facility:
+                print("you cant order from different facility")
+                return render(request, 'error_access.html', {
+                    "msg": "Unable to order from more facilities at once"
+                })
+
             if food_order_item_instance_from_mm_table is None:
 
                 Food_order_item.objects.create(id_food_order=food_order_instance, id_item=food_order_item_instance)
