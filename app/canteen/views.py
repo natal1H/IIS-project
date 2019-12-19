@@ -528,12 +528,15 @@ def detail_order_view(request, id):
         
         food_order_items=Food_order_item.objects.filter(id_food_order=food_order_instance)
        
-
+        price=0
 
         item_list=[]
         for x in food_order_items:
             
-            item_list.append(x.id_item)
+            price = price + x.id_item.price * x.quantity
+
+
+            
         
 
     else:
@@ -542,7 +545,8 @@ def detail_order_view(request, id):
     context={
         "item_list": item_list,
         "food_order_items": food_order_items,
-        "food_order":food_order_instance
+        "food_order":food_order_instance,
+        "price":price,
 
     }
     
