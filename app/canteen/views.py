@@ -513,6 +513,37 @@ def order_view(request):  # basically a cart
 
 
 @login_required
+def detail_order_view(request, id):
+    print("hey")
+    if request.user.is_authenticated:
+        person_instance = Person.objects.filter(user=request.user).first()
+        food_order_instance =Food_order.objects.filter(id_food_order=id).first()
+        #facility_instance = Food_order.objects.filter(id_food_order=id).first()
+        food_order_items=Food_order_item.objects.filter(id_food_order=food_order_instance)
+        #print(person_instance)
+        #print(food_order_instance)
+        #print(food_order_items)
+
+
+        item_list=[]
+        for x in food_order_items:
+            #print(x.id_item.id_item)
+            item_list.append(x.id_item)
+        #print(item_list)
+
+    else:
+        raise Http404
+
+    context={
+        "item_list": item_list,
+        "food_order_items": food_order_items,
+        "food_order":food_order_instance
+
+    }
+    
+    return render(request, 'order_detail_view.html', context)
+
+@login_required
 def profile_view(request):
     if request.user.is_authenticated:
         person_instance = Person.objects.filter(user=request.user).first()

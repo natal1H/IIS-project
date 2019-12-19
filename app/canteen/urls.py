@@ -21,7 +21,10 @@ urlpatterns = [
     path('filter_menu/<int:id_menu>/<str:diet_type>', views.filter_menu, name='filter_menu'),
     path('delete_from_menu/<int:id_menu>/<int:id_item>', views.delete_from_menu, name='delete_from_menu'),
     path('menu/<int:id>', views.menu_view, name='menu'),
+
     path('order',views.order_view, name='order'),
+    path('detail_order_view/<int:id>/',views.detail_order_view, name='detail_order_view'),
+    
     path('cart',views.cart_view, name='cart'),
     path('pay',views.pay_view, name='pay'),
     path('add_to_cart/<int:id_item>/<int:id_facility>', views.add_to_cart, name='add_to_cart'),
