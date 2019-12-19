@@ -60,6 +60,8 @@ urlpatterns += [
     path('food_update_view/<int:id>', views.food_update_view.as_view(), name='food_update_view'),
     path('food_delete_view/<int:id>', views.food_delete_view.as_view(), name='food_delete_view'),
 
+    path('food_order_assign/<int:id_food_order>', views.food_order_assign_view, name='food_order_assign'),
+    path('food_order_assign_button_view/<int:id_food_order>/<int:id_person>', views.food_order_assign_button_view, name='food_order_assign_button_view'),
 ]
 
 # user authentication

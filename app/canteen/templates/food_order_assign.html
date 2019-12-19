@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for instance in person_qs%}
+<div class="register-block">
+    ID: {{instance.user.id}}<br>
+Username: {{instance.user.username}}
+Name: {{instance.firstname}} {{instance.surname}} <br>
+
+<a href="../food_order_assign_button_view/{{food_order_instance.id_food_order}}/{{instance.id_person}}">ASSIGN</a>
+<hr>
+</div>
+{% endfor %}
+{% endblock %}

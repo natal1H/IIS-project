@@ -9,10 +9,11 @@
         {% for instance in today_list%}
             <div style="display: flex;">
                 <div style=" width:40%; text-align: left; padding: 10px; display: inline-block">
-                    Order #{{ instance.id_food_order }}
+                    Order # ID: {{ instance.id_food_order }}
                 </div>
                 <div style="width:60%; padding: 10px; text-align: right;">
-                    <a href="{%url 'food_order_update' instance.id_food_order %}">update</a> | <a href="{%url 'food_order_delete' instance.id_food_order %}">delete</a>
+                    <a href="{%url 'food_order_update' instance.id_food_order %}">update</a> | <a href="{%url 'food_order_delete' instance.id_food_order %}">delete</a> 
+                    | <a href="{%url 'food_order_assign' instance.id_food_order %}" >assign driver</a> 
                 </div>
             </div>
             <hr>
@@ -25,7 +26,7 @@
         {% for instance in food_order_list%}
             <div style="display: flex;">
                 <div style=" width:40%; text-align: left; padding: 10px; display: inline-block">
-                    Order #{{ instance.id_food_order }}
+                    Order #ID: {{ instance.id_food_order }}
                 </div>
                 <div style="width:60%; padding: 10px; text-align: right;">
                     <a href="{%url 'food_order_update' instance.id_food_order %}">update</a> | <a href="{%url 'food_order_delete' instance.id_food_order %}">delete</a>

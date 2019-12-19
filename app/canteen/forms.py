@@ -22,10 +22,10 @@ class Food_order_form(forms.ModelForm):
         model = Food_order
         fields =[
             'id_food_order',
-            'date_created',
-            'date_paid',
-            'date_approved',
-            'date_delivered',
+            #'date_created',
+            #'date_paid',
+            #'date_approved',
+            #'date_delivered',
             'person',
             'facility',
             'delivered_by',

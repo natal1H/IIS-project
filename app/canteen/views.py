@@ -591,6 +591,28 @@ class Food_order_update_view(generic.UpdateView, LoginRequiredMixin):
         print(form.cleaned_data)
         return super().form_valid(form)
 
+@login_required
+def food_order_assign_view(request, id_food_order):
+    food_order_instance=Food_order.objects.filter(id_food_order=id_food_order).first()
+    person_qs=Person.objects.filter(role='d')
+    
+    context={
+        "person_qs":person_qs,
+        "food_order_instance":food_order_instance
+    }
+
+    return render(request, 'food_order_assign.html', context)
+
+@login_required
+def food_order_assign_button_view(request, id_food_order, id_person):
+    person_instance = Person.objects.filter(user=request.user).first()
+    driver_instance=Person.objects.filter(id_person=id_person).first()
+    food_order_instance=Food_order.objects.filter(id_food_order=id_food_order).update(delivered_by=driver_instance, approved_by=person_instance)
+    
+
+    context={}
+
+    return render(request, 'success_assign.html', context)
 
 class Food_order_delete_view(DeleteView, LoginRequiredMixin):
     template_name = 'food_order_delete_view.html'
@@ -701,6 +723,45 @@ def driver_view(request):
 
     return render(request, 'driver_view.html', context)
 
+
+"""
+@login_required
+def detail_order_view(request, id):
+    #print("hey")
+    if request.user.is_authenticated:
+        person_instance = Person.objects.filter(user=request.user).first()
+
+        
+
+        food_order_instance =Food_order.objects.filter(id_food_order=id).first()
+        if(person_instance.id_person!=food_order_instance.person.id_person):#test is tried accessed by other user
+            raise Http404
+
+        print(food_order_instance.person.id_person)
+        
+        food_order_items=Food_order_item.objects.filter(id_food_order=food_order_instance)
+       
+
+
+        item_list=[]
+        for x in food_order_items:
+            
+            item_list.append(x.id_item)
+        
+
+    else:
+        raise Http404
+
+    context={
+        "item_list": item_list,
+        "food_order_items": food_order_items,
+        "food_order":food_order_instance
+
+    }
+    
+    return render(request, 'order_detail_view.html', context)
+"""
+
 @login_required
 def driver_food_order_info(request, id):
     if request.user.is_authenticated:
@@ -714,10 +775,14 @@ def driver_food_order_info(request, id):
     food_order_instance = Food_order.objects.filter(id_food_order=id).first()
 
     person_customer_instance = food_order_instance.person
+    food_order_items=Food_order_item.objects.filter(id_food_order=food_order_instance)
+
+
 
     context = {
         'food_order_instance': food_order_instance,
-        'person_customer_instance': person_customer_instance
+        'person_customer_instance': person_customer_instance,
+        "food_order_items":food_order_items,
     }
     return render(request, 'driver_food_order_info.html', context)
 

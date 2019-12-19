@@ -8,7 +8,8 @@
 
 
     {% for instance in driver_orders_list %}
-        {{instance.id_food_order}} <a href="{%url 'deliver_order' instance.id_food_order %}">Order info</a><br>
+        ID of order:{{instance.id_food_order}} |
+        <a href="{%url 'deliver_order' instance.id_food_order %}">Order info</a><br><hr>
     {% endfor %}
     </div>
 
