@@ -514,22 +514,27 @@ def order_view(request):  # basically a cart
 
 @login_required
 def detail_order_view(request, id):
-    print("hey")
+    #print("hey")
     if request.user.is_authenticated:
         person_instance = Person.objects.filter(user=request.user).first()
+
+        
+
         food_order_instance =Food_order.objects.filter(id_food_order=id).first()
-        #facility_instance = Food_order.objects.filter(id_food_order=id).first()
+        if(person_instance.id_person!=food_order_instance.person.id_person):#test is tried accessed by other user
+            raise Http404
+
+        print(food_order_instance.person.id_person)
+        
         food_order_items=Food_order_item.objects.filter(id_food_order=food_order_instance)
-        #print(person_instance)
-        #print(food_order_instance)
-        #print(food_order_items)
+       
 
 
         item_list=[]
         for x in food_order_items:
-            #print(x.id_item.id_item)
+            
             item_list.append(x.id_item)
-        #print(item_list)
+        
 
     else:
         raise Http404
