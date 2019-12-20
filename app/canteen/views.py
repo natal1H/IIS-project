@@ -663,7 +663,7 @@ class person_update_view(generic.UpdateView, LoginRequiredMixin):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return '../food_order'
+        return '../person_list_view'
 
 class person_delete_view(DeleteView, LoginRequiredMixin):
     template_name = 'person_delete_view.html'
