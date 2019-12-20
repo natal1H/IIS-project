@@ -18,12 +18,17 @@
                 <hr>
                 {{ form.as_p }}
             </div>
-        <input type='submit' value='Save' />
+            
+            <input type='submit' value='Save' onclick="myFunction()"/>
         </form>
     </div>
 
 
-
+    <script>
+        function myFunction() {
+            alert("It was saved");
+        }
+        </script>
 
 
     
