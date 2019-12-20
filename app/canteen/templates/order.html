@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+    
     <h2 class="page-title">Orders</h2>
-    {% if food_order_ordered or food_order_approved or food_order_canceled or food_order_delivered %}
+    {% if food_order_paid or food_order_ordered or food_order_approved or food_order_canceled or food_order_delivered %}
 
     <div class="register-block">
 
-
+        {% comment %}
         {% if food_order_ordered %}
             <hr style="margin: 10px 10px">
             <h1>Ordered</h1>
@@ -18,9 +18,10 @@
             {%endfor%}
             <br>
         {% endif %}
+        {% endcomment %}
+
+
         
-
-
         {% if food_order_paid %}
         <hr style="margin: 10px 10px">
         <h1>Paid</h1>
@@ -30,7 +31,7 @@
             <br>
         {%endfor%}
         <br>
-    {% endif %}
+        {% endif %}
 
         {% if food_order_approved %}
             <hr style="margin: 10px 10px">
