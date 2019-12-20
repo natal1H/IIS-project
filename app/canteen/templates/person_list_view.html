@@ -21,9 +21,9 @@
                 {% else %}
                 Role: registered user
                 {% endif %}
-            <br><br>
-            <a href="{%url 'person_update' instance.id_person %}">UPDATE</a> ||
-            <a href="{%url 'person_delete' instance.id_person %}">DELETE</a><br>
+            <br style="margin-bottom: 10px">
+            <span style="font-size: 18px;"><b><a href="{%url 'person_update' instance.id_person %}">UPDATE</a></b> ||
+            <b><a href="{%url 'person_delete' instance.id_person %}">DELETE</a></b></span><br>
         </div>
             <hr style="margin: 10px 10px">
         {% endfor %}
