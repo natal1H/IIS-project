@@ -24,6 +24,15 @@ ul li a {
 .main-header h1 {
     display: inline;
 }
+
+.main-header h1:hover {
+    color: #fff;
+}
+
+.main-header ul li a:hover {
+    color: #000;
+}
+
 /*
 h2{
     text-align: center;
