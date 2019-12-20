@@ -7,11 +7,11 @@
     <div class="register-block">
 
 
-        <form action='' method='POST'>{% csrf_token %}
+        <form action='' method='POST' onsubmit="myFunction()">{% csrf_token %}
             <div class="form-class">
                 {{ form.as_p }}
             </div>
-            <input type='submit' value='Save' onclick="myFunction()"/>
+            <input type='submit' value='Save'/>
         </form>
     </div>
 

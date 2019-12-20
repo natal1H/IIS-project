@@ -7,7 +7,7 @@
     <div class="register-block">
 
         {% for instance in person_instance_list %}
-        <div style="text-align: left; margin-left: 200px">
+        <div style="text-align: left;">
             ID: {{instance.id_person}}<br>
             Login: {{instance.user}} <br>
             Firstname: {{instance.firstname}} <br>
@@ -22,10 +22,10 @@
                 Role: registered user
                 {% endif %}
             <br style="margin-bottom: 10px">
-            <span style="font-size: 18px;"><b><a href="{%url 'person_update' instance.id_person %}">UPDATE</a></b> ||
-            <b><a href="{%url 'person_delete' instance.id_person %}">DELETE</a></b></span><br>
+            <span style="font-size: 18px;"><b><a href="{%url 'person_update' instance.id_person %}">Update</a></b> |
+            <b><a href="{%url 'person_delete' instance.id_person %}">Delete</a></b></span><br>
         </div>
-            <hr style="margin: 10px 10px">
+            <hr style="margin: 10px 0px">
         {% endfor %}
     </div>
 
