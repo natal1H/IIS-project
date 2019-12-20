@@ -58,9 +58,9 @@
                 {% if is_disabled == "disabled" %}
                 <span style="font-weight:bold;color:red">Cannot order</span>
                 {% else %}
-                <button class="button-white" onclick="" style="float:right ">
-                    <a href="{%url 'add_to_cart' instance_item.id_item id_facility%}" class="">Add to Cart</a>
-                </button>
+                <a href="{%url 'add_to_cart' instance_item.id_item id_facility%}" class="">
+                    <button class="button-white" onclick="" style="float:right ">Add to Cart</button>
+                </a>
                 {% endif %}
             </div>
         </div>
