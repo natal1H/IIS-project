@@ -17,7 +17,7 @@
             {% for instance in food_order_items %}
                 {{instance.quantity}}x {{instance.id_item.name}} | ({{instance.id_item.price}}€)<br>
             {% endfor %}<br>
-            <h2>Total:  €<br></h2> <!--TODO ADD PRICE-->
+            <h2>Total:  {{price}}€<br></h2> <!--TODO ADD PRICE-->
         </div>
         <hr style="margin: 10px 10px">
 

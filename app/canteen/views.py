@@ -804,12 +804,19 @@ def driver_food_order_info(request, id):
     person_customer_instance = food_order_instance.person
     food_order_items=Food_order_item.objects.filter(id_food_order=food_order_instance)
 
+    food_order_items_list = Food_order_item.objects.filter(id_food_order=food_order_instance)
+    price = 0
 
+    print(food_order_items_list)
+
+    for x in food_order_items_list:
+        price = price + x.id_item.price * x.quantity
 
     context = {
         'food_order_instance': food_order_instance,
         'person_customer_instance': person_customer_instance,
         "food_order_items":food_order_items,
+        "price":price
     }
     return render(request, 'driver_food_order_info.html', context)
 
