@@ -60,7 +60,7 @@
             <h1>Delivered</h1>
             <hr style="margin: 10px 10px">
             {% for order in food_order_delivered %}
-                {{order.date_created}} | <a href="/detail_order_view/{{ order.id_food_order}}">LINK</a>
+                {{order.date_created}} | <a href="/detail_order_view/{{ order.id_food_order}}"><u>details</u></a>
                 <br>
             {%endfor%}
             <br>
