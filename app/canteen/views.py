@@ -67,7 +67,7 @@ def register_view(request):
 
         if form.is_valid():
             form.save()
-            return redirect('login_url')
+            return redirect('loggend_on')
 
 
     else:
@@ -107,7 +107,7 @@ def pay_with_signup(request):
 
             food_order_instance.update(person=person_instance, status='p')
 
-            return redirect('login_url')
+            return redirect('loggend_on')
     else:
         form = SignUpForm()
 
@@ -142,7 +142,7 @@ def signup(request):
             Person.objects.create(user=user_instance, firstname=firstname, surname=surname, address=address,
                                   telephone=telephone, role='r')
 
-            return redirect('login_url')
+            return redirect('loggend_on')
     else:
         form = SignUpForm()
 
