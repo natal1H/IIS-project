@@ -600,6 +600,21 @@ class Food_order_update_view(generic.UpdateView, LoginRequiredMixin):
         print(form.cleaned_data)
         return super().form_valid(form)
 
+
+
+    def get_instance(self):
+        id = self.kwargs.get("id")
+        food_order_instance=Food_order.objects.filter(id_food_order=id).first()
+        return food_order_instance
+
+    """
+    def get_context_data(self, **kwargs):
+        context = super(UserProfileDetailView, self).get_context_data(**kwargs) # get the default context data
+        context['voted_links'] = Link.objects.filter(votes__voter=self.request.user) # add extra field to the context
+        return context
+    """
+
+
 @login_required
 def food_order_assign_view(request, id_food_order):
     food_order_instance=Food_order.objects.filter(id_food_order=id_food_order).first()
