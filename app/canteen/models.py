@@ -71,6 +71,10 @@ class Item(models.Model):
     def get_absolute_url(self):
         return f"{self.id_item}"
 
+    def __str__(self):
+        """String for representing the MyModelName object (in Admin site etc.)."""
+        return self.name
+
 
 class Person(models.Model):
     id_person = models.AutoField(primary_key=True)
