@@ -497,6 +497,7 @@ def order_view(request):  # basically a cart
 
         food_order_canceled = Food_order.objects.filter(person=person_instance, status='c')
         food_order_delivered = Food_order.objects.filter(person=person_instance, status='d')
+        print(food_order_ordered)
 
         context = {
             "food_order_ordered": food_order_ordered,
