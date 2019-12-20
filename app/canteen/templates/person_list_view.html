@@ -7,13 +7,32 @@
     <div class="register-block">
 
         {% for instance in person_instance_list %}
+        <div style="text-align: left; margin-left: 200px">
             ID: {{instance.id_person}}<br>
             Login: {{instance.user}} <br>
             Firstname: {{instance.firstname}} <br>
-            Surname:{{instance.surname}} <br>
+            Surname: {{instance.surname}} <br>
+            Role:
+            {% if instance.role == "a" %}
+                administrator
+            {% endif %}
+            {% if instance.role == "o" %}
+                operator
+            {% endif %}
+            {% if instance.role == "d" %}
+                driver
+            {% endif %}
+            {% if instance.role == "v" %}
+                unregistered user
+            {% endif %}
+            {% if instance.role == "r" %}
+                registered user
+            {% endif %}
+            <br><br>
             <a href="{%url 'person_update' instance.id_person %}">UPDATE</a> ||
             <a href="{%url 'person_delete' instance.id_person %}">DELETE</a><br>
-            <br><hr><br>
+        </div>
+            <hr style="margin: 10px 10px">
         {% endfor %}
     </div>
 
