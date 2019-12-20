@@ -105,7 +105,7 @@ def pay_with_signup(request):
 
             food_order_instance = Food_order.objects.filter(id_food_order=session_id_food_order, status='o')
 
-            food_order_instance.update(person=person_instance, status='a')
+            food_order_instance.update(person=person_instance, status='p')
 
             return redirect('login_url')
     else:
@@ -448,7 +448,7 @@ def pay_view(request):
     if request.user.is_authenticated:
 
         person_instance = Person.objects.filter(user=request.user).first()
-        Food_order.objects.filter(person=person_instance, status='o').update(status='a')
+        Food_order.objects.filter(person=person_instance, status='o').update(status='p')
 
     else:
         cart_id = request.session.get("cart_id", None)
@@ -462,7 +462,7 @@ def pay_view(request):
                 print(my_form.cleaned_data["telephone"])
 
                 person_instance = Person.objects.create(**my_form.cleaned_data)
-                Food_order.objects.filter(id_food_order=cart_id, status='o').update(status='a', person=person_instance)
+                Food_order.objects.filter(id_food_order=cart_id, status='o').update(status='p', person=person_instance)
                 context = {
 
                 }
@@ -491,12 +491,16 @@ def order_view(request):  # basically a cart
         
 
         food_order_ordered = Food_order.objects.filter(person=person_instance, status='o')
+        food_order_paid = Food_order.objects.filter(person=person_instance, status='p')
+
         food_order_approved = Food_order.objects.filter(person=person_instance, status='a')
+
         food_order_canceled = Food_order.objects.filter(person=person_instance, status='c')
         food_order_delivered = Food_order.objects.filter(person=person_instance, status='d')
 
         context = {
             "food_order_ordered": food_order_ordered,
+            "food_order_paid":food_order_paid,
             "food_order_approved": food_order_approved,
             "food_order_canceled": food_order_canceled,
             "food_order_delivered": food_order_delivered,
@@ -611,7 +615,7 @@ def food_order_assign_view(request, id_food_order):
 def food_order_assign_button_view(request, id_food_order, id_person):
     person_instance = Person.objects.filter(user=request.user).first()
     driver_instance=Person.objects.filter(id_person=id_person).first()
-    food_order_instance=Food_order.objects.filter(id_food_order=id_food_order).update(delivered_by=driver_instance, approved_by=person_instance)
+    food_order_instance=Food_order.objects.filter(id_food_order=id_food_order).update(delivered_by=driver_instance, approved_by=person_instance, status='a')
     
 
     context={}

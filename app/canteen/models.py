@@ -137,6 +137,7 @@ class Food_order(models.Model):
 
     FOOD_ORDER_STATUS = (
         ('o', 'ordered'),
+        ('p', 'paid'),
         ('a', 'approved'),
         ('c', 'canceled'),
         ('d', 'delivered'),
