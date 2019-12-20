@@ -21,6 +21,19 @@
             <ul>
                 {%if user.is_authenticated%}
                 <li><a href="/logout">Logout</a></li>
+                {% if show_menus == True %}
+                    {% if role == "a" %}
+                        <li><a href="/operator_view">Operator</a></li>
+                        <li><a href="/driver_view">Driver</a></li>
+                        <li><a href="/admin_view">Admin</a></li>
+                    {% endif %}
+                    {% if role == "o" %}
+                        <li><a href="/operator_view">Operator</a></li>
+                    {% endif %}
+                    {% if role == "d" %}
+                        <li><a href="/driver_view">Driver</a></li>
+                    {% endif %}
+                {% endif %}
                 <li><a href="/profile">Profile</a></li>
                 <li><a href="/order">Orders</a></li>
                 {% else %}
