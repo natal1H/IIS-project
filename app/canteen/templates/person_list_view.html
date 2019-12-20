@@ -12,22 +12,15 @@
             Login: {{instance.user}} <br>
             Firstname: {{instance.firstname}} <br>
             Surname: {{instance.surname}} <br>
-            Role:
             {% if instance.role == "a" %}
-                administrator
-            {% endif %}
-            {% if instance.role == "o" %}
-                operator
-            {% endif %}
-            {% if instance.role == "d" %}
-                driver
-            {% endif %}
-            {% if instance.role == "v" %}
-                unregistered user
-            {% endif %}
-            {% if instance.role == "r" %}
-                registered user
-            {% endif %}
+                Role: administrator
+                {% elif instance.role == "o" %}
+                Role: operator
+                {% elif instance.role == "d" %}
+                Role: driver
+                {% else %}
+                Role: registered user
+                {% endif %}
             <br><br>
             <a href="{%url 'person_update' instance.id_person %}">UPDATE</a> ||
             <a href="{%url 'person_delete' instance.id_person %}">DELETE</a><br>
