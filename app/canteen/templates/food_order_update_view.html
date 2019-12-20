@@ -8,14 +8,14 @@
 
         <form action='' method='POST'>    {% csrf_token %}
             <div class="form-class">
-                <div style="width: 200px; margin-left: 165px;">
-                <p>Status: {{view.get_instance.status}}</p>
-                <p>Person:{{view.get_instance.person}}</p>
-                <p>Username:{{view.get_instance.person.user.username}}</p>
-                <p>Facility: {{view.get_instance.facility}}</p>
-                <br>
+                <div style="width: 400px; margin-left: 15px; font-size: 18px">
+                    <p>Status: {{view.get_instance.status}}</p>
+                    <p>Person: {{view.get_instance.person}}</p>
+                    <p>Username: {{view.get_instance.person.user.username}}</p>
+                    <p>Facility: {{view.get_instance.facility}}</p>
+                    <br>
                 </div>
-                <hr>
+                <hr style="margin: 10px 10px">
                 {{ form.as_p }}
             </div>
             
