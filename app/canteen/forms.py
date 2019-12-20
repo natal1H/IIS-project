@@ -28,7 +28,7 @@ class Food_order_form(forms.ModelForm):
             #'date_delivered',
             #'person',
             #'facility',
-            'delivered_by',
+            #'delivered_by',
             'status'
         ]
 
