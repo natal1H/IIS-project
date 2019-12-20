@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="register-block">
-<h2>ID: {{food_order.id_food_order}}</h2>
-<h2>Facility: {{food_order.facility}}</h2>
-Price: {{price}}<br>
 
-{% for instance in food_order_items %}
-Name: {{instance.id_item.name}} | 
-Quantity: {{instance.quantity}}<br>
-<hr>
-{% endfor %}
+    <h2 class="page-title"><a href="/order"><i class="fa fa-angle-left"></i></a> Order ID: {{food_order.id_food_order}}</h2>
 
-</div>
+    <div class="register-block">
+        <h2>From: {{food_order.facility}}</h2>
+        <hr><br>
+        {% for instance in food_order_items %}
+            {{instance.quantity}}x {{instance.id_item.name}}<br>
+        {% endfor %}
+    <br><hr><br>
+    <h2>Total: {{price}} €<br></h2>
+    </div>
 
 {% endblock %}

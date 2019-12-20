@@ -13,7 +13,7 @@
             <h1>Ordered</h1>
             <hr style="margin: 10px 10px">
             {% for order in food_order_ordered %}
-                {{order.date_created}} | <a href="/detail_order_view/{{ order.id_food_order}}">LINK</a>
+                {{order.date_created}} | <a href="/detail_order_view/{{ order.id_food_order}}"><u>details</u></a>
                 <br>
             {%endfor%}
             <br>
@@ -26,7 +26,7 @@
         <h1>Paid</h1>
         <hr style="margin: 10px 10px">
         {% for order in food_order_paid %}
-            {{order.date_created}} | <a href="/detail_order_view/{{ order.id_food_order}}">LINK</a>
+                {{order.date_created}} | <a href="/detail_order_view/{{ order.id_food_order}}"><u>details</u></a>
             <br>
         {%endfor%}
         <br>
@@ -37,7 +37,7 @@
             <h1>Approved</h1>
             <hr style="margin: 10px 10px">
             {% for order in food_order_approved %}
-                {{order.date_created}} | <a href="/detail_order_view/{{ order.id_food_order}}">LINK</a>
+                {{order.date_created}} | <a href="/detail_order_view/{{ order.id_food_order}}"><u>details</u></a>
                 <br>
             {%endfor%}
             <br>
@@ -48,7 +48,7 @@
             <h1>Canceled</h1>
             <hr style="margin: 10px 10px">
             {% for order in food_order_canceled %}
-                {{order.date_created}} | <a href="/detail_order_view/{{ order.id_food_order}}">LINK</a>
+                {{order.date_created}} | <a href="/detail_order_view/{{ order.id_food_order}}"><u>details</u></a>
                 <br>
             {%endfor%}
             <br>
