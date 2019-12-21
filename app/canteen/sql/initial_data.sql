@@ -1,6 +1,6 @@
 -- Inserting into 'facility' table
 INSERT INTO canteen_facility (id_facility, address, name, deadline, max_ordered_meals, image)
-    VALUES (1, 'Božetěchova 1, Brno-Královo Pole', 'Menza Starý pivovar', '18:00:00', 5, 'images/menza_stary_pivovar.jpg');
+    VALUES (1, 'Božetěchova 1, Brno-Královo Pole', 'Menza Starý pivovar', '23:55:00', 5, 'images/menza_stary_pivovar.jpg');
 INSERT INTO canteen_facility (id_facility, address, name, deadline, max_ordered_meals, image)
     VALUES (2, 'Purkyňova 93, Brno-Královo Pole', 'Menza Purkyňova', '17:00:00', 5, 'images/menza_purkynova.jpg');
 INSERT INTO canteen_facility (id_facility, address, name, deadline, max_ordered_meals, image)
