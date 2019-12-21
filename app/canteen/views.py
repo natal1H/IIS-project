@@ -944,9 +944,7 @@ class menu_update_view(UpdateView, LoginRequiredMixin):
 
         facility_menus=Facility_menus.objects.filter(id_facility=facilitiy_instance)
 
-
-
-        if form.cleaned_data['type']=='s':
+        if form.cleaned_data['type'] == 's':
             cnt=0
             for x in facility_menus:
                 x=x.id_menu
@@ -955,14 +953,8 @@ class menu_update_view(UpdateView, LoginRequiredMixin):
                     print("Static is already there")
                     PermissionDenied()
                     raise Http404
-                    
-                        
-
-
 
         print(form.cleaned_data)
-
-
 
         return super().form_valid(form)
 

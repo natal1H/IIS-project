@@ -22,8 +22,8 @@
                 Role: registered user
                 {% endif %}
             <br style="margin-bottom: 10px">
-            <span style="font-size: 18px;"><b><a href="{%url 'person_update' instance.id_person %}">Update</a></b> |
-            <b><a href="{%url 'person_delete' instance.id_person %}">Delete</a></b></span><br>
+            <span style="font-size: 18px;"><b><a class="hoverLink" href="{%url 'person_update' instance.id_person %}">Update</a></b> |
+            <b><a class="hoverLink" href="{%url 'person_delete' instance.id_person %}">Delete</a></b></span><br>
         </div>
             <hr style="margin: 10px 0px">
         {% endfor %}

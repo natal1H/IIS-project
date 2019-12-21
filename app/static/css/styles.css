@@ -23,6 +23,7 @@ ul li a {
 
 .main-header h1 {
     display: inline;
+    margin-left: 15px;
 }
 
 .main-header h1:hover {
@@ -33,14 +34,6 @@ ul li a {
     color: #000;
 }
 
-/*
-h2{
-    text-align: center;
-    font-size: 50px;
-    margin-top: 32px;
-    margin-bottom: 32px;
-}
-*/
 h3{
     font-size: 24px;
 }
@@ -61,15 +54,6 @@ h3{
     color: #fff;
 }
 
-/*
-.search-header {
-    background-color: #ff9999;
-    overflow: hidden;
-    color: #000;
-    padding: 5px;
-    height:48px;
-}*/
-
 .search-header form input[type=text] {
     padding: 10px;
     position:absolute;
@@ -83,7 +67,6 @@ h3{
 }
 
 .search-header form button {
- /*   float: right;*/
     padding: 10px;
     position:absolute;
     right: 20px;
@@ -95,7 +78,6 @@ h3{
     background: #999999;
     color: white;
     cursor: pointer;
-
 }
 
 .footer {
@@ -126,14 +108,7 @@ h3{
     text-align: center;
     font-size: 50px;
     margin-top: 20px;
-    margin-bottom: 20px;/*
-    text-align: center;
-    font-size: 50px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    display: inline;
-    float: left;
-    padding-top: 10px;*/
+    margin-bottom: 20px;
 }
 
 .menu-block {
@@ -236,7 +211,6 @@ h3{
     text-align: left;
 }
 
-
 .checkout-block {
     width: 600px;
     display:block;
@@ -325,10 +299,8 @@ select{
     margin-top:6px;
 }
 
-
  /* The sidebar menu */
 .sidenav {
-  /*height: 100%; /* Full-height: remove this if you want "auto" height */
     width: 160px; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
@@ -377,7 +349,6 @@ select{
     font-size: 20px;
     padding-bottom: 2px;
 }
-
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
@@ -446,4 +417,18 @@ select{
 
 li{
     list-style-type: none;
+}
+
+.hoverLink:hover {
+    color: #808080;
+}
+
+.button-white:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+.button-black:hover {
+    background-color: #fff;
+    color: #000;
 }

@@ -12,9 +12,9 @@
                 <div style=" width:40%; text-align: left; padding: 10px; display: inline-block">
                     {{ instance.id_facility }}. {{instance.name}}
                 </div>
-                <div style="width:60%; padding: 10px; text-align: right;"><a href="{%url 'facility_update_view' instance.id_facility %}">Update</a> |
-                 <a href="{%url 'facility_delete_view' instance.id_facility %}">Delete</a> |
-                 <a href="{%url 'facility_menus_list_staff' instance.id_facility %}">Menus</a>
+                <div style="width:60%; padding: 10px; text-align: right;"><a class="hoverLink" href="{%url 'facility_update_view' instance.id_facility %}">Update</a> |
+                 <a class="hoverLink" href="{%url 'facility_delete_view' instance.id_facility %}">Delete</a> |
+                 <a class="hoverLink" href="{%url 'facility_menus_list_staff' instance.id_facility %}">Menus</a>
                 </div>
             </div>
             <hr>

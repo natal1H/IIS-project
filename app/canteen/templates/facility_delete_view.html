@@ -8,10 +8,10 @@
         <h1>Do you want to delete "{{ object.name }}"?</h1>
 
         <form action='' method='POST' style="display:inline; margin:0px; padding:0px;">{% csrf_token %}
-            <input type='submit' value='Yes'/>
+            <input type='submit' class="button-black" value='Yes'/>
         </form>
         <form action="/facility_list_staff_view" style="display: inline; margin:0px; padding: 0px">
-            <input type="submit"  value="No">
+            <input type="submit" class="button-black" value="No">
         </form>
     </div>
 {% endblock %}

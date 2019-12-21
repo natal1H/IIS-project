@@ -2,14 +2,14 @@
 
 {% block content %}
 
-    <h2 class="page-title"><a href=/profile><i class="fa fa-angle-left" style="font-size: 55px"></i> </a>Delivery plan</h2>
+    <h2 class="page-title">Delivery plan</h2>
 
     <div class="register-block">
 
 
     {% for instance in driver_orders_list %}
         Order ID #{{instance.id_food_order}}:
-        <a href="{%url 'deliver_order' instance.id_food_order %}"><u>Order info</u></a><br>
+        <a class="hoverLink" href="{%url 'deliver_order' instance.id_food_order %}"><u>Order info</u></a><br>
         <hr style="margin: 10px 10px">
     {% endfor %}
     </div>

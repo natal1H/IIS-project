@@ -13,7 +13,7 @@
             <h1>Ordered</h1>
             <hr style="margin: 10px 10px">
             {% for order in food_order_ordered %}
-                {{order.date_created}} | {{order.facility}} | <a href="/detail_order_view/{{ order.id_food_order}}"><u>details</u></a>
+                {{order.date_created}} | {{order.facility}} | <a class="hoverLink" href="/detail_order_view/{{ order.id_food_order}}"><u>details</u></a>
                 <br>
             {%endfor%}
             <br>
@@ -27,7 +27,7 @@
         <h1>Paid</h1>
         <hr style="margin: 10px 10px">
         {% for order in food_order_paid %}
-                {{order.date_created}} | {{order.facility}} | <a href="/detail_order_view/{{ order.id_food_order}}"><u>details</u></a>
+                {{order.date_created}} | {{order.facility}} | <a class="hoverLink" href="/detail_order_view/{{ order.id_food_order}}"><u>details</u></a>
             <br>
         {%endfor%}
         <br>
@@ -38,7 +38,7 @@
             <h1>Approved</h1>
             <hr style="margin: 10px 10px">
             {% for order in food_order_approved %}
-                {{order.date_created}} | {{order.facility}} | <a href="/detail_order_view/{{ order.id_food_order}}"><u>details</u></a>
+                {{order.date_created}} | {{order.facility}} | <a class="hoverLink" href="/detail_order_view/{{ order.id_food_order}}"><u>details</u></a>
                 <br>
             {%endfor%}
             <br>
@@ -49,7 +49,7 @@
             <h1>Canceled</h1>
             <hr style="margin: 10px 10px">
             {% for order in food_order_canceled %}
-                {{order.date_created}} | {{order.facility}} | <a href="/detail_order_view/{{ order.id_food_order}}"><u>details</u></a>
+                {{order.date_created}} | {{order.facility}} | <a class="hoverLink" href="/detail_order_view/{{ order.id_food_order}}"><u>details</u></a>
                 <br>
             {%endfor%}
             <br>
@@ -60,7 +60,7 @@
             <h1>Delivered</h1>
             <hr style="margin: 10px 10px">
             {% for order in food_order_delivered %}
-                {{order.date_created}} | {{order.facility}} | <a href="/detail_order_view/{{ order.id_food_order}}"><u>details</u></a>
+                {{order.date_created}} | {{order.facility}} | <a class="hoverLink" href="/detail_order_view/{{ order.id_food_order}}"><u>details</u></a>
                 <br>
             {%endfor%}
             <br>
